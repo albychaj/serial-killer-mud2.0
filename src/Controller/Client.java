@@ -449,5 +449,14 @@ public class Client extends JFrame
 				+ "who\n\n";
 		commandMessages.add(tellErrorMessage);
 		mainView.updateCommandLog(commandMessages);
+	}
+
+	public void giveError() 
+	{
+		String tellErrorMessage = "You are attempting to message a player that does not exist or is currently" + "\n" 
+				+ "not " + "online. For a list of the players that are currently online, simply type:" + "\n" 
+				+ "who\n\n";
+		commandMessages.add(tellErrorMessage);
+		mainView.updateCommandLog(commandMessages);
 	}	
 }

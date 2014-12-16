@@ -6,7 +6,6 @@ import java.util.List;
 
 import Items.Item;
 import MOBs.MOB;
-import Rooms.Room;
 import View.Death;
 
 /**
@@ -24,6 +23,7 @@ public class Player implements Serializable
     private final static int MAXHEALTH = 100;
     private final static int MAX_ITEMS = 5;
     private int attackPoints;
+    private boolean givePending, getPending;
     
      
     public Player(String username, String password)
