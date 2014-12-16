@@ -7,6 +7,7 @@ import java.util.Random;
 import Items.Item;
 import Players.Player;
 import Rooms.Room;
+import java.io.Serializable;
 
 /**
  * 
@@ -14,7 +15,11 @@ import Rooms.Room;
  * 
  */
 
-public class MOB {
+public class MOB implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6947835557717812826L;
 	private String identity;
 	private ArrayList<Item> pocket;
 	private Room currentLocation;
