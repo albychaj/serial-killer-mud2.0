@@ -445,6 +445,10 @@ public class Server
 			
 			switch(command)
 			{
+			case ERROR:
+				result = new CommandErrorCommand();
+				break;
+			
 			case MAP: 
 				result = new MapCommand();
 				break;
