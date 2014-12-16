@@ -20,9 +20,9 @@ import Commands.CommandsCommand;
 import Commands.DisconnectCommand;
 import Commands.DropCommand;
 import Commands.GetCommand;
-import Commands.GetRequestRecievedCommand;
+import Commands.GetRequestReceivedCommand;
 import Commands.GiveOrGetErrorCommand;
-import Commands.GiveRequestAcceptedCommand;
+import Commands.ItemGivenToIntendedCommand;
 import Commands.GiveRequestRecievedCommand;
 import Commands.InventoryCommand;
 import Commands.LookErrorCommand;
@@ -514,33 +514,40 @@ public class Server
 				break;
 				
 			case GIVE: // not done yet - needs to work now with an mob
-				// First off, the argument should be composed of the username of the recipient
-				// as well as the name of the item the sender intends to give. If it isn't,
-				// then an error will be returned to the sender. 
-				if (argument.indexOf(" ") > 0)
+				// First check to see if the user has another transaction pending. If they do, then 
+				// they have to complete the previous transaction before they can start a new one.
+				if (!mud.transactionPending(username))
 				{
-					String[] splitArgument = argument.split(" ", 2);
-					String recipient = splitArgument[0]; 
-					String itemName = splitArgument[1];
-					
-					// Now check to see if the player is online and/or exists. Also check to see if the
-					// player has the item. Otherwise, an error will be returned to the sender. 
-					if (mud.playersIsOnline(recipient) && mud.playerHasItem(username, itemName))
+					// Now check to see if the argument is composed of the username of the recipient
+					// as well as the name of the item the sender intends to give. If it isn't,
+					// then an error will be returned to the sender. 
+					if (argument.indexOf(" ") > 0)
 					{
-						result = new TradeRequestSentCommand(recipient, itemName);
-						mud.setGiveRecipient(username, recipient);
-						mud.setGiveItem(username, itemName);
-						Server.this.sendGiveRequestToRecipient(username, recipient, itemName);
+						String[] splitArgument = argument.split(" ", 2);
+						String recipient = splitArgument[0]; 
+						String itemName = splitArgument[1];
+						
+						// Now check to see if the player is online and/or exists. Also check to see if the
+						// player has the item. Otherwise, an error will be returned to the sender. 
+						if (mud.playersIsOnline(recipient) && mud.playerHasItem(username, itemName))
+						{
+							mud.setPendingGiveTransaction(recipient, username, itemName);
+							
+							// Send message to the sender letting them know that their trade request has been sent.
+							result = new TradeRequestSentCommand(recipient, itemName);
+							
+							// Send message to the recipient letting them know that someone would like to 
+							// give them an item
+							Server.this.sendGiveRequestToRecipient(username, recipient, itemName);
+						}
+						
+						else
+							result = new GiveOrGetErrorCommand();
 					}
-					
-					else
-						result = new GiveOrGetErrorCommand();
 				}
 				
 				else
-				{
 					result = new GiveOrGetErrorCommand();
-				}
 				
 				break;
 				
@@ -548,18 +555,26 @@ public class Server
 				// If true, then the user is trying to get an item from another player/MOB 
 				if (argument.indexOf(" ") > 0)
 				{
-					String[] splitArgument = argument.split(" ", 2);
-					String recipient = splitArgument[0].toLowerCase(); 
-					String itemName = splitArgument[1].toLowerCase();
-					
-					// Now check to see if the player is online and/or exists. Also check to see if the
-					// player has the item. Otherwise, an error will be returned to the sender. 
-					if (mud.playersIsOnline(recipient) && mud.playerHasItem(recipient, itemName))
+					// Now check to see if the user has another transaction pending. If they do, then 
+					// they have to complete the previous transaction before they can start a new one.
+					if (!mud.transactionPending(username))
 					{
-						result = new TradeRequestSentCommand(recipient, itemName);
-						mud.setSenderOfRequest(recipient, username);
-						mud.setTradingItem(recipient, itemName);
-						Server.this.sendGetRequestToRecipient(username, recipient, itemName);
+						String[] splitArgument = argument.split(" ", 2);
+						String recipient = splitArgument[0].toLowerCase(); 
+						String itemName = splitArgument[1].toLowerCase();
+						
+						// Now check to see if the player is online and/or exists. Also check to see if the
+						// player has the item. Otherwise, an error will be returned to the sender. 
+						if (mud.playersIsOnline(recipient) && mud.playerHasItem(recipient, itemName))
+						{
+							mud.setPendingGetTransaction(recipient, username, itemName);
+							
+							result = new TradeRequestSentCommand(recipient, itemName);
+							Server.this.sendGetRequestToRecipient(username, recipient, itemName);
+						}
+						
+						else
+							result = new GiveOrGetErrorCommand();
 					}
 					
 					else
@@ -619,33 +634,53 @@ public class Server
 				break;
 				
 			case ACCEPT:
-				String giveSenderToAccept = mud.returnGiveSender(username);
-				String getSenderToAccept = mud.returnGetSender(username);
-				
-				// This means that the user was never the recipient of a give request nor a get request
-				// and therefore is not allowed to use this command
-				if (giveSenderToAccept.equals("") && getSenderToAccept.equals("") )
-					result = new CommandErrorCommand();
-				
-				// This means that they were the recipient of a give request
-				else if (getSenderToAccept.equals(""))
+				// If the user has a transacting pending, then they can use this command. 
+				// Otherwise, they are not allowed to use this command.
+				if (mud.transactionPending(username))
 				{
-					String itemName = mud.transferItemBetweenPlayers(giveSenderToAccept, username);
+					String senderOfRequest = mud.getSenderOfRequest(username);
+					String typeOfTransaction = mud.completeTransaction(username);
 					
-					// Send message to recipient letting them know that they got an item
-					result = new AcceptedItemCommand(giveSenderToAccept, itemName);
-					Server.this.sendConfirmationOfGiveToSender(giveSenderToAccept, username, itemName);
+					// The user was a recipient of a give request (i.e. they are getting an item)
+					if (typeOfTransaction.equals("give"))
+					{
+						// Send a message to the recipient of the give request letting them know that they got an item
+						String itemTransferred = mud.getItemTransferred(username);
+						result = new AcceptedItemCommand(senderOfRequest, itemTransferred);
+						
+						// Send a message to sender of the give request letting them know that they gave an item
+						Server.this.sendConfirmationOfGiveToSender(senderOfRequest, username, itemTransferred);
+					}
+					
+					// The user was a recipient of a get request (i.e. they are giving an item)
+					else
+					{
+						// Send a message to the sender of the get request letting them know that they received an item
+						String itemTransferred = mud.getItemTransferred(senderOfRequest);
+						Server.this.sendConfirmationOfGetToSender(senderOfRequest, username, itemTransferred);
+						
+						
+						// Send a message to the recipient of the get request them know that they gave an item
+						result = new ItemGivenToIntendedCommand(senderOfRequest, itemTransferred);
+					}
 				}
 				
-				// This means that they were the recipient of a get request
 				else
-				{
-					
-				}
+					result = new CommandErrorCommand();
 				
 				break;
 				
 			case DENY:
+				// If the user has a transacting pending, then they can use this command. 
+				// Otherwise, they are not allowed to use this command.
+				if (mud.transactionPending(username))
+				{
+					
+				}
+				
+				else
+					result = new CommandErrorCommand();
+				
 				String giveSenderToReject = mud.returnGiveSender(username);
 				String getSenderToReject = mud.returnGetSender(username);
 				
@@ -689,15 +724,9 @@ public class Server
 	{
 		try 
 		{
-			for (String key: outputs.keySet())
-			{
-				if (key.equalsIgnoreCase(sender))
-				{
-					Command<Client> update = new RequestDeniedCommand(recipient);
-					ObjectOutputStream outs = outputs.get(key);
-					outs.writeObject(update);
-				}
-			}
+			Command<Client> update = new RequestDeniedCommand(recipient);
+			ObjectOutputStream outs = outputs.get(sender);
+			outs.writeObject(update);
 		} 
 		catch (IOException e) 
 		{
@@ -705,19 +734,27 @@ public class Server
 		}
 	}
 
-	public void sendConfirmationOfGiveToSender(String sender, String username, String itemName) 
+	public void sendConfirmationOfGiveToSender(String sender, String recipient, String itemName) 
 	{
 		try 
 		{
-			for (String key: outputs.keySet())
-			{
-				if (key.equalsIgnoreCase(sender))
-				{
-					Command<Client> update = new GiveRequestAcceptedCommand(username, itemName);
-					ObjectOutputStream outs = outputs.get(key);
-					outs.writeObject(update);
-				}
-			}
+			Command<Client> update = new ItemGivenToIntendedCommand(recipient, itemName);
+			ObjectOutputStream outs = outputs.get(sender);
+			outs.writeObject(update);
+		} 
+		catch (IOException e) 
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	public void sendConfirmationOfGetToSender(String senderOfRequest, String recipientOfRequest, String itemName)
+	{
+		try 
+		{
+			Command<Client> update = new AcceptedItemCommand(recipientOfRequest, itemName);
+			ObjectOutputStream outs = outputs.get(senderOfRequest);
+			outs.writeObject(update);
 		} 
 		catch (IOException e) 
 		{
@@ -730,15 +767,9 @@ public class Server
 	{
 		try 
 		{
-			for (String key: outputs.keySet())
-			{
-				if (key.equalsIgnoreCase(recipient))
-				{
-					Command<Client> update = new GiveRequestRecievedCommand(sender, itemName);
-					ObjectOutputStream outs = outputs.get(key);
-					outs.writeObject(update);
-				}
-			}
+			Command<Client> update = new GiveRequestRecievedCommand(sender, itemName);
+			ObjectOutputStream outs = outputs.get(recipient);
+			outs.writeObject(update);
 		} 
 		catch (IOException e) 
 		{
@@ -750,15 +781,9 @@ public class Server
 	{
 		try 
 		{
-			for (String key: outputs.keySet())
-			{
-				if (key.equalsIgnoreCase(recipient))
-				{
-					Command<Client> update = new GetRequestRecievedCommand(sender, itemName);
-					ObjectOutputStream outs = outputs.get(key);
-					outs.writeObject(update);
-				}
-			}
+			Command<Client> update = new GetRequestReceivedCommand(sender, itemName);
+			ObjectOutputStream outs = outputs.get(recipient);
+			outs.writeObject(update);
 		} 
 		catch (IOException e) 
 		{

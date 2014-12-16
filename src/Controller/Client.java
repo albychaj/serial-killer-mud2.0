@@ -500,7 +500,7 @@ public class Client extends JFrame
 		mainView.updateCommandLog(commandMessages);
 	}
 
-	public void giveRequestAccepted(String recipient, String itemName) 
+	public void itemAccepted(String recipient, String itemName) 
 	{
 		String sentGiveRequestAccepted = "Success! " + recipient + " has accepted item <" + itemName + ">. For an updated look of the items "
 				+ "currently stored in your backpack, type: inventory\n";

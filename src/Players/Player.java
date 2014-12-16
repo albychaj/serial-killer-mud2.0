@@ -24,8 +24,8 @@ public class Player implements Serializable
     private final static int MAX_ITEMS = 5;
     private int attackPoints;
     private String giveRecipient, getRecipient, giveItem, getItem, senderOfRequest;
-    private String tradeItem; // The item to give
-    private boolean tradePending;
+    private String itemToGive, itemReceived; // The item to give
+    private boolean transactionPending;
     
      
     public Player(String username, String password)
@@ -36,6 +36,9 @@ public class Player implements Serializable
         getRecipient = new String();
         giveItem = new String();
         getItem = new String();
+        itemReceived = new String();
+        transactionPending = false;
+        itemToGive = new String();
         backpack = new ArrayList<Item>();
         health = 50;
         attackPoints = -30;
@@ -221,7 +224,57 @@ public class Player implements Serializable
 
 	public void setTradingItem(String itemName) 
 	{
-		tradeItem = itemName;
+		itemToGive = itemName;
+	}
+	
+	public String getTradingItem()
+	{
+		return itemToGive;
+	}
+
+	public boolean transactionPending() 
+	{
+		return transactionPending;
+	}
+
+	public String senderOfRequest() 
+	{
+		return senderOfRequest;
+	}
+
+	public boolean hasTradingItem() 
+	{
+		if (itemToGive.equals(""))
+			return false;
+		
+		return true;
+	}
+
+	public void resetTradeFields() 
+	{
+		transactionPending = false;
+		itemToGive = new String();
+		senderOfRequest = new String();
+	}
+	
+	public void itemReceived(String tradingItemName) 
+	{
+		itemReceived = tradingItemName;
+	}
+
+	public String getNameOfItemReceived() 
+	{
+		return itemReceived;
+	}
+
+	public void resetNameOfItemReceived() 
+	{
+		itemReceived = new String();
+	}
+
+	public void setTransactionPending() 
+	{
+		transactionPending = true;
 	}
     
 //    public void setBackpack(List<Item> list)

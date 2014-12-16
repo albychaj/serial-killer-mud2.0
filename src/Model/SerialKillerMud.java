@@ -863,6 +863,61 @@ public class SerialKillerMud
 		return itemName;
 	}
 	
+	public String completeTransaction(String recipientName) 
+	{
+		// First get players involved in transaction
+		String senderName = getSenderOfRequest(recipientName);
+		Player senderOfRequest = playerAccounts.get(senderName);
+		Player recipientOfRequest = playerAccounts.get(recipientName);
+		
+		String typeOfTransaction = new String();
+		String tradingItemName = new String();
+		
+		// If it was a give request, then the sender would have a reference to the item being
+		// transferred
+		if (senderOfRequest.hasTradingItem())
+		{
+			// Update type of transaction
+			typeOfTransaction = "give";
+			
+			// Get item from sender
+			tradingItemName = senderOfRequest.getTradingItem();
+			Item item = senderOfRequest.removeItemFromBackpack(tradingItemName);
+			
+			// Give item to recipient
+			recipientOfRequest.pickUpItem(item);
+			recipientOfRequest.itemReceived(tradingItemName);
+		}
+		
+		// If it was a get request, then the recipient would have a reference to the item being
+		// transferred
+		else
+		{
+			// Update type of transaction
+			typeOfTransaction = "get";
+			
+			// Get item from recipient
+			tradingItemName = recipientOfRequest.getTradingItem();
+			Item item = recipientOfRequest.removeItemFromBackpack(tradingItemName);
+			
+			// Give item to sender
+			senderOfRequest.pickUpItem(item);
+			senderOfRequest.itemReceived(tradingItemName);
+			
+		}
+		
+		// Reset the fields related to the transaction. This way, they can now trade again
+		senderOfRequest.resetTradeFields();
+		recipientOfRequest.resetTradeFields();
+		
+		// Push the updated player accounts back onto the HashMap
+		playerAccounts.put(senderName, senderOfRequest);
+		playerAccounts.put(recipientName, recipientOfRequest);
+		
+		// Return type of transaction
+		return typeOfTransaction;
+	}
+	
 	public void resetGiveFields(String sender)
 	{
 		Player playerGivingItem = playerAccounts.get(sender.toLowerCase());
@@ -908,5 +963,61 @@ public class SerialKillerMud
 		Player recipient  = playerAccounts.get(recipientName);
 		recipient.setTradingItem(itemName);
 		playerAccounts.put(recipientName, recipient);
+	}
+
+	public boolean transactionPending(String recipientName) 
+	{
+		Player recipient = playerAccounts.get(recipientName);
+		
+		return recipient.transactionPending();
+	}
+
+	public String getSenderOfRequest(String recipientName) 
+	{
+		Player recipient = playerAccounts.get(recipientName);
+		
+		return recipient.senderOfRequest();
+	}
+
+	public String getItemTransferred(String username) 
+	{
+		Player player = playerAccounts.get(username);
+		
+		String itemName = player.getNameOfItemReceived();
+		player.resetNameOfItemReceived();
+		
+		playerAccounts.put(username, player);
+		
+		return itemName;
+	}
+
+	public void setPendingGiveTransaction(String recipientName, String senderName, String itemName) 
+	{
+		Player senderOfRequest = playerAccounts.get(senderName);
+		Player recipientOfRequest = playerAccounts.get(recipientName);
+		
+		recipientOfRequest.setSenderOfRequest(senderName);
+		senderOfRequest.setTradingItem(itemName);
+		
+		recipientOfRequest.setTransactionPending();
+		senderOfRequest.setTransactionPending();
+		
+		playerAccounts.put(senderName, senderOfRequest);
+		playerAccounts.put(recipientName, recipientOfRequest);
+	}
+	
+	public void setPendingGetTransaction(String recipientName, String senderName, String itemName) 
+	{
+		Player senderOfRequest = playerAccounts.get(senderName);
+		Player recipientOfRequest = playerAccounts.get(recipientName);
+		
+		recipientOfRequest.setSenderOfRequest(senderName);
+		recipientOfRequest.setTradingItem(itemName);
+		
+		recipientOfRequest.setTransactionPending();
+		senderOfRequest.setTransactionPending();
+		
+		playerAccounts.put(senderName, senderOfRequest);
+		playerAccounts.put(recipientName, recipientOfRequest);
 	}
 } // end of class SerialKillerMud

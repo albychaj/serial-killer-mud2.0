@@ -2,7 +2,7 @@ package Commands;
 
 import Controller.Client;
 
-public class GiveRequestAcceptedCommand extends Command<Client> 
+public class ItemGivenToIntendedCommand extends Command<Client> 
 {
 
 	/**
@@ -12,7 +12,7 @@ public class GiveRequestAcceptedCommand extends Command<Client>
 	private String recipient;
 	private String itemName;
 
-	public GiveRequestAcceptedCommand(String recipient, String itemName) 
+	public ItemGivenToIntendedCommand(String recipient, String itemName) 
 	{
 		this.recipient = recipient;
 		this.itemName = itemName;
@@ -21,7 +21,7 @@ public class GiveRequestAcceptedCommand extends Command<Client>
 	@Override
 	public void execute(Client executeOn) 
 	{
-		executeOn.giveRequestAccepted(recipient, itemName);
+		executeOn.itemAccepted(recipient, itemName);
 	}
 
 }
