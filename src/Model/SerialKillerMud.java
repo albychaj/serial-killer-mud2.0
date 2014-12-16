@@ -316,25 +316,25 @@ public class SerialKillerMud
 	
 	private void instantiateRooms()
 	{
-		lawn = new SceneRoom("The Lawn", "There is no escaping now! The lawn is home-base for all players. You are surrounded by thousands upon "
-			       + "thousands of acres of dead grass and trees. Daylight does not exist in this area and anything can happen. There "
-			       + "is only one way out. Find the key and enter the Murder Castle. You can stay but your chances of survival are slim "
-			       + "to none. Do yourself a favor if you�re on the lawn, leave at once and save yo ass.");
+		lawn = new SceneRoom("The Lawn", "There is no escaping now! The lawn is home-\nbase for all players. You are surrounded by thousands upon "
+			       + "\nthousands of acres of dead grass and trees. Daylight does not \nexist in this area and anything can happen. There "
+			       + "is only one way\nout. Find the key and enter the Murder Castle. You can stay but\nyour chances of survival are slim "
+			       + "to none. Do yourself a favor -\nif you're on the lawn, leave at once and save yo ass.");
 		bonus = new SceneRoom("The Bonus Room", "Congratulations you have made to the bonus room. There isn't much to this room. The floor is navy blue and the "
                       + "walls are painted white. There is a table to the north of this room which hold a few items for your collection. Take advantage of the unique item "
                       + "that can only be found in this room! There isn't much to do here and it's not a safe zone so leave once you are done.\n");
 		woods = new SceneRoom("The Dark Woods", "AAAAAOOOOOOWWWWWWWW. Watch out for those deathly predators hidden in the brush. Their eyes glow with a lively flourish that "
-	                      + "juxtaposes your inevitable fate. There isn�t much to see here since it is dark. Perhaps you�ll find a flashlight hidden amongst the trees. "
-	                      + "Word of advice� Watch your back!!");
+	                      + "juxtaposes your inevitable fate. There isn't much to see here since it is dark. Perhaps you'll find a flashlight hidden amongst the trees. "
+	                      + "Word of advice... Watch your back!!");
 		basement = new SceneRoom("The Basement of the Murder Castle", "Welcome to the deepest trenches of the murder castle. Beware the piles of corpses. That stench isn't just your feet. Besides the eeriness "
-	                                            + "feeling this room gives you there isn�t much within the space enclosed by these nicely painted red walls.There are no windows to light up "
+	                                            + "feeling this room gives you there isn't much within the space enclosed by these nicely painted red walls.There are no windows to light up "
 	                                            + "you path. The floor is a little slippery as well it's better that you don't ask and continue to explore if you please.");
 		castle = new SceneRoom("The Murder Castle", "Welcome to the cozy home of Sir HH Holmes. There's no need to be afraid. Unless HH comes home. The �Castle� is located 601-603 W. 63rd St. "
      			          + "Chicago. It's three stories and a block long. The ground floor contains Dr. Holmes drugstore. The upper two floors consist of 100 windowless "
      			          + "rooms with doorways opening to brick walls, oddly angles hallways, and stairways to nowhere. Sir HH only had one thing in mind when he built "
      			          + "this place ... to murder.");
 		farmhouse = new SceneRoom("The Wisconsin Farmhouse of Horrors", "Welcome to Ed Gein's farmhouse. Pay no mind to the human paraphernalia, Ed Gein definitely does not want to "
-	                                              + "scare you away. The house is in pristine shape but a little out dated. I wouldn�t touch anything Ed wouldn�t like that. "
+	                                              + "scare you away. The house is in pristine shape but a little out dated. I wouldn't touch anything Ed wouldn't like that. "
 	                                              + "He should be arriving shortly. If I were you get what you need and leave.");
 		factory = new SceneRoom("The Abandoned Factory", "Creeeeeaak. Low-hanging pipes and boarded windows haunt this desolate place. Beware of dangerous machinery. Some murders can be made to look like "
 	                               + "accidents. Spiders aren't the only thing you should be afraid of in this place.");

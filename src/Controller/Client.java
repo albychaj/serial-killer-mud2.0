@@ -150,12 +150,12 @@ public class Client extends JFrame
 	 */
 	public void listCommands() 
 	{
-		String listOfCommands = "Here are the commands: \nMAP: An interactive map will appear.\nMOVE <direction>: Move into the room to the <direction>"
-				+ "\nCOMMANDS: List all of the available commands\nOOC <message>: Send <message> to all players\n"
-				+ "WHO: Lists all of the current players\nSCORE: Lists your current score\nGET <item>: Retrieves an item"
-				+ "from the room and adds it to your backpack\nINVENTORY: Lists all of the items in your backpack"
-				+ "\nDROP <item>: Removes the item from your backpack\nLOOK: provides a 360 description of your surroundings"
-				+ "\nLOOK <argument>: provides in depth description of specified argument\nQUIT: quits the game and closes the window\n";
+		String listOfCommands = "Here are the commands: \nMAP\n     An interactive map will appear.\nMOVE <direction>\n     Move into the room to the <direction>"
+				+ "\nCOMMANDS\n     List all of the available commands\nOOC <message>\n     Send <message> to all players\n"
+				+ "WHO\n     Lists all of the current players\nSCORE\n     Lists your current score\nGET <item>\n     Retrieves an item"
+				+ "from the room and adds it to your backpack\nINVENTORY\n     Lists all of the items in your backpack"
+				+ "\nDROP <item>\n     Removes the item from your backpack\nLOOK\n     provides a 360 description of your surroundings"
+				+ "\nLOOK <argument>\n     provides in depth description of specified argument\nQUIT\n     quits the game and closes the window\n";
 		commandMessages.add(listOfCommands);
 		mainView.updateCommandLog(commandMessages);
 	}
@@ -444,8 +444,9 @@ public class Client extends JFrame
 
 	public void tellError() 
 	{
-		String tellErrorMessage = "You are attempting to message a player that does not exist or is currently \nnot "
-				+ "online. For a list of the players that are currently online, simply type: \nwho\n\n";
+		String tellErrorMessage = "You are attempting to message a player that does not exist or is currently" + "\n" 
+				+ "not " + "online. For a list of the players that are currently online, simply type:" + "\n" 
+				+ "who\n\n";
 		commandMessages.add(tellErrorMessage);
 		mainView.updateCommandLog(commandMessages);
 	}	

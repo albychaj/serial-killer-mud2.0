@@ -423,7 +423,7 @@ public class Server
 			
 			switch(command)
 			{
-			case MAP: // completely done
+			case MAP: 
 				result = new MapCommand();
 				break;
 				

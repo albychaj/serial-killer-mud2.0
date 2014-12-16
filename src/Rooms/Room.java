@@ -259,7 +259,7 @@ public abstract class Room implements Serializable
 		while(pl.hasNext())
 		{
 			Player p = pl.next();
-			playerNames += "\t" + p.getUsername() + "\n";
+			playerNames += "          " + p.getUsername() + "\n";
 		}
 		
 		result += playerNames;
@@ -273,11 +273,11 @@ public abstract class Room implements Serializable
 		while(itemIterator.hasNext())
 		{
 			Item i = itemIterator.next();
-			itemNames += "\t" + i.getName() + "\n";
+			itemNames += "          " + i.getName() + "\n";
 		}
 		
 		if (itemNames.equals(""))
-			result += "\tThere are no items in this room at this time.\n";
+			result += "          There are no items in this room at this time.\n";
 		
 		else
 			result += itemNames;
@@ -286,16 +286,16 @@ public abstract class Room implements Serializable
 		result += "Adjacent Rooms:\n";
 		
 		if (northRoom != null)
-			result += "\tNorth Room: " + northRoom.getRoomName() + "\n";
+			result += "          North Room: " + northRoom.getRoomName() + "\n";
 		
 		if (southRoom != null)
-			result += "\tSouth Room: " + southRoom.getRoomName() + "\n";
+			result += "          South Room: " + southRoom.getRoomName() + "\n";
 		
 		if (eastRoom != null)
-			result += "\tEast Room: " + eastRoom.getRoomName() + "\n";
+			result += "          East Room: " + eastRoom.getRoomName() + "\n";
 		
 		if (westRoom != null)
-			result += "\tWest Room: " + westRoom.getRoomName() + "\n";
+			result += "          West Room: " + westRoom.getRoomName() + "\n";
 		
 		result += "\n";
 				

@@ -104,7 +104,7 @@ public class MainView extends JPanel
 		chatArea.setBackground(Color.BLACK);
 		chatArea.setForeground(Color.WHITE);
 		chatArea.setEditable(false);
-		chatArea.setFont(getFont("fonts/trajan.ttf").deriveFont(12f));
+		chatArea.setFont(getFont("fonts/trajan.ttf").deriveFont(14f));
 		chatPanel.add(new JScrollPane(chatArea), BorderLayout.CENTER);
 		
 		JPanel commandPanel = new JPanel();
@@ -115,9 +115,9 @@ public class MainView extends JPanel
 		commandArea = new JTextArea();
 		commandArea.setLineWrap(true);
 		commandArea.setBackground(Color.BLACK);
-		commandArea.setForeground(Color.WHITE);
+		commandArea.setForeground(Color.GRAY);
 		commandArea.setEditable(false);
-		commandArea.setFont(getFont("fonts/trajan.ttf").deriveFont(12f));
+		commandArea.setFont(getFont("fonts/trajan.ttf").deriveFont(Font.BOLD, 12f));
 		commandPanel.add(new JScrollPane(commandArea), BorderLayout.CENTER);
 		
 		center.add(chatPanel);
