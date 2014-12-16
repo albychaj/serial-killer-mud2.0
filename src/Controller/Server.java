@@ -19,6 +19,7 @@ import Commands.CommandErrorCommand;
 import Commands.CommandsCommand;
 import Commands.DisconnectCommand;
 import Commands.DropCommand;
+import Commands.FightCommand;
 import Commands.GetCommand;
 import Commands.GetRequestReceivedCommand;
 import Commands.GiveOrGetErrorCommand;
@@ -76,7 +77,7 @@ public class Server
 		//chatMessages = new ArrayList<String>(); // create the chat log
 		outputs = new HashMap<String, ObjectOutputStream>(); // setup the map
 		mud = new SerialKillerMud(); // setup the model
-		t = new Timer(5000, new SayListener());
+		t = new Timer(10000, new SayListener());
 		t.start();
 		t2 = new Timer(20000, new MoveListener());
 		t2.start();
@@ -633,6 +634,12 @@ public class Server
 				closeAllClientsAndServer(username);
 				break;
 				
+
+			case FIGHT:
+				Player player = mud.getPlayer(username);
+				MOB opponent = mud.getMOBFromName(argument);
+				result = new FightCommand(opponent, player);
+				break;
 			case ACCEPT:
 				// If the user has a transacting pending, then they can use this command. 
 				// Otherwise, they are not allowed to use this command.

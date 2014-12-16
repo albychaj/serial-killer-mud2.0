@@ -780,7 +780,6 @@ public class SerialKillerMud
 		theMOBs.add(jefferyDahmer);
 		theMOBs.add(lawrenceBittaker);
 		theMOBs.add(royNorris);
-		theMOBs.add(hannibalLecter);
 		theMOBs.add(richardRamirez);
 		theMOBs.add(andreChikatilo);
 		theMOBs.add(richardTrentonChase);
@@ -821,6 +820,14 @@ public class SerialKillerMud
 		return player.hasItem(itemName);
 	}
 
+	public MOB getMOBFromName(String argument) {
+		for(MOB m : theMOBs){
+			if(m.getIdentity().equalsIgnoreCase(argument)){
+				return m;
+			}
+		}
+		return null;
+	}
 	public void setGiveRecipient(String username, String recipient) 
 	{
 		Player sender = playerAccounts.get(username);
