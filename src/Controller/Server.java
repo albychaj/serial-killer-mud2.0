@@ -93,33 +93,36 @@ public class Server
 			Random random = new Random();
 						
 			
-			//NEED TO SWITCH CHANGE ROOM WITH A MOVE MOB TO NEW ROOM METHOD!!!!!!
 			for (MOB mob : mud.getMOBs()){
 				int r = random.nextInt(4);
 				switch(r){
 				case 0:
 					if(mud.getMOBCurrLocation(mob).hasEast()){
-						mob.changeRoom(mud.getMOBCurrLocation(mob).getEastRoom());
+						mud.moveMOBToNewRoom(mud.getMOBCurrLocation(mob).getRoomName(), 0, mob);
+						//mob.changeRoom(mud.getMOBCurrLocation(mob).getEastRoom());
 						System.out.println(mob.getIdentity() + " new location: " + mud.getMOBCurrLocation(mob).getRoomName());
 					}
 					break;
 				case 1:
 					if(mud.getMOBCurrLocation(mob).hasWest()){
-						mob.changeRoom(mud.getMOBCurrLocation(mob).getWestRoom());
+						mud.moveMOBToNewRoom(mud.getMOBCurrLocation(mob).getRoomName(), 1, mob);
+						//mob.changeRoom(mud.getMOBCurrLocation(mob).getWestRoom());
 						System.out.println(mob.getIdentity() + "new location: " + mud.getMOBCurrLocation(mob).getRoomName());
 
 					}
 					break;
 				case 2:
 					if(mud.getMOBCurrLocation(mob).hasNorth()){
-						mob.changeRoom(mud.getMOBCurrLocation(mob).getNorthRoom());
+						mud.moveMOBToNewRoom(mud.getMOBCurrLocation(mob).getRoomName(), 2, mob);
+						//mob.changeRoom(mud.getMOBCurrLocation(mob).getNorthRoom());
 						System.out.println(mob.getIdentity() + "new location: " + mud.getMOBCurrLocation(mob).getRoomName());
 
 					}
 					break;
 				case 3:
 					if(mud.getMOBCurrLocation(mob).hasSouth()){
-						mob.changeRoom(mud.getMOBCurrLocation(mob).getSouthRoom());
+						mud.moveMOBToNewRoom(mud.getMOBCurrLocation(mob).getRoomName(), 3, mob);
+						//mob.changeRoom(mud.getMOBCurrLocation(mob).getSouthRoom());
 						System.out.println(mob.getIdentity() + "new location: " + mud.getMOBCurrLocation(mob).getRoomName());
 
 					}
