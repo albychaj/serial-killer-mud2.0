@@ -450,14 +450,15 @@ public class Client extends JFrame
 		mainView.updateCommandLog(commandMessages);
 	}
 
-	public void giveError() 
+	public void giveOrGetError() 
 	{
-		String tellErrorMessage = "Fucked up Give man.\n";
+		String tellErrorMessage = "Fucked up trade man. Please input a valid player's username to trade with or a "
+				+ "valid item that you would like to trade.\n";
 		commandMessages.add(tellErrorMessage);
 		mainView.updateCommandLog(commandMessages);
 	}
 
-	public void receiveGiveRequest(String sender, String itemName) 
+	public void receivedGiveRequest(String sender, String itemName) 
 	{
 		String receivedGiveRequest = "Attention! The player " + sender + " would like to give you item <" + itemName 
 				+ ">. If you would like to accept this item, please type: Accept. Otherwise, if you would like to "
@@ -465,11 +466,21 @@ public class Client extends JFrame
 		commandMessages.add(receivedGiveRequest);
 		mainView.updateCommandLog(commandMessages);
 	}
-
-	public void sentGiveRequest(String recipient, String itemName) 
+	
+	public void receivedGetRequest(String sender, String itemName) 
 	{
-		String sentGiveRequest = "You're too nice! " + recipient + " has been informed of your "
-				+ "offer. Now let's see if the aid is accepted.\n";
+		String receivedGetRequest = "Attention! The player <" + sender + "> requests that you hand over "
+				+ "item <" + itemName + ">. If you would like to give this item to player <" + sender + ">, "
+				+ "please type: Accept. Otherwise, if you would like to keep the item (which could save yo ass "
+				+ "later), please type: Deny.\n";
+		commandMessages.add(receivedGetRequest);
+		mainView.updateCommandLog(commandMessages);
+	}
+
+	public void tradeRequestSent(String recipient, String itemName) 
+	{
+		String sentGiveRequest = "Player <" + recipient + "> has been informed of your desire to trade. "
+				+ "Now we wait...\n";
 		commandMessages.add(sentGiveRequest);
 		mainView.updateCommandLog(commandMessages);
 	}
@@ -489,7 +500,7 @@ public class Client extends JFrame
 		mainView.updateCommandLog(commandMessages);
 	}
 
-	public void sentGiveRequestAccepted(String recipient, String itemName) 
+	public void giveRequestAccepted(String recipient, String itemName) 
 	{
 		String sentGiveRequestAccepted = "Success! " + recipient + " has accepted item <" + itemName + ">. For an updated look of the items "
 				+ "currently stored in your backpack, type: inventory\n";
@@ -497,18 +508,18 @@ public class Client extends JFrame
 		mainView.updateCommandLog(commandMessages);
 	}
 
-	public void rejectedTransfer(String recipient) 
+	public void rejectionSent(String sender) 
+	{
+		String sentRejection = "<" + sender + "> has been notified of your rejection. Hope you know what you're doing." ;
+		commandMessages.add(sentRejection);
+		mainView.updateCommandLog(commandMessages);
+	}
+	
+	public void requestRejected(String recipient) 
 	{
 		String rejectedRequestMessage = "So sorry but <" + recipient + "> has not accepted your request to transfer "
 				+ "an item. Better luck next time, kid." ;
 		commandMessages.add(rejectedRequestMessage);
 		mainView.updateCommandLog(commandMessages);
 	}
-
-	public void sentRejection(String sender) 
-	{
-		String sentRejection = "<" + sender + "> has been notified of your rejection. Hope you know what your doing." ;
-		commandMessages.add(sentRejection);
-		mainView.updateCommandLog(commandMessages);
-	}	
 }

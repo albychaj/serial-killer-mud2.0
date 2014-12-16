@@ -15,7 +15,7 @@ public class RequestDeniedCommand extends Command<Client>
 	@Override
 	public void execute(Client executeOn) 
 	{
-		executeOn.rejectedTransfer(recipient);
+		executeOn.requestRejected(recipient);
 	}
 
 }

@@ -17,6 +17,6 @@ public class GiveRequestRecievedCommand extends Command<Client>
 	@Override
 	public void execute(Client executeOn) 
 	{
-		executeOn.receiveGiveRequest(sender, itemName);
+		executeOn.receivedGiveRequest(sender, itemName);
 	}
 } // end of class ReceiveGiveRequestCommand

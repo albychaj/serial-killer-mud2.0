@@ -895,4 +895,18 @@ public class SerialKillerMud
 		
 		return senderName;
 	}
+
+	public void setSenderOfRequest(String recipientName, String senderName) 
+	{
+		Player recipient  = playerAccounts.get(recipientName);
+		recipient.setSenderOfRequest(senderName);
+		playerAccounts.put(recipientName, recipient);
+	}
+
+	public void setTradingItem(String recipientName, String itemName) 
+	{
+		Player recipient  = playerAccounts.get(recipientName);
+		recipient.setTradingItem(itemName);
+		playerAccounts.put(recipientName, recipient);
+	}
 } // end of class SerialKillerMud

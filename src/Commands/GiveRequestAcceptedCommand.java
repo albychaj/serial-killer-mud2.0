@@ -21,7 +21,7 @@ public class GiveRequestAcceptedCommand extends Command<Client>
 	@Override
 	public void execute(Client executeOn) 
 	{
-		executeOn.sentGiveRequestAccepted(recipient, itemName);
+		executeOn.giveRequestAccepted(recipient, itemName);
 	}
 
 }

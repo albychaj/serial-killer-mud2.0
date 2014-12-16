@@ -20,7 +20,8 @@ import Commands.CommandsCommand;
 import Commands.DisconnectCommand;
 import Commands.DropCommand;
 import Commands.GetCommand;
-import Commands.GiveErrorCommand;
+import Commands.GetRequestRecievedCommand;
+import Commands.GiveOrGetErrorCommand;
 import Commands.GiveRequestAcceptedCommand;
 import Commands.GiveRequestRecievedCommand;
 import Commands.InventoryCommand;
@@ -36,8 +37,8 @@ import Commands.QuitCommand;
 import Commands.RejectionSentCommand;
 import Commands.RequestDeniedCommand;
 import Commands.ScoreCommand;
-import Commands.GiveRequestSentCommand;
 import Commands.TellErrorCommand;
+import Commands.TradeRequestSentCommand;
 import Commands.UpdateChatLogCommand;
 import Commands.UseCommand;
 import Commands.WhoCommand;
@@ -513,8 +514,6 @@ public class Server
 				break;
 				
 			case GIVE: // not done yet - needs to work now with an mob
-				
-				System.out.println(argument);
 				// First off, the argument should be composed of the username of the recipient
 				// as well as the name of the item the sender intends to give. If it isn't,
 				// then an error will be returned to the sender. 
@@ -525,34 +524,57 @@ public class Server
 					String itemName = splitArgument[1];
 					
 					// Now check to see if the player is online and/or exists. Also check to see if the
-					// item exists. Otherwise, an error will be returned to the sender. 
+					// player has the item. Otherwise, an error will be returned to the sender. 
 					if (mud.playersIsOnline(recipient) && mud.playerHasItem(username, itemName))
 					{
-						result = new GiveRequestSentCommand(recipient, itemName);
+						result = new TradeRequestSentCommand(recipient, itemName);
 						mud.setGiveRecipient(username, recipient);
 						mud.setGiveItem(username, itemName);
 						Server.this.sendGiveRequestToRecipient(username, recipient, itemName);
 					}
 					
 					else
-						result = new GiveErrorCommand();
+						result = new GiveOrGetErrorCommand();
 				}
 				
 				else
 				{
-					result = new GiveErrorCommand();
+					result = new GiveOrGetErrorCommand();
 				}
 				
 				break;
 				
-			case GET: // not done yet - still needs to take two arguments
-				if (currRoom.hasItem(argument))
+			case GET: // not done yet - needs to work now with an mob
+				// If true, then the user is trying to get an item from another player/MOB 
+				if (argument.indexOf(" ") > 0)
+				{
+					String[] splitArgument = argument.split(" ", 2);
+					String recipient = splitArgument[0].toLowerCase(); 
+					String itemName = splitArgument[1].toLowerCase();
+					
+					// Now check to see if the player is online and/or exists. Also check to see if the
+					// player has the item. Otherwise, an error will be returned to the sender. 
+					if (mud.playersIsOnline(recipient) && mud.playerHasItem(recipient, itemName))
+					{
+						result = new TradeRequestSentCommand(recipient, itemName);
+						mud.setSenderOfRequest(recipient, username);
+						mud.setTradingItem(recipient, itemName);
+						Server.this.sendGetRequestToRecipient(username, recipient, itemName);
+					}
+					
+					else
+						result = new GiveOrGetErrorCommand();
+				}
+				
+				// If true, then the user is trying to get an item from the room
+				else if (currRoom.hasItem(argument))
 				{
 					Item item = mud.removeItemFromRoom(currRoom.getRoomName(), argument);
 					mud.giveItemToPlayer(username, item);
 					result = new GetCommand(argument);
 				}
 				
+				// Else the argument is invalid
 				else
 					result = new GetCommand(new String());
 				break;
@@ -713,6 +735,26 @@ public class Server
 				if (key.equalsIgnoreCase(recipient))
 				{
 					Command<Client> update = new GiveRequestRecievedCommand(sender, itemName);
+					ObjectOutputStream outs = outputs.get(key);
+					outs.writeObject(update);
+				}
+			}
+		} 
+		catch (IOException e) 
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	public void sendGetRequestToRecipient(String sender, String recipient, String itemName) 
+	{
+		try 
+		{
+			for (String key: outputs.keySet())
+			{
+				if (key.equalsIgnoreCase(recipient))
+				{
+					Command<Client> update = new GetRequestRecievedCommand(sender, itemName);
 					ObjectOutputStream outs = outputs.get(key);
 					outs.writeObject(update);
 				}

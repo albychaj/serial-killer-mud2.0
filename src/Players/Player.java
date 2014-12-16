@@ -23,7 +23,9 @@ public class Player implements Serializable
     private final static int MAXHEALTH = 100;
     private final static int MAX_ITEMS = 5;
     private int attackPoints;
-    private String giveRecipient, getRecipient, giveItem, getItem;
+    private String giveRecipient, getRecipient, giveItem, getItem, senderOfRequest;
+    private String tradeItem; // The item to give
+    private boolean tradePending;
     
      
     public Player(String username, String password)
@@ -210,6 +212,16 @@ public class Player implements Serializable
 	public String getRecipientOfGet() 
 	{
 		return getRecipient;
+	}
+
+	public void setSenderOfRequest(String senderName) 
+	{
+		senderOfRequest = senderName;
+	}
+
+	public void setTradingItem(String itemName) 
+	{
+		tradeItem = itemName;
 	}
     
 //    public void setBackpack(List<Item> list)

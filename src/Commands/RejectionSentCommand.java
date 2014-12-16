@@ -14,6 +14,6 @@ public class RejectionSentCommand extends Command<Client>
 
 	public void execute(Client executeOn) 
 	{
-		executeOn.sentRejection(senderToReject); 
+		executeOn.rejectionSent(senderToReject); 
 	}
 }
