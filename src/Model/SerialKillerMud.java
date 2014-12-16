@@ -815,4 +815,13 @@ public class SerialKillerMud
 		
 		return player.hasItem(itemName);
 	}
+
+	public MOB getMOBFromName(String argument) {
+		for(MOB m : theMOBs){
+			if(m.getIdentity().equalsIgnoreCase(argument)){
+				return m;
+			}
+		}
+		return null;
+	}
 } // end of class SerialKillerMud

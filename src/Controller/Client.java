@@ -458,5 +458,11 @@ public class Client extends JFrame
 				+ "who\n\n";
 		commandMessages.add(tellErrorMessage);
 		mainView.updateCommandLog(commandMessages);
+	}
+
+	public void fight(MOB argument, Player player) {
+		String theFight = "Wat is this???\nIt looks like it is gonna be a fight!\n\n";
+		MOB opponent = argument;
+		
 	}	
 }

@@ -16,6 +16,7 @@ import Commands.Command;
 import Commands.CommandsCommand;
 import Commands.DisconnectCommand;
 import Commands.DropCommand;
+import Commands.FightCommand;
 import Commands.GetCommand;
 import Commands.GiveErrorCommand;
 import Commands.InventoryCommand;
@@ -590,6 +591,12 @@ public class Server
 				
 			case SHUTDOWN: // should work
 				closeAllClientsAndServer(username);
+				break;
+				
+			case FIGHT:
+				Player player = mud.getPlayer(username);
+				MOB opponent = mud.getMOBFromName(argument);
+				result = new FightCommand(opponent, player);
 				break;
 				
 			default:
