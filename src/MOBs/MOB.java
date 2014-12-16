@@ -28,11 +28,10 @@ public class MOB implements Serializable {
 	private Random randomGenerator;
 	private int attackPoints;
 
-	public MOB(String identity, ArrayList<Item> items, ArrayList<String> stuffToSay) {
+	public MOB(String identity, ArrayList<Item> items) {
 		randomGenerator = new Random();
 		this.identity = identity;
 		pocket = new ArrayList<Item>();
-		this.speeches = stuffToSay;
 		//currentLocation = startLocation;
 		attackPoints = -10;
 	}

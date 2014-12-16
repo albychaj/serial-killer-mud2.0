@@ -762,19 +762,19 @@ public class SerialKillerMud
 		this.mobMessages.add("mwahahahhaha");
 		this.mobMessages.add("Prepare to die.");
 		this.mobMessages.add("You would look good tied up in my basement.");
-		jefferyDahmer = new MOB("Jeffery Dahmer", new ArrayList<Item>(), mobMessages);
-		lawrenceBittaker = new MOB("Lawrence Bittaker", new ArrayList<Item>(), mobMessages);
-		royNorris = new MOB("Roy Norris", new ArrayList<Item>(), mobMessages);
-		richardRamirez = new MOB("Richard Ramirez", new ArrayList<Item>(), mobMessages);
-		andreChikatilo = new MOB("Andre Chikatilo", new ArrayList<Item>(), mobMessages);
-		richardTrentonChase = new MOB("Richard Trenton Chase", new ArrayList<Item>(), mobMessages);
-		henryLeeLucus = new MOB("Henry Lee Lucus", new ArrayList<Item>(), mobMessages);
-		edGein = new MOB("Ed Gein", new ArrayList<Item>(), mobMessages);
-		hannibalLecter = new MOB("Hannibal Lecter", new ArrayList<Item>(), mobMessages);
-		henryHowardHolmes = new MOB("Henry Howard Holmes", new ArrayList<Item>(), mobMessages);
+		jefferyDahmer = new MOB("Jeffery Dahmer", new ArrayList<Item>());
+		lawrenceBittaker = new MOB("Lawrence Bittaker", new ArrayList<Item>());
+		royNorris = new MOB("Roy Norris", new ArrayList<Item>());
+		richardRamirez = new MOB("Richard Ramirez", new ArrayList<Item>());
+		andreChikatilo = new MOB("Andre Chikatilo", new ArrayList<Item>());
+		richardTrentonChase = new MOB("Richard Trenton Chase", new ArrayList<Item>());
+		henryLeeLucus = new MOB("Henry Lee Lucus", new ArrayList<Item>());
+		edGein = new MOB("Ed Gein", new ArrayList<Item>());
+		hannibalLecter = new MOB("Hannibal Lecter", new ArrayList<Item>());
+		henryHowardHolmes = new MOB("Henry Howard Holmes", new ArrayList<Item>());
 		
-		//victim = new MOB("Victim", new ArrayList<Item>(), new ArrayList<String>());
-		//foodStandGuy = new MOB("Food Stand Guy", new ArrayList<Item>(), new ArrayList<String>());
+		//victim = new MOB("Victim", new ArrayList<Item>());
+		//foodStandGuy = new MOB("Food Stand Guy", new ArrayList<Item>());
 		
 		theMOBs.add(hannibalLecter);
 		theMOBs.add(jefferyDahmer);

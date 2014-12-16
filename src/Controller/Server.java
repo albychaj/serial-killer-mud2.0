@@ -66,6 +66,7 @@ public class Server
 	private SerialKillerMud mud;
 	private Timer t;
 	private Timer t2;
+	private Random randomGenerator;
 	
 	public static void main(String [] args)
 	{
@@ -82,6 +83,7 @@ public class Server
 		t.start();
 		t2 = new Timer(20000, new MoveListener());
 		t2.start();
+		randomGenerator = new Random();
 		
 		try
 		{
@@ -102,11 +104,11 @@ public class Server
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			Random random = new Random();
+			
 						
 			
 			for (MOB mob : mud.getMOBs()){
-				int r = random.nextInt(4);
+				int r = randomGenerator.nextInt(4);
 				switch(r){
 				case 0:
 					if(mud.getMOBCurrLocation(mob).hasEast()){
@@ -150,14 +152,13 @@ public class Server
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			for(int i = 0; i < 9; i++){
+			for(int i = 0; i < 10; i++){
 				for(String p : mud.getPlayersOnline())
 				{
-					Random random = new Random();
-					int r = random.nextInt(mud.getMOBMessages().size());
+					int r = randomGenerator.nextInt(mud.getMOBMessages().size());
 					//System.out.println(mud.getMOBs().get(i).getIdentity());
 					updateClientsInSameRoomAsMOB(mud.getMOBs().get(i), mud.getMOBMessages().get(r));
-					System.out.println(mud.getMOBs().get(i).getIdentity() + " to you: " + mud.getMOBMessages().get(r));
+//					System.out.println(mud.getMOBs().get(i).getIdentity() + " to you: " + mud.getMOBMessages().get(r));
 					
 				}
 			}
