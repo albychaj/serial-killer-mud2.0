@@ -11,6 +11,7 @@ import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -75,7 +76,7 @@ public class Client extends JFrame
 			// to determine whether the motherheffer trying to access the game
 			// is allowed the privilege. If not, there's no fucking point in 
 			// letting them in...
-			HashMap<String, Player> playerAccounts = (HashMap<String, Player>)in.readObject();
+			ConcurrentHashMap<String, Player> playerAccounts = (ConcurrentHashMap<String, Player>)in.readObject();
 			List<String> playersOnline = (ArrayList<String>)in.readObject();
 			
 			// From here, the LoginView will take the reins.
@@ -229,8 +230,6 @@ public class Client extends JFrame
 				inventory += "\t" + itemName + "\n";
 			}
 		}
-		
-		inventory += "\n";
 		
 		commandMessages.add(inventory);
 		mainView.updateCommandLog(commandMessages);
@@ -453,10 +452,48 @@ public class Client extends JFrame
 
 	public void giveError() 
 	{
-		String tellErrorMessage = "You are attempting to message a player that does not exist or is currently" + "\n" 
-				+ "not " + "online. For a list of the players that are currently online, simply type:" + "\n" 
-				+ "who\n\n";
+		String tellErrorMessage = "Fucked up Give man.\n";
 		commandMessages.add(tellErrorMessage);
+		mainView.updateCommandLog(commandMessages);
+	}
+
+	public void receiveGiveRequest(String sender, String itemName) 
+	{
+		String receivedGiveRequest = "Attention! The player " + sender + " would like to give you item <" + itemName 
+				+ ">. If you would like to accept this item, please type: Accept. Otherwise, if you would like to "
+				+ "deny the kindness (like an asshole), please type: Deny.\n";
+		commandMessages.add(receivedGiveRequest);
+		mainView.updateCommandLog(commandMessages);
+	}
+
+	public void sentGiveRequest(String recipient, String itemName) 
+	{
+		String sentGiveRequest = "You're too nice! " + recipient + " has been informed of your "
+				+ "offer. Now let's see if the aid is accepted.\n";
+		commandMessages.add(sentGiveRequest);
+		mainView.updateCommandLog(commandMessages);
+	}
+
+	public void CommandError() 
+	{
+		String commandErrorMessage = "This is not a valid command. For a list of valid commands, type: commands\n";
+		commandMessages.add(commandErrorMessage);
+		mainView.updateCommandLog(commandMessages);
+	}
+
+	public void acceptedItem(String sender, String itemName) 
+	{
+		String acceptedItemMessage = "You have sucessfully accepted item <" + itemName + "> from " + sender + "! For an updated look of the items "
+				+ "currently stored in your backpack, type: inventory\n";
+		commandMessages.add(acceptedItemMessage);
+		mainView.updateCommandLog(commandMessages);
+	}
+
+	public void sentGiveRequestAccepted(String recipient, String itemName) 
+	{
+		String sentGiveRequestAccepted = "Success! " + recipient + " has accepted item <" + itemName + ">. For an updated look of the items "
+				+ "currently stored in your backpack, type: inventory\n";
+		commandMessages.add(sentGiveRequestAccepted);
 		mainView.updateCommandLog(commandMessages);
 	}	
 }

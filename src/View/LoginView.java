@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -37,7 +38,7 @@ public class LoginView extends JFrame
 	private JPasswordField passwordField;
 	private JButton loginButton, createButton;
 	
-	public LoginView(Client client, final HashMap<String, Player> playerAccounts, final List<String> playersOnline) 
+	public LoginView(Client client, final ConcurrentHashMap<String, Player> playerAccounts, final List<String> playersOnline) 
 	{ 
 		this.client = client;
 		
@@ -148,7 +149,7 @@ public class LoginView extends JFrame
 	 * This method allows a player to login to the MUD. 
 	 * @param playersOnline 
 	 */
-	public void login(HashMap<String, Player> playerAccounts, List<String> playersOnline)
+	public void login(ConcurrentHashMap<String, Player> playerAccounts, List<String> playersOnline)
 	{
 		String username = usernameField.getText();
 		
@@ -190,7 +191,7 @@ public class LoginView extends JFrame
 	/**
 	 * This method adds a new player to the MUD.
 	 */
-	public void addPlayer(HashMap<String, Player> playerAccounts)
+	public void addPlayer(ConcurrentHashMap<String, Player> playerAccounts)
 	{
 		String username = usernameField.getText();
 		

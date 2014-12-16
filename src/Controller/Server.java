@@ -2,6 +2,7 @@ package Controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
@@ -12,12 +13,16 @@ import java.util.Random;
 
 import javax.swing.Timer;
 
+import Commands.AcceptedItemCommand;
 import Commands.Command;
+import Commands.CommandErrorCommand;
 import Commands.CommandsCommand;
 import Commands.DisconnectCommand;
 import Commands.DropCommand;
 import Commands.GetCommand;
 import Commands.GiveErrorCommand;
+import Commands.GiveRequestAcceptedCommand;
+import Commands.GiveRequestRecievedCommand;
 import Commands.InventoryCommand;
 import Commands.LookErrorCommand;
 import Commands.LookItemCommand;
@@ -29,6 +34,7 @@ import Commands.MoveCommand;
 import Commands.MoveErrorCommand;
 import Commands.QuitCommand;
 import Commands.ScoreCommand;
+import Commands.GiveRequestSentCommand;
 import Commands.TellErrorCommand;
 import Commands.UpdateChatLogCommand;
 import Commands.UseCommand;
@@ -305,28 +311,19 @@ public class Server
 		// the player isn't online or doesn't exist, give an error message
 		// to the sender of the message. Otherwise, write out the message 
 		// to both the sender and intended recipient. 
-		boolean playerOnline = false;
+		boolean playerOnline = mud.playersIsOnline(recipient);
 		Command<Client> update;
-		
-		for (String activeUser: mud.getPlayersOnline())
-		{
-			if (recipient.equalsIgnoreCase(activeUser))
-			{
-				recipient = activeUser; // just in case sender input name wrong
-				playerOnline = true;
-			}
-		}
 		
 		try
 		{	
 			if (playerOnline)
 			{
-				update = new UpdateChatLogCommand(sender + "to " + recipient + ": " + chatMessage);
+				update = new UpdateChatLogCommand(sender + " to " + recipient + ": " + chatMessage);
 				
 				ObjectOutputStream out = outputs.get(sender);
 				out.writeObject(update);
 				
-				out = outputs.get(recipient);
+				out = outputs.get(recipient.toLowerCase());
 				out.writeObject(update);
 			}
 			
@@ -379,8 +376,12 @@ public class Server
 			{
 				SimpleCommandFactory factory = new SimpleCommandFactory();
 				Command<Client> update = factory.createCommand(clientName, command, argument);
-				ObjectOutputStream out = outputs.get(clientName);
-				out.writeObject(update);
+				
+				if (update != null)
+				{
+					ObjectOutputStream out = outputs.get(clientName);
+					out.writeObject(update);
+				}
 			} 
 			catch (Exception e)
 			{
@@ -495,23 +496,24 @@ public class Server
 				
 			case GIVE: // not done yet - needs to work now with an mob
 				
+				System.out.println(argument);
 				// First off, the argument should be composed of the username of the recipient
 				// as well as the name of the item the sender intends to give. If it isn't,
 				// then an error will be returned to the sender. 
 				if (argument.indexOf(" ") > 0)
 				{
-					String recipient = new String();
-					String itemName = new String();
-					
 					String[] splitArgument = argument.split(" ", 2);
-					recipient = splitArgument[0]; 
-					itemName = splitArgument[1];
+					String recipient = splitArgument[0]; 
+					String itemName = splitArgument[1];
 					
 					// Now check to see if the player is online and/or exists. Also check to see if the
 					// item exists. Otherwise, an error will be returned to the sender. 
 					if (mud.playersIsOnline(recipient) && mud.playerHasItem(username, itemName))
 					{
-						
+						result = new GiveRequestSentCommand(recipient, itemName);
+						mud.setGiveRecipient(username, recipient);
+						mud.setGiveItem(username, itemName);
+						Server.this.sendGiveRequestToRecipient(username, recipient, itemName);
 					}
 					
 					else
@@ -576,11 +578,111 @@ public class Server
 				closeAllClientsAndServer(username);
 				break;
 				
+			case ACCEPT:
+				String senderToBeAccepted = mud.returnGiveSender(username);
+				
+				// This means that the user was never the recipient of a give request
+				// and therefore is not allowed to use this command
+				if (senderToBeAccepted.equals("") )
+					result = new CommandErrorCommand();
+				
+				
+				else
+				{
+					String itemName = mud.transferItemBetweenPlayers(senderToBeAccepted, username);
+					
+					// Send message to recipient letting them know that they got an item
+					result = new AcceptedItemCommand(senderToBeAccepted, itemName);
+					Server.this.sendConfirmationOfGiveToSender(senderToBeAccepted, username, itemName);
+				}
+				break;
+				
+			case DENY:
+				String senderToBeRejected = mud.returnGiveSender(username);
+				
+				// This means that the user was never the recipient of a give request
+				// and therefore is not allowed to use this command
+				if (senderToBeRejected.equals("") )
+					result = new CommandErrorCommand();
+				
+				
+				else
+				{
+					// Send a message to the recipient letting them know that the rejection went
+					// through
+					
+					// And send a message to the original sender letting them know that they were
+					// rejected
+				}
+				break;
+				
 			default:
+				result = new CommandErrorCommand();
 				break;
 			}
 			
 			return result;
+		}
+	}
+	
+//	public void sendRejectionOfGiveToSender(String sender, String recipient, String itemName) 
+//	{
+//		try 
+//		{
+//			for (String key: outputs.keySet())
+//			{
+//				if (key.equalsIgnoreCase(sender))
+//				{
+////					Command<Client> update = new GiveRequestDeniedCommand(user, itemName);
+////					ObjectOutputStream outs = outputs.get(key);
+////					outs.writeObject(update);
+//				}
+//			}
+//		} 
+//		catch (IOException e) 
+//		{
+//			e.printStackTrace();
+//		}
+//	}
+
+	public void sendConfirmationOfGiveToSender(String sender, String username, String itemName) 
+	{
+		try 
+		{
+			for (String key: outputs.keySet())
+			{
+				if (key.equalsIgnoreCase(sender))
+				{
+					Command<Client> update = new GiveRequestAcceptedCommand(username, itemName);
+					ObjectOutputStream outs = outputs.get(key);
+					outs.writeObject(update);
+				}
+			}
+		} 
+		catch (IOException e) 
+		{
+			e.printStackTrace();
+		}
+	}
+
+
+	public void sendGiveRequestToRecipient(String sender, String recipient, String itemName) 
+	{
+		try 
+		{
+			for (String key: outputs.keySet())
+			{
+				if (key.equalsIgnoreCase(recipient))
+				{
+					Command<Client> update = new GiveRequestRecievedCommand(sender, itemName);
+					ObjectOutputStream outs = outputs.get(key);
+					outs.writeObject(update);
+				}
+			}
+		} 
+		catch (IOException e) 
+		{
+			e.printStackTrace();
 		}
 	}
 } // end of class Server

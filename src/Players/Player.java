@@ -23,13 +23,17 @@ public class Player implements Serializable
     private final static int MAXHEALTH = 100;
     private final static int MAX_ITEMS = 5;
     private int attackPoints;
-    private boolean givePending, getPending;
+    private String giveRecipient, getRecipient, giveItem, getItem;
     
      
     public Player(String username, String password)
     {
         this.username = username;
         this.password = password;
+        giveRecipient = new String();
+        getRecipient = new String();
+        giveItem = new String();
+        getItem = new String();
         backpack = new ArrayList<Item>();
         health = 50;
         attackPoints = -30;
@@ -175,6 +179,32 @@ public class Player implements Serializable
 		result += "How are they faring you ask? Well currently, their health level is " + health + "%\n\n";
 		
 		return result;
+	}
+
+	public void setGiveRecipient(String recipient) 
+	{
+		giveRecipient = recipient;
+	}
+
+	public void setGiveItem(String itemName) 
+	{
+		giveItem = itemName;
+	}
+
+	public String getGiveItem() 
+	{
+		return giveItem;
+	}
+
+	public void resetGiveFields() 
+	{
+		giveRecipient = new String();
+		giveItem = new String();
+	}
+
+	public String getGiveRecipient() 
+	{
+		return giveRecipient;
 	}
     
 //    public void setBackpack(List<Item> list)
