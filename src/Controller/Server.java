@@ -77,7 +77,7 @@ public class Server
 		//chatMessages = new ArrayList<String>(); // create the chat log
 		outputs = new HashMap<String, ObjectOutputStream>(); // setup the map
 		mud = new SerialKillerMud(); // setup the model
-		t = new Timer(5000, new SayListener());
+		t = new Timer(10000, new SayListener());
 		t.start();
 		t2 = new Timer(20000, new MoveListener());
 		t2.start();

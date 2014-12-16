@@ -780,7 +780,6 @@ public class SerialKillerMud
 		theMOBs.add(jefferyDahmer);
 		theMOBs.add(lawrenceBittaker);
 		theMOBs.add(royNorris);
-		theMOBs.add(hannibalLecter);
 		theMOBs.add(richardRamirez);
 		theMOBs.add(andreChikatilo);
 		theMOBs.add(richardTrentonChase);

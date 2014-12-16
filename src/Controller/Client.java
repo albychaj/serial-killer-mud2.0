@@ -22,6 +22,7 @@ import Items.Item;
 import MOBs.MOB;
 import Players.Player;
 import View.LoginView;
+import View.MOBdescription;
 import View.MainView;
 import View.Map;
 
@@ -290,8 +291,9 @@ public class Client extends JFrame
 	// in the MOB class. 
 	public void lookAtMOBInRoom(MOB mob)
 	{
-		commandMessages.add(mob.wholeMOBDescription());
-		mainView.updateCommandLog(commandMessages);
+		new MOBdescription(mob.getIdentity());
+		/*commandMessages.add(mob.wholeMOBDescription());
+		mainView.updateCommandLog(commandMessages);*/
 	}
 	
 	// Right now all this prints out is the username and health of the player. Do y'all want other people to be
@@ -461,6 +463,7 @@ public class Client extends JFrame
 	public void fight(MOB argument, Player player) {
 		String theFight = "Wat is this???\nIt looks like it is gonna be a fight!\n\n";
 		MOB opponent = argument;
+		
 		
 	}	
 	public void receivedGiveRequest(String sender, String itemName) 
