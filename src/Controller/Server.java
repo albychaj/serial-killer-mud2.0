@@ -100,14 +100,12 @@ public class Server
 				case 0:
 					if(mud.getMOBCurrLocation(mob).hasEast()){
 						mud.moveMOBToNewRoom(mud.getMOBCurrLocation(mob).getRoomName(), 0, mob);
-						//mob.changeRoom(mud.getMOBCurrLocation(mob).getEastRoom());
 						System.out.println(mob.getIdentity() + " new location: " + mud.getMOBCurrLocation(mob).getRoomName());
 					}
 					break;
 				case 1:
 					if(mud.getMOBCurrLocation(mob).hasWest()){
 						mud.moveMOBToNewRoom(mud.getMOBCurrLocation(mob).getRoomName(), 1, mob);
-						//mob.changeRoom(mud.getMOBCurrLocation(mob).getWestRoom());
 						System.out.println(mob.getIdentity() + "new location: " + mud.getMOBCurrLocation(mob).getRoomName());
 
 					}
@@ -115,7 +113,6 @@ public class Server
 				case 2:
 					if(mud.getMOBCurrLocation(mob).hasNorth()){
 						mud.moveMOBToNewRoom(mud.getMOBCurrLocation(mob).getRoomName(), 2, mob);
-						//mob.changeRoom(mud.getMOBCurrLocation(mob).getNorthRoom());
 						System.out.println(mob.getIdentity() + "new location: " + mud.getMOBCurrLocation(mob).getRoomName());
 
 					}
@@ -123,7 +120,6 @@ public class Server
 				case 3:
 					if(mud.getMOBCurrLocation(mob).hasSouth()){
 						mud.moveMOBToNewRoom(mud.getMOBCurrLocation(mob).getRoomName(), 3, mob);
-						//mob.changeRoom(mud.getMOBCurrLocation(mob).getSouthRoom());
 						System.out.println(mob.getIdentity() + "new location: " + mud.getMOBCurrLocation(mob).getRoomName());
 
 					}
