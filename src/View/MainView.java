@@ -8,6 +8,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.List;
 
@@ -19,6 +20,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import Commands.CommandErrorCommand;
 import Commands.ForServerCommand;
 import Enums.Commands;
 
@@ -177,16 +179,35 @@ public class MainView extends JPanel
 			else
 				c = s.toUpperCase();
 			
-			Commands command = Commands.valueOf(c);
 			
-			try
-			{
-				output.writeObject(new ForServerCommand(clientName, command, argument));	
+				
+			
+			if(c.equalsIgnoreCase("COMMANDS") ||c.equalsIgnoreCase("OOC") || c.equalsIgnoreCase("WHO") || c.equalsIgnoreCase("SAY") ||
+					c.equalsIgnoreCase("TELL") || c.equalsIgnoreCase("SCORE") || c.equalsIgnoreCase("GIVE") || c.equalsIgnoreCase("GET") ||
+					c.equalsIgnoreCase("INVENTORY") || c.equalsIgnoreCase("DROP") || c.equalsIgnoreCase("USE") || c.equalsIgnoreCase("QUIT") ||
+					c.equalsIgnoreCase("SHUTDOWN") || c.equalsIgnoreCase("MOVE") || c.equalsIgnoreCase("LOOK") || c.equalsIgnoreCase("MAP") ||
+					c.equalsIgnoreCase("ACCEPT") || c.equalsIgnoreCase("DENY") || c.equalsIgnoreCase("MOBSAY") || c.equalsIgnoreCase("FIGHT")    ){
+				
+				Commands command = Commands.valueOf(c);
+				
+				try
+				{
+					output.writeObject(new ForServerCommand(clientName, command, argument));	
+				}
+				catch (Exception e)
+				{
+					e.printStackTrace();
+				}
 			}
-			catch (Exception e)
-			{
-				e.printStackTrace();
+			else{
+				try {
+					output.writeObject(new ForServerCommand(clientName, Commands.ERROR, argument));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
+			
 			
 			textField.setText("");
 		}

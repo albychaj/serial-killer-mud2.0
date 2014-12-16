@@ -89,7 +89,8 @@ public class Player implements Serializable
      */
     public void pickUpItem(Item newItem)
     {
-    	backpack.add(newItem);
+    	if(backpack.size() < 5)
+    		backpack.add(newItem);
     }
     
     /**
