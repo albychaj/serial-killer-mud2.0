@@ -918,6 +918,44 @@ public class SerialKillerMud
 		return typeOfTransaction;
 	}
 	
+	public String cancelTransaction(String recipientName) 
+	{
+		// First get players involved in transaction
+		String senderName = getSenderOfRequest(recipientName);
+		Player senderOfRequest = playerAccounts.get(senderName);
+		Player recipientOfRequest = playerAccounts.get(recipientName);
+				
+		String typeOfTransaction = new String();
+		String tradingItemName = new String();
+		
+		// If it was a give request, then the sender would have a reference to the item being
+		// transferred
+		if (senderOfRequest.hasTradingItem())
+		{
+		   // Update type of transaction
+			typeOfTransaction = "give";
+		}
+				
+		// If it was a get request, then the recipient would have a reference to the item being
+		// transferred
+		else
+		{
+			// Update type of transaction
+			typeOfTransaction = "get";	
+		}
+				
+		// Reset the fields related to the transaction. This way, they can now trade again
+		senderOfRequest.resetTradeFields();
+		recipientOfRequest.resetTradeFields();
+				
+		// Push the updated player accounts back onto the HashMap
+		playerAccounts.put(senderName, senderOfRequest);
+		playerAccounts.put(recipientName, recipientOfRequest);
+				
+		// Return type of transaction
+		return typeOfTransaction;
+	}
+	
 	public void resetGiveFields(String sender)
 	{
 		Player playerGivingItem = playerAccounts.get(sender.toLowerCase());

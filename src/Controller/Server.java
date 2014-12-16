@@ -524,8 +524,8 @@ public class Server
 					if (argument.indexOf(" ") > 0)
 					{
 						String[] splitArgument = argument.split(" ", 2);
-						String recipient = splitArgument[0]; 
-						String itemName = splitArgument[1];
+						String itemName = splitArgument[0]; 
+						String recipient = splitArgument[1];
 						
 						// Now check to see if the player is online and/or exists. Also check to see if the
 						// player has the item. Otherwise, an error will be returned to the sender. 
@@ -560,8 +560,8 @@ public class Server
 					if (!mud.transactionPending(username))
 					{
 						String[] splitArgument = argument.split(" ", 2);
-						String recipient = splitArgument[0].toLowerCase(); 
-						String itemName = splitArgument[1].toLowerCase();
+						String itemName = splitArgument[0].toLowerCase(); 
+						String recipient = splitArgument[1].toLowerCase();
 						
 						// Now check to see if the player is online and/or exists. Also check to see if the
 						// player has the item. Otherwise, an error will be returned to the sender. 
@@ -675,39 +675,31 @@ public class Server
 				// Otherwise, they are not allowed to use this command.
 				if (mud.transactionPending(username))
 				{
+					String senderOfRequest = mud.getSenderOfRequest(username);
+					String typeOfTransaction = mud.cancelTransaction(username);
 					
+					// The user was a recipient of a give request (i.e. they are getting an item)
+					if (typeOfTransaction.equals("give"))
+					{
+						// Send a message to the recipient letting them know that the rejection went through
+						result = new RejectionSentCommand(senderOfRequest);
+						
+						// And send a message to the sender letting them know that they were rejected
+						Server.this.sendRejectionOfGiveOrGetToSender(senderOfRequest, username);
+					}
+					
+					// The user was a recipient of a get request (i.e. they are giving an item)
+					else
+					{
+						result = new RejectionSentCommand(senderOfRequest);
+						
+						// And send a message to the sender letting them know that they were rejected
+						Server.this.sendRejectionOfGiveOrGetToSender(senderOfRequest, username);
+					}
 				}
 				
 				else
 					result = new CommandErrorCommand();
-				
-				String giveSenderToReject = mud.returnGiveSender(username);
-				String getSenderToReject = mud.returnGetSender(username);
-				
-				// This means that the user was never the recipient of a give request nor a get request
-				// and therefore is not allowed to use this command
-				if (giveSenderToReject.equals("") && getSenderToReject.equals(""))
-					result = new CommandErrorCommand();
-				
-				else if (getSenderToReject.equals(""))
-				{
-					// Send a message to the recipient letting them know that the rejection went
-					// through
-					result = new RejectionSentCommand(giveSenderToReject);
-					
-					// And send a message to the sender letting them know that they were rejected
-					Server.this.sendRejectionOfGiveOrGetToSender(giveSenderToReject, username);
-					mud.resetGiveFields(giveSenderToReject);
-				}
-				
-				else
-				{
-					// Send a message to the recipient letting them know that the rejection went through
-					result = new RejectionSentCommand(getSenderToReject);
-					
-					// And send a message to the sender letting them know that they were rejected
-					Server.this.sendRejectionOfGiveOrGetToSender(getSenderToReject, username);
-				}
 				
 				break;
 				
