@@ -145,7 +145,7 @@ public class Server
 					Random random = new Random();
 					int r = random.nextInt(mud.getMOBMessages().size());
 					//System.out.println(mud.getMOBs().get(i).getIdentity());
-					//PrintToClient(mud.getMOBs().get(i).getIdentity(), Commands.SAY, mud.getMOBMessages().get(r));
+					updateClientsInSameRoomAsMOB(mud.getMOBs().get(i), mud.getMOBMessages().get(r));
 					System.out.println(mud.getMOBs().get(i).getIdentity() + " to you: " + mud.getMOBMessages().get(r));
 					
 				}
@@ -280,6 +280,23 @@ public class Server
 		}
 		catch(Exception e)
 		{
+			e.printStackTrace();
+		}
+	}
+	
+	private void updateClientsInSameRoomAsMOB(MOB mob, String chatMessage){
+		String mobMessage = mob.getIdentity() + ": " + chatMessage; 
+		List<String> playersInSameRoom = mud.getPlayersInSameRoomAsMOB(mob);
+		UpdateChatLogCommand update = new UpdateChatLogCommand(mobMessage);
+		
+		
+		try{
+			for(String p : playersInSameRoom){
+				ObjectOutputStream out = outputs.get(p);
+				out.writeObject(update);
+			}
+		}
+		catch(Exception e){
 			e.printStackTrace();
 		}
 	}

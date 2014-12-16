@@ -73,6 +73,20 @@ public class SerialKillerMud
 		return playerAccounts;
 	}
 	
+	public List<String> getPlayersInSameRoomAsMOB(MOB mob){
+		Iterator it = roomsMap.entrySet().iterator();
+		
+		while(it.hasNext()){
+			Map.Entry pairs = (Map.Entry)it.next();
+			Room room = (Room) pairs.getValue();
+			
+			if(room.containsMOB(mob)){
+				return room.getNamesOfPlayersInRoom();
+			}
+		}
+		return null;
+	}
+	
 	@SuppressWarnings("rawtypes")
 	public List<String> getPlayersInSameRoom(String username) 
 	{
