@@ -264,6 +264,18 @@ public abstract class Room implements Serializable
 		
 		result += playerNames;
 		
+		//Gather names of MOBs in room
+		result += "MOBs that are currently in this room:\n";
+		String mobNames = new String();
+		
+		Iterator<MOB> m = mobs.iterator();
+		while(m.hasNext())
+		{
+			MOB mob = m.next();
+			mobNames += "            " +mob.getIdentity() + "\n";
+		}
+		result += mobNames;
+		
 		// Gather names of items in the room.
 		result += "Items that are currently in this room:\n";
 		String itemNames = new String();

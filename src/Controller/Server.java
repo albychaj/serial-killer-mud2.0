@@ -100,33 +100,32 @@ public class Server
 			Random random = new Random();
 						
 			
-			//NEED TO SWITCH CHANGE ROOM WITH A MOVE MOB TO NEW ROOM METHOD!!!!!!
 			for (MOB mob : mud.getMOBs()){
 				int r = random.nextInt(4);
 				switch(r){
 				case 0:
 					if(mud.getMOBCurrLocation(mob).hasEast()){
-						mob.changeRoom(mud.getMOBCurrLocation(mob).getEastRoom());
+						mud.moveMOBToNewRoom(mud.getMOBCurrLocation(mob).getRoomName(), 0, mob);
 						System.out.println(mob.getIdentity() + " new location: " + mud.getMOBCurrLocation(mob).getRoomName());
 					}
 					break;
 				case 1:
 					if(mud.getMOBCurrLocation(mob).hasWest()){
-						mob.changeRoom(mud.getMOBCurrLocation(mob).getWestRoom());
+						mud.moveMOBToNewRoom(mud.getMOBCurrLocation(mob).getRoomName(), 1, mob);
 						System.out.println(mob.getIdentity() + "new location: " + mud.getMOBCurrLocation(mob).getRoomName());
 
 					}
 					break;
 				case 2:
 					if(mud.getMOBCurrLocation(mob).hasNorth()){
-						mob.changeRoom(mud.getMOBCurrLocation(mob).getNorthRoom());
+						mud.moveMOBToNewRoom(mud.getMOBCurrLocation(mob).getRoomName(), 2, mob);
 						System.out.println(mob.getIdentity() + "new location: " + mud.getMOBCurrLocation(mob).getRoomName());
 
 					}
 					break;
 				case 3:
 					if(mud.getMOBCurrLocation(mob).hasSouth()){
-						mob.changeRoom(mud.getMOBCurrLocation(mob).getSouthRoom());
+						mud.moveMOBToNewRoom(mud.getMOBCurrLocation(mob).getRoomName(), 3, mob);
 						System.out.println(mob.getIdentity() + "new location: " + mud.getMOBCurrLocation(mob).getRoomName());
 
 					}
@@ -152,7 +151,7 @@ public class Server
 					Random random = new Random();
 					int r = random.nextInt(mud.getMOBMessages().size());
 					//System.out.println(mud.getMOBs().get(i).getIdentity());
-					//PrintToClient(mud.getMOBs().get(i).getIdentity(), Commands.SAY, mud.getMOBMessages().get(r));
+					updateClientsInSameRoomAsMOB(mud.getMOBs().get(i), mud.getMOBMessages().get(r));
 					System.out.println(mud.getMOBs().get(i).getIdentity() + " to you: " + mud.getMOBMessages().get(r));
 					
 				}
@@ -287,6 +286,23 @@ public class Server
 		}
 		catch(Exception e)
 		{
+			e.printStackTrace();
+		}
+	}
+	
+	private void updateClientsInSameRoomAsMOB(MOB mob, String chatMessage){
+		String mobMessage = mob.getIdentity() + ": " + chatMessage; 
+		List<String> playersInSameRoom = mud.getPlayersInSameRoomAsMOB(mob);
+		UpdateChatLogCommand update = new UpdateChatLogCommand(mobMessage);
+		
+		
+		try{
+			for(String p : playersInSameRoom){
+				ObjectOutputStream out = outputs.get(p);
+				out.writeObject(update);
+			}
+		}
+		catch(Exception e){
 			e.printStackTrace();
 		}
 	}

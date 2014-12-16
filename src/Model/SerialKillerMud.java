@@ -74,6 +74,20 @@ public class SerialKillerMud
 		return playerAccounts;
 	}
 	
+	public List<String> getPlayersInSameRoomAsMOB(MOB mob){
+		Iterator it = roomsMap.entrySet().iterator();
+		
+		while(it.hasNext()){
+			Map.Entry pairs = (Map.Entry)it.next();
+			Room room = (Room) pairs.getValue();
+			
+			if(room.containsMOB(mob)){
+				return room.getNamesOfPlayersInRoom();
+			}
+		}
+		return null;
+	}
+	
 	@SuppressWarnings("rawtypes")
 	public List<String> getPlayersInSameRoom(String username) 
 	{
@@ -203,6 +217,30 @@ public class SerialKillerMud
 		// player is obviously somewhere in the game.
 		return null;
 	}
+	
+	public void moveMOBToNewRoom(String roomName, int caseNum, MOB mob){
+		Room oldRoom = roomsMap.get(roomName);
+		
+		oldRoom.removeMOBFromRoom(mob);
+		
+		String newRoomName = new String();
+		
+		if(caseNum == 0){
+			newRoomName = oldRoom.getEastRoom().getRoomName();
+		}
+		else if(caseNum == 1){
+			newRoomName = oldRoom.getWestRoom().getRoomName();
+		}
+		else if(caseNum == 2){
+			newRoomName = oldRoom.getNorthRoom().getRoomName();
+		}
+		else if(caseNum == 3){
+			newRoomName = oldRoom.getSouthRoom().getRoomName();
+		}
+		
+		Room newRoom = roomsMap.get(newRoomName);
+		newRoom.addMOBToRoom(mob);
+	}
 
 	public String movePlayerToNewRoom(String roomName, String direction, String username) 
 	{
@@ -236,9 +274,6 @@ public class SerialKillerMud
 		return newRoom.wholeRoomDescription();	
 	}
 	
-	public void moveMOBToNewRoom(){
-		
-	}
 
 	public void disconnectPlayer(String username) 
 	{
