@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -13,11 +15,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-
-// I had this idea of making an "interactive" map :) maybe this could be a holly smokes W to the O to the W factor
-// its not pretty code but its in progress. It's flipping cool. Maybe we could add it to our main view??
-// The ultimate decision is in your hands. 
 
 public class Map extends JFrame 
 {
@@ -453,13 +452,11 @@ public class Map extends JFrame
 		        				+ "is only one way out. Find the key and\n"
 		        				+ "enter the Murder Castle. You can stay\n"
 		        				+ "but your chances of survival are slim\n"
-		        				+ "to none. Do yourself a favor if youï¿½re\n"
+		        				+ "to none. Do yourself a favor if you’re\n"
 		        				+ "on the lawn, leave at once and save yo\n"
 		        				+ "ass.\n\n"
 		        				+ "Adjacent Rooms: \n"
-		        				+ "North ï¿½ Murder Castle\n\n"
-		        				+ "Initial Items:\n"
-		        				+ "key to murder castle");
+		        				+ "North – Murder Castle\n\n");
 				break;
 			case "room2":
 				secretRoom.setBackground(Color.BLACK);
@@ -470,9 +467,7 @@ public class Map extends JFrame
 		        				+ "are confidential. You have to play\n"
 		        				+ "the game and explore it yourself\n\n"
 		        				+ "Adjacent Rooms:\n"
-		        				+ "North ï¿½ Abandoned Factory\n\n"
-		        				+ "Initial Items:\n"
-		        				+ "Confidential!");
+		        				+ "North – Abandoned Factory\n\n");
 				break;
 			case "room3":
 				darkWoods.setBackground(Color.BLACK);
@@ -484,17 +479,13 @@ public class Map extends JFrame
 	        			   + "hidden in the brush. Their eyes\n"
 	        			   + "glow with a lively flourish that\n"
 	        			   + "juxtaposes your inevitable fate.\n"
-	        			   + "There isnï¿½t much to see here since\n"
-	        			   + "it is dark. Perhaps youï¿½ll find a\n"
+	        			   + "There isn’t much to see here since\n"
+	        			   + "it is dark. Perhaps you’ll find a\n"
 	        			   + "flashlight hidden amongst the trees.\n"
-	        			   + "Word of adviceï¿½ Watch your back!!\n\n"
+	        			   + "Word of advice… Watch your back!!\n\n"
 	        			   + "Adjacent Rooms:\n"
 	        			   + "North - Save Yo Self Hospital\n"
-	        			   + "East - Basement of the Murder Castle\n\n"
-	        			   + "Initial Items:\n"
-	        			   + "Plethora of Sticks\n"
-	        			   + "Flashlight\n"
-	        			   + "");
+	        			   + "East - Basement of the Murder Castle\n\n");
 				break;
 			case "room4":
 				basement.setBackground(Color.BLACK);
@@ -505,17 +496,13 @@ public class Map extends JFrame
 	        			   + "of the murder castle. Beware the\n "
 	        			   + "piles of corpses. That stench isn't\n"
 	        			   + "just your feet. Besides the eeriness\n"
-	        			   + "feeling this room gives you there isnï¿½t\n"
+	        			   + "feeling this room gives you there isn’t\n"
 	        			   + "much within the space enclosed by\n"
 	        			   + "these nicely painted red walls.\n\n"
 	        			   + "Adjacent Rooms: \n"
 	        			   + "North - The Dakota Apartments\n"
 	        			   + "East - Murder Castle\n"
-	        			   + "West - Dark Woods\n\n"
-	        			   + "Initial Items:\n"
-	        			   + "Money\n"
-	        			   + "Night Vision Goggles"
-	        			   + "");
+	        			   + "West - Dark Woods\n\n");
 				break;
 			case "room5":
 				murderCastle.setBackground(Color.BLACK);
@@ -525,7 +512,7 @@ public class Map extends JFrame
 		        			   + "Welcome to the cozy home of Sir\n"
 		        			   + "HH Holmes. There's no need to be\n"
 		        			   + "afraid. Unless HH comes home. The\n"
-		        			   + "ï¿½Castleï¿½ is located 601-603 W. 63rd St.\n"
+		        			   + "‘Castle’ is located 601-603 W. 63rd St.\n"
 		        			   + "Chicago. It's three stories and a block\n"
 		        			   + "long. The ground floor contains Dr.\n"
 		        			   + "Holmes drugstore. The upper two\n"
@@ -538,12 +525,7 @@ public class Map extends JFrame
 		        			   + "North - Hannibal's Kitchen\n"
 		        			   + "East - Wisconsin Farmhouse of Horrors\n"
 		        			   + "South - The lawn\n"
-		        			   + "West - Basement\n\n"
-		        			   + "Initial Items:\n"
-		        			   + "Food\n"
-		        			   + "Water\n"
-		        			   + "Knife\n"
-		        			   + "");
+		        			   + "West - Basement\n\n");
 				break;
 			case "room6":
 				farmhouse.setBackground(Color.BLACK);
@@ -555,18 +537,14 @@ public class Map extends JFrame
 	        			   + "Ed Gein definately does not want to\n"
 	        			   + "scare you away. The house is in\n"
 	        			   + "pristine shape but a little out\n"
-	        			   + "dated. I wouldnï¿½t touch anything Ed\n"
-	        			   + "wouldnï¿½t like that. He should be\n"
+	        			   + "dated. I wouldn’t touch anything Ed\n"
+	        			   + "wouldn’t like that. He should be\n"
 	        			   + "arriving shortly. If I were you get\n"
 	        			   + "what you need and leave."
 	        			   + "\n\n"
 	        			   + "Adjacent Rooms:\n"
 	        			   + "North - Manson Family Murder House\n"
-	        			   + "West - Murder Castle\n\n"
-	        			   + "Initial Items:\n"
-	        			   + "Shovel\n"
-	        			   + "Rope\n"
-	        			   + "");
+	        			   + "West - Murder Castle\n\n");
 				break;
 			case "room7":
 				cleveland.setBackground(Color.BLACK);
@@ -574,23 +552,19 @@ public class Map extends JFrame
 				infoArea.setText("Location:\nCleveland Strangler Murder House\n\n"
 	        			   + "Description:\n"
 	        			   + "You are currently standing in the\n"
-	        			   + "Cleveland Stranglerï¿½s living room.\n"
+	        			   + "Cleveland Strangler’s living room.\n"
 	        			   + "It is here where two bodies were\n"
 	        			   + "found during the time of the\n"
-	        			   + "Stranglerï¿½s arrest. Donï¿½t worry he\n"
-	        			   + "wonï¿½t be coming for you but someone\n"
+	        			   + "Strangler’s arrest. Don’t worry he\n"
+	        			   + "won’t be coming for you but someone\n"
 	        			   + "else could be. There is a couch to\n"
 	        			   + "the north of the room and a\n"
 	        			   + "television. The room is pretty empty\n"
-	        			   + "the Strangler wasnï¿½t too keen on\n"
+	        			   + "the Strangler wasn’t too keen on\n"
 	        			   + "indoor decorating.\n\n"
 	        			   + "Adjacent Rooms:\n"
 	        			   + "North - Manson Family Murder House\n"
-	        			   + "West - Murder Castle\n\n"
-	        			   + "Initial Items:\n"
-	        			   + "food\n"
-	        			   + "water\n"
-	        			   + "Energy Boost\n");
+	        			   + "West - Murder Castle\n\n");
 				break;
 			case "room8":
 				factory.setBackground(Color.BLACK);
@@ -605,10 +579,7 @@ public class Map extends JFrame
 	        			   + "thing you should be afraid of."
 	        			   + "\n\n"
 	        			   + "Adjacent Rooms: \n"
-	        			   + "South - Secret Room\n\n"
-	        			   + "Initial Items:\n"
-	        			   + "Money"
-	        			   + "");
+	        			   + "South - Secret Room\n\n");
 				break;
 			case "room9":
 				motel.setBackground(Color.BLACK);
@@ -625,10 +596,7 @@ public class Map extends JFrame
 	        			   + "Adjacent Rooms: \n"
 	        			   + "North - Jail\n"
 	        			   + "East - Save Yo Self Hospital\n"
-	        			   + "West - Abandoned Factory\n\n"
-	        			   + "Initial Items:\n"
-	        			   + "Energy Boost"
-	        			   + "");
+	        			   + "West - Abandoned Factory\n\n");
 				break;
 			case "room10":
 				hospital.setBackground(Color.BLACK);
@@ -645,11 +613,7 @@ public class Map extends JFrame
 	        			   + "North - Police Station\n"
 	        			   + "East - The Dakota Aparments\n"
 	        			   + "South - Dark Woods\n"
-	        			   + "West - Roach Motel\n\n"
-	        			   + "Initial Items:\n"
-	        			   + "First Aid Kit\n"
-	        			   + "Energy Boost\n"
-	        			   + "");
+	        			   + "West - Roach Motel\n\n");
 				break;
 			case "room11":
 				dakota.setBackground(Color.BLACK);
@@ -669,15 +633,12 @@ public class Map extends JFrame
 	        			   + "East- Hannibal's Kitchen\n"
 	        			   + "South - Basement of the Murder\n"
 	        			   + "              Castle\n"
-	        			   + "West - Save Yo Self Hospital\n\n"
-	        			   + "Initial Items:\n"
-	        			   + "Sword"
-	        			   + "");
+	        			   + "West - Save Yo Self Hospital\n\n");
 				break;
 			case "room12":
 				kitchen.setBackground(Color.BLACK);
 				kitchen.setEnabled(false);
-				infoArea.setText("Location:\nHannibalï¿½s Kitchen\n\n"
+				infoArea.setText("Location:\nHannibal’s Kitchen\n\n"
 	        			   + "Description: \n"
 	        			   + "You're in for a treat. Pull up a chair\n"
 	        			   + "and prepare to be served the finest\n"
@@ -689,11 +650,7 @@ public class Map extends JFrame
 	        			   + "North - Jeffrey Dahmer's Apartment\n"
 	        			   + "East - Manson Family Murder House\n"
 	        			   + "South - The Murder Castle\n"
-	        			   + "West - The Dakota Apartments\n\n"
-	        			   + "Initial Items:\n"
-	        			   + "Food\n"
-	        			   + "Water\n"
-	        			   + "");
+	        			   + "West - The Dakota Apartments\n\n");
 				break;
 			case "room13":
 				room13.setBackground(Color.BLACK);
@@ -701,7 +658,7 @@ public class Map extends JFrame
 				infoArea.setText("Location:\nManson Family Murder House\n\n"
 	        			   + "Description: \n"
 	        			   + "This is a really nice home but its best\n"
-	        			   + "that you donï¿½t make yourself\n"
+	        			   + "that you don’t make yourself\n"
 	        			   + "comfortable. Some really messed up\n"
 	        			   + "murders were planned here. "
 	        			   + ""
@@ -709,9 +666,7 @@ public class Map extends JFrame
 	        			   + "Adjacent Rooms: \n"
 	        			   + "North - cemetery\n"
 	        			   + "South - Wisconsin Farmhouse of Horrors\n"
-	        			   + "West - Hannibalï¿½s Kitchen\n\n"
-	        			   + "Initial Items:\n"
-	        			   + "None");
+	        			   + "West - Hannibal’s Kitchen\n\n");
 				break;
 			case "room14":
 				room14.setBackground(Color.BLACK);
@@ -726,11 +681,7 @@ public class Map extends JFrame
 	        			   + "\n\n."
 	        			   + "Adjacent Rooms: \n"
 	        			   + "East- The Police Station\n"
-	        			   + "South - The Roach Motel\n"
-	        			   + ""
-	        			   + "Initial Items:\n"
-	        			   + ""
-	        			   + "");
+	        			   + "South - The Roach Motel\n");
 				break;
 			case "room15":
 				room15.setBackground(Color.BLACK);
@@ -747,9 +698,6 @@ public class Map extends JFrame
 	        			   + "East - Chi Omega sorority house at FSU\n"
 	        			   + "South - Save Yo Self Hospital\n"
 	        			   + "West - Dead End Jail\n"
-	        			   + ""
-	        			   + "Initial Items:\n"
-	        			   + "Energy Boost"
 	        			   + "");;
 				break;
 			case "room16":
@@ -768,9 +716,6 @@ public class Map extends JFrame
 	        			   + "East - Jeffrey Dahmer's Apartment\n"
 	        			   + "South - The Dakota Apartments\n"
 	        			   + "West - Police Station\n"
-	        			   + ""
-	        			   + "Initial Items:\n"
-	        			   + "BandAid"
 	        			   + "");
 				break;
 			case "room17":
@@ -779,7 +724,7 @@ public class Map extends JFrame
 				infoArea.setText("Location:\nJeffrey Dahmer's Apartment\n\n"
 	        			   + "Description: \n"
 	        			   + "How is it in Milwaukee? I hope Jeffrey\n"
-	        			   + "hasnï¿½t marked you as his next victim.\n"
+	        			   + "hasn’t marked you as his next victim.\n"
 	        			   + "Last time I heard none of his male\n"
 	        			   + "confidants made it out in one piece.\n"
 	        			   + "Do yourself a favor and leave\n"
@@ -790,10 +735,7 @@ public class Map extends JFrame
 	        			   + "North - Casino Especial\n"
 	        			   + "East - Cemetery\n"
 	        			   + "South - Hannibal's Kitchen\n"
-	        			   + "West - Chi Omega Sorority House\n"
-	        			   + "               of FSU\n\n"
-	        			   + "Initial Items:\n"
-	        			   + "None");
+	        			   + "West - Chi Omega Sorority House\n");
 				break;
 			case "room18":
 				room18.setBackground(Color.BLACK);
@@ -812,9 +754,6 @@ public class Map extends JFrame
 	        			   + "North - Adventure Land\n"
 	        			   + "South - Manson Family Murder House\n"
 	        			   + "West - Jeffrey Dahmer's Apartment\n"
-	        			   + ""
-	        			   + "Initial Items:\n"
-	        			   + "Shovel"
 	        			   + "");;
 				break;
 			case "room19":
@@ -831,9 +770,6 @@ public class Map extends JFrame
 	        			   + "East - Casino Especial\n"
 	        			   + "South - Chi Omega Sorority House at FSU\n"
 	        			   + "West - Police Station"
-	        			   + ""
-	        			   + "Initial Items:\n"
-	        			   + "Money\n"
 	        			   + "");
 				break;
 			case "room20":
@@ -849,9 +785,6 @@ public class Map extends JFrame
 	        			   + "East - Adventure Land\n"
 	        			   + "South - Jeffrey Dahmer's Apartment\n"
 	        			   + "West - Kingsfield Bank\n"
-	        			   + ""
-	        			   + "Initial Items:\n"
-	        			   + "Money"
 	        			   + "");
 				break;
 			case "room21":
@@ -871,9 +804,6 @@ public class Map extends JFrame
 	        			   + "Adjacent Rooms: \n"
 	        			   + "South - Cemetery\n"
 	        			   + "West - Casino Especial\n"
-	        			   + ""
-	        			   + "Initial Items:\n"
-	        			   + "None"
 	        			   + "");
 				break;
 			case "room22":
@@ -890,9 +820,6 @@ public class Map extends JFrame
 	        			   + "Adjacent Rooms: \n"
 	        			   + "North - The Streets of Detroit\n"
 	        			   + "South - Casino Especial\n"
-	        			   + ""
-	        			   + "Initial Items:\n"
-	        			   + "Money"
 	        			   + "");
 				break;
 			case "room23":
@@ -912,9 +839,6 @@ public class Map extends JFrame
 	        			   + "East - The Streets of Detroit\n"
 	        			   + "South - Spain\n"
 	        			   + "West - Paris\n"
-	        			   + ""
-	        			   + "Initial Items:\n"
-	        			   + "None"
 	        			   + "");
 				break;
 			case "room24":
@@ -931,11 +855,6 @@ public class Map extends JFrame
 	        			   + "East - Fox Hollow Farms\n"
 	        			   + "South - Dark Alley\n"
 	        			   + "West - Airport\n"
-	        			   + ""
-	        			   + "Initial Items:\n"
-	        			   + "Knife\n"
-	        			   + "Gun\n"
-	        			   + "Sword\n"
 	        			   + "");
 				break;
 			case "room25":
@@ -958,9 +877,6 @@ public class Map extends JFrame
 	        			   + "North - Robert Ben Rhodes' Big Rig\n"
 	        			   + "East - Cleveland Strangler Murder House\n"
 	        			   + "West - Streets of Detroit\n\n"
-	        			   + ""
-	        			   + "Initial Items:\n"
-	        			   + "Night Vision Goggles"
 	        			   + "");
 				break;
 			case "room26":
@@ -970,15 +886,12 @@ public class Map extends JFrame
 	        			   + "Description: \n"
 	        			   + "This may look like a normal Big\n"
 	        			   + "Rig, but look closer. You probably\n"
-	        			   + "donï¿½t want to be in this mobile\n"
+	        			   + "don’t want to be in this mobile\n"
 	        			   + "torture chamber."
 	        			   + "\n\n"
 	        			   + "Adjacent Rooms: \n"
 	        			   + "East - Desert\n"
 	        			   + "South - Fox Hollow Farms\n"
-	        			   + ""
-	        			   + "Initial Items:\n"
-	        			   + "None"
 	        			   + "");
 				break;
 			case "room27":
@@ -994,9 +907,6 @@ public class Map extends JFrame
 	        			   + "Adjacent Rooms: \n"
 	        			   + "South - Cleveland Strangler Murder House\n"
 	        			   + "West - Robert Ben Rhodes' Big Rig\n"
-	        			   + ""
-	        			   + "Initial Items:\n"
-	        			   + "None"
 	        			   + "");
 				break;
 			case "espana":
@@ -1013,9 +923,6 @@ public class Map extends JFrame
 	        			   + "\n\n"
 	        			   + "Adjacent Rooms: \n"
 	        			   + "North - International Airport\n\n"
-	        			   + ""
-	        			   + "Initial Items:\n"
-	        			   + "None"
 	        			   + "");
 				break;
 			case "francia":
@@ -1037,10 +944,7 @@ public class Map extends JFrame
 	        			   + ""
 	        			   + "\n\n"
 	        			   + "Adjacent Rooms: \n"
-	        			   + "East - International Airport\n\n"
-	        			   + ""
-	        			   + "Initial Items:\n"
-	        			   + "None");
+	        			   + "East - International Airport\n\n");
 				break;
 			case "makeItRain$":
 				dubaiButton.setBackground(Color.BLACK);
@@ -1055,9 +959,6 @@ public class Map extends JFrame
 	        			   + "\n\n"
 	        			   + "Adjacent Rooms: \n"
 	        			   + "South - International Airport\n\n"
-	        			   + ""
-	        			   + "Initial Items:\n"
-	        			   + "Money"
 	        			   + "");
 				break;
 			default:
