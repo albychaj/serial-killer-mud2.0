@@ -17,6 +17,7 @@ import Commands.CommandsCommand;
 import Commands.DisconnectCommand;
 import Commands.DropCommand;
 import Commands.GetCommand;
+import Commands.GiveErrorCommand;
 import Commands.InventoryCommand;
 import Commands.LookErrorCommand;
 import Commands.LookItemCommand;
@@ -179,7 +180,7 @@ public class Server
 					// current players. This is so when someone is logging in, the system is able 
 					// to determine whether the user is already logged in, thereby disallowing 
 					// the same user to be logged in multiple times. 
-					output.writeObject(mud.getPlayerAccounts());
+					output.writeObject(mud.getAllExistingPlayerAccounts());
 					output.writeObject(mud.getPlayersOnline());
 					// Read in the information of the player associated with this client.
 					Player player = (Player)input.readObject();
@@ -495,7 +496,36 @@ public class Server
 				result = new ScoreCommand(playa);
 				break;
 				
-			case GIVE: // not done yet - still needs to take arguments
+			case GIVE: // not done yet - needs to work now with an mob
+				
+				// First off, the argument should be composed of the username of the recipient
+				// as well as the name of the item the sender intends to give. If it isn't,
+				// then an error will be returned to the sender. 
+				if (argument.indexOf(" ") > 0)
+				{
+					String recipient = new String();
+					String itemName = new String();
+					
+					String[] splitArgument = argument.split(" ", 2);
+					recipient = splitArgument[0]; 
+					itemName = splitArgument[1];
+					
+					// Now check to see if the player is online and/or exists. Also check to see if the
+					// item exists. Otherwise, an error will be returned to the sender. 
+					if (mud.playersIsOnline(recipient) && mud.playerHasItem(username, itemName))
+					{
+						
+					}
+					
+					else
+						result = new GiveErrorCommand();
+				}
+				
+				else
+				{
+					result = new GiveErrorCommand();
+				}
+				
 				break;
 				
 			case GET: // not done yet - still needs to take two arguments

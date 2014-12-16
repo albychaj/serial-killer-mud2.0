@@ -68,7 +68,7 @@ public class SerialKillerMud
 		return playersOnline;
 	}
 	
-	public HashMap<String, Player> getPlayerAccounts()
+	public HashMap<String, Player> getAllExistingPlayerAccounts()
 	{
 		return playerAccounts;
 	}
@@ -787,5 +787,18 @@ public class SerialKillerMud
 		kitchen.addMOBToRoom(hannibalLecter);
 		castle.addMOBToRoom(henryHowardHolmes);
 		
+	}
+
+	public boolean playersIsOnline(String recipient) 
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean playerHasItem(String username, String itemName) 
+	{
+		Player player = playerAccounts.get(username);
+		
+		return player.hasItem(itemName);
 	}
 } // end of class SerialKillerMud
