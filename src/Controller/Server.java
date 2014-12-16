@@ -33,6 +33,8 @@ import Commands.MapCommand;
 import Commands.MoveCommand;
 import Commands.MoveErrorCommand;
 import Commands.QuitCommand;
+import Commands.RejectionSentCommand;
+import Commands.RequestDeniedCommand;
 import Commands.ScoreCommand;
 import Commands.GiveRequestSentCommand;
 import Commands.TellErrorCommand;
@@ -595,41 +597,60 @@ public class Server
 				break;
 				
 			case ACCEPT:
-				String senderToBeAccepted = mud.returnGiveSender(username);
+				String giveSenderToAccept = mud.returnGiveSender(username);
+				String getSenderToAccept = mud.returnGetSender(username);
 				
-				// This means that the user was never the recipient of a give request
+				// This means that the user was never the recipient of a give request nor a get request
 				// and therefore is not allowed to use this command
-				if (senderToBeAccepted.equals("") )
+				if (giveSenderToAccept.equals("") && getSenderToAccept.equals("") )
 					result = new CommandErrorCommand();
 				
-				
-				else
+				// This means that they were the recipient of a give request
+				else if (getSenderToAccept.equals(""))
 				{
-					String itemName = mud.transferItemBetweenPlayers(senderToBeAccepted, username);
+					String itemName = mud.transferItemBetweenPlayers(giveSenderToAccept, username);
 					
 					// Send message to recipient letting them know that they got an item
-					result = new AcceptedItemCommand(senderToBeAccepted, itemName);
-					Server.this.sendConfirmationOfGiveToSender(senderToBeAccepted, username, itemName);
+					result = new AcceptedItemCommand(giveSenderToAccept, itemName);
+					Server.this.sendConfirmationOfGiveToSender(giveSenderToAccept, username, itemName);
 				}
+				
+				// This means that they were the recipient of a get request
+				else
+				{
+					
+				}
+				
 				break;
 				
 			case DENY:
-				String senderToBeRejected = mud.returnGiveSender(username);
+				String giveSenderToReject = mud.returnGiveSender(username);
+				String getSenderToReject = mud.returnGetSender(username);
 				
-				// This means that the user was never the recipient of a give request
+				// This means that the user was never the recipient of a give request nor a get request
 				// and therefore is not allowed to use this command
-				if (senderToBeRejected.equals("") )
+				if (giveSenderToReject.equals("") && getSenderToReject.equals(""))
 					result = new CommandErrorCommand();
 				
-				
-				else
+				else if (getSenderToReject.equals(""))
 				{
 					// Send a message to the recipient letting them know that the rejection went
 					// through
+					result = new RejectionSentCommand(giveSenderToReject);
 					
-					// And send a message to the original sender letting them know that they were
-					// rejected
+					// And send a message to the sender letting them know that they were rejected
+					Server.this.sendRejectionOfGiveOrGetToSender(giveSenderToReject, username);
 				}
+				
+				else
+				{
+					// Send a message to the recipient letting them know that the rejection went through
+					result = new RejectionSentCommand(getSenderToReject);
+					
+					// And send a message to the sender letting them know that they were rejected
+					Server.this.sendRejectionOfGiveOrGetToSender(getSenderToReject, username);
+				}
+				
 				break;
 				
 			default:
@@ -641,25 +662,25 @@ public class Server
 		}
 	}
 	
-//	public void sendRejectionOfGiveToSender(String sender, String recipient, String itemName) 
-//	{
-//		try 
-//		{
-//			for (String key: outputs.keySet())
-//			{
-//				if (key.equalsIgnoreCase(sender))
-//				{
-////					Command<Client> update = new GiveRequestDeniedCommand(user, itemName);
-////					ObjectOutputStream outs = outputs.get(key);
-////					outs.writeObject(update);
-//				}
-//			}
-//		} 
-//		catch (IOException e) 
-//		{
-//			e.printStackTrace();
-//		}
-//	}
+	public void sendRejectionOfGiveOrGetToSender(String sender, String recipient) 
+	{
+		try 
+		{
+			for (String key: outputs.keySet())
+			{
+				if (key.equalsIgnoreCase(sender))
+				{
+					Command<Client> update = new RequestDeniedCommand(recipient);
+					ObjectOutputStream outs = outputs.get(key);
+					outs.writeObject(update);
+				}
+			}
+		} 
+		catch (IOException e) 
+		{
+			e.printStackTrace();
+		}
+	}
 
 	public void sendConfirmationOfGiveToSender(String sender, String username, String itemName) 
 	{

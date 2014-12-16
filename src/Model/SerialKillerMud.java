@@ -869,4 +869,23 @@ public class SerialKillerMud
 		sender.setGiveItem(itemName);
 		playerAccounts.put(username, sender);
 	}
+
+	@SuppressWarnings("rawtypes")
+	public String returnGetSender(String recipient) 
+	{
+		String senderName = new String();
+		
+		Iterator it = playerAccounts.entrySet().iterator();
+		
+		while (it.hasNext())
+		{
+			Map.Entry pairs = (Map.Entry)it.next();
+			Player player = (Player)pairs.getValue();
+			
+			if (player.getRecipientOfGet().equalsIgnoreCase(recipient))
+				senderName = player.getUsername();
+		}
+		
+		return senderName;
+	}
 } // end of class SerialKillerMud

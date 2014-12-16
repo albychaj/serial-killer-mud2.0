@@ -206,6 +206,11 @@ public class Player implements Serializable
 	{
 		return giveRecipient;
 	}
+
+	public String getRecipientOfGet() 
+	{
+		return getRecipient;
+	}
     
 //    public void setBackpack(List<Item> list)
 //    {

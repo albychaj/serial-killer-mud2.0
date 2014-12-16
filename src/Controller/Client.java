@@ -495,5 +495,20 @@ public class Client extends JFrame
 				+ "currently stored in your backpack, type: inventory\n";
 		commandMessages.add(sentGiveRequestAccepted);
 		mainView.updateCommandLog(commandMessages);
+	}
+
+	public void rejectedTransfer(String recipient) 
+	{
+		String rejectedRequestMessage = "So sorry but <" + recipient + "> has not accepted your request to transfer "
+				+ "an item. Better luck next time, kid." ;
+		commandMessages.add(rejectedRequestMessage);
+		mainView.updateCommandLog(commandMessages);
+	}
+
+	public void sentRejection(String sender) 
+	{
+		String sentRejection = "<" + sender + "> has been notified of your rejection. Hope you know what your doing." ;
+		commandMessages.add(sentRejection);
+		mainView.updateCommandLog(commandMessages);
 	}	
 }
