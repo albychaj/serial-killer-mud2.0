@@ -23,13 +23,22 @@ public class Player implements Serializable
     private final static int MAXHEALTH = 100;
     private final static int MAX_ITEMS = 5;
     private int attackPoints;
-    private boolean givePending, getPending;
+    private String giveRecipient, getRecipient, giveItem, getItem, senderOfRequest;
+    private String itemToGive, itemReceived; // The item to give
+    private boolean transactionPending;
     
      
     public Player(String username, String password)
     {
         this.username = username;
         this.password = password;
+        giveRecipient = new String();
+        getRecipient = new String();
+        giveItem = new String();
+        getItem = new String();
+        itemReceived = new String();
+        transactionPending = false;
+        itemToGive = new String();
         backpack = new ArrayList<Item>();
         health = 50;
         attackPoints = -30;
@@ -175,6 +184,97 @@ public class Player implements Serializable
 		result += "How are they faring you ask? Well currently, their health level is " + health + "%\n\n";
 		
 		return result;
+	}
+
+	public void setGiveRecipient(String recipient) 
+	{
+		giveRecipient = recipient;
+	}
+
+	public void setGiveItem(String itemName) 
+	{
+		giveItem = itemName;
+	}
+
+	public String getGiveItem() 
+	{
+		return giveItem;
+	}
+
+	public void resetGiveFields() 
+	{
+		giveRecipient = new String();
+		giveItem = new String();
+	}
+
+	public String getGiveRecipient() 
+	{
+		return giveRecipient;
+	}
+
+	public String getRecipientOfGet() 
+	{
+		return getRecipient;
+	}
+
+	public void setSenderOfRequest(String senderName) 
+	{
+		senderOfRequest = senderName;
+	}
+
+	public void setTradingItem(String itemName) 
+	{
+		itemToGive = itemName;
+	}
+	
+	public String getTradingItem()
+	{
+		return itemToGive;
+	}
+
+	public boolean transactionPending() 
+	{
+		return transactionPending;
+	}
+
+	public String senderOfRequest() 
+	{
+		return senderOfRequest;
+	}
+
+	public boolean hasTradingItem() 
+	{
+		if (itemToGive.equals(""))
+			return false;
+		
+		return true;
+	}
+
+	public void resetTradeFields() 
+	{
+		transactionPending = false;
+		itemToGive = new String();
+		senderOfRequest = new String();
+	}
+	
+	public void itemReceived(String tradingItemName) 
+	{
+		itemReceived = tradingItemName;
+	}
+
+	public String getNameOfItemReceived() 
+	{
+		return itemReceived;
+	}
+
+	public void resetNameOfItemReceived() 
+	{
+		itemReceived = new String();
+	}
+
+	public void setTransactionPending() 
+	{
+		transactionPending = true;
 	}
     
 //    public void setBackpack(List<Item> list)

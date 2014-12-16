@@ -163,19 +163,19 @@ public class MainView extends JPanel
 	{
 		public void actionPerformed(ActionEvent arg0)
 		{	
-			String s = textField.getText().toUpperCase();
+			String s = textField.getText();
 			String argument = new String();
 			String c = new String();
 			
 			if (s.indexOf(" ") > 0)
 			{
 				String[] splitS = s.split(" ", 2);
-				c = splitS[0];
+				c = splitS[0].toUpperCase();
 				argument = splitS[1];
 			}
 			
 			else
-				c = s;
+				c = s.toUpperCase();
 			
 			Commands command = Commands.valueOf(c);
 			

@@ -11,6 +11,7 @@ import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -75,7 +76,7 @@ public class Client extends JFrame
 			// to determine whether the motherheffer trying to access the game
 			// is allowed the privilege. If not, there's no fucking point in 
 			// letting them in...
-			HashMap<String, Player> playerAccounts = (HashMap<String, Player>)in.readObject();
+			ConcurrentHashMap<String, Player> playerAccounts = (ConcurrentHashMap<String, Player>)in.readObject();
 			List<String> playersOnline = (ArrayList<String>)in.readObject();
 			
 			// From here, the LoginView will take the reins.
@@ -229,8 +230,6 @@ public class Client extends JFrame
 				inventory += "\t" + itemName + "\n";
 			}
 		}
-		
-		inventory += "\n";
 		
 		commandMessages.add(inventory);
 		mainView.updateCommandLog(commandMessages);
@@ -451,11 +450,10 @@ public class Client extends JFrame
 		mainView.updateCommandLog(commandMessages);
 	}
 
-	public void giveError() 
+	public void giveOrGetError() 
 	{
-		String tellErrorMessage = "You are attempting to message a player that does not exist or is currently" + "\n" 
-				+ "not " + "online. For a list of the players that are currently online, simply type:" + "\n" 
-				+ "who\n\n";
+		String tellErrorMessage = "Fucked up trade man. Please input a valid player's username to trade with or a "
+				+ "valid item that you would like to trade.\n";
 		commandMessages.add(tellErrorMessage);
 		mainView.updateCommandLog(commandMessages);
 	}
@@ -465,4 +463,68 @@ public class Client extends JFrame
 		MOB opponent = argument;
 		
 	}	
+	public void receivedGiveRequest(String sender, String itemName) 
+	{
+		String receivedGiveRequest = "Attention! The player " + sender + " would like to give you item <" + itemName 
+				+ ">. If you would like to accept this item, please type: Accept. Otherwise, if you would like to "
+				+ "deny the kindness (like an asshole), please type: Deny.\n";
+		commandMessages.add(receivedGiveRequest);
+		mainView.updateCommandLog(commandMessages);
+	}
+	
+	public void receivedGetRequest(String sender, String itemName) 
+	{
+		String receivedGetRequest = "Attention! The player <" + sender + "> requests that you hand over "
+				+ "item <" + itemName + ">. If you would like to give this item to player <" + sender + ">, "
+				+ "please type: Accept. Otherwise, if you would like to keep the item (which could save yo ass "
+				+ "later), please type: Deny.\n";
+		commandMessages.add(receivedGetRequest);
+		mainView.updateCommandLog(commandMessages);
+	}
+
+	public void tradeRequestSent(String recipient, String itemName) 
+	{
+		String sentGiveRequest = "Player <" + recipient + "> has been informed of your desire to trade. "
+				+ "Now we wait...\n";
+		commandMessages.add(sentGiveRequest);
+		mainView.updateCommandLog(commandMessages);
+	}
+
+	public void CommandError() 
+	{
+		String commandErrorMessage = "This is not a valid command. For a list of valid commands, type: commands\n";
+		commandMessages.add(commandErrorMessage);
+		mainView.updateCommandLog(commandMessages);
+	}
+
+	public void acceptedItem(String sender, String itemName) 
+	{
+		String acceptedItemMessage = "You have sucessfully accepted item <" + itemName + "> from " + sender + "! For an updated look of the items "
+				+ "currently stored in your backpack, type: inventory\n";
+		commandMessages.add(acceptedItemMessage);
+		mainView.updateCommandLog(commandMessages);
+	}
+
+	public void itemAccepted(String recipient, String itemName) 
+	{
+		String sentGiveRequestAccepted = "Success! " + recipient + " has accepted item <" + itemName + ">. For an updated look of the items "
+				+ "currently stored in your backpack, type: inventory\n";
+		commandMessages.add(sentGiveRequestAccepted);
+		mainView.updateCommandLog(commandMessages);
+	}
+
+	public void rejectionSent(String sender) 
+	{
+		String sentRejection = "<" + sender + "> has been notified of your rejection. Hope you know what you're doing." ;
+		commandMessages.add(sentRejection);
+		mainView.updateCommandLog(commandMessages);
+	}
+	
+	public void requestRejected(String recipient) 
+	{
+		String rejectedRequestMessage = "So sorry but <" + recipient + "> has not accepted your request to transfer "
+				+ "an item. Better luck next time, kid." ;
+		commandMessages.add(rejectedRequestMessage);
+		mainView.updateCommandLog(commandMessages);
+	}
 }
