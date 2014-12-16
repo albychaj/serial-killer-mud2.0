@@ -640,6 +640,7 @@ public class Server
 					
 					// And send a message to the sender letting them know that they were rejected
 					Server.this.sendRejectionOfGiveOrGetToSender(giveSenderToReject, username);
+					mud.resetGiveFields(giveSenderToReject);
 				}
 				
 				else

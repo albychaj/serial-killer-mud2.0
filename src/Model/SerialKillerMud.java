@@ -862,6 +862,13 @@ public class SerialKillerMud
 		
 		return itemName;
 	}
+	
+	public void resetGiveFields(String sender)
+	{
+		Player playerGivingItem = playerAccounts.get(sender.toLowerCase());
+		playerGivingItem.resetGiveFields();
+		playerAccounts.put(sender, playerGivingItem);
+	}
 
 	public void setGiveItem(String username, String itemName) 
 	{
