@@ -49,6 +49,7 @@ import MOBs.MOB;
 import Model.SerialKillerMud;
 import Players.Player;
 import Rooms.Room;
+import View.MOBdescription;
 
 /**
  * The class is the server side of the Serial Killer MUD. The server communicates with clients,
@@ -470,6 +471,41 @@ public class Server
 					// Check to see whether the user is asking for an item, 
 					// player, or MOB description
 					String x = currRoom.whatDoesPlayerWantToLookAt(argument);
+					switch(argument.toLowerCase()){
+						case "jeffery dahmer":
+						case "dahmer":
+						case "lawrence bittaker":
+						case "roy norris":
+						case "bittaker":
+						case "norris":
+						case "toolbox killers":
+						case "richard ramirez":
+						case "ramirez":
+						case "night stalker":
+						case "andre chikatilo":
+						case "chikatilo":
+						case "red ripper":
+						case "richard trenton chase":
+						case "richard chase":
+						case "chase":
+						case "henry lee lucus":
+						case "henry lucus":
+						case "lucus":
+						case "ed gein":
+						case "gein":
+						case "psycho":
+						case "hannibal lecter":
+						case "hannibal":
+						case "lecter":
+						case "henry howard holmes":
+						case "holmes":
+						case "hhh":
+							x = "mob";
+							break;
+						default:
+							break;
+					}
+						
 					
 					// If the user is asking to look at an item...
 					if (x.equals("item"))
@@ -488,8 +524,8 @@ public class Server
 					// Else if the user is asking to look at an MOB...
 					else if (x.equals("mob"))
 					{
-						MOB mob = currRoom.getMOB(argument);
-						result = new LookMOBCommand(mob);
+//						MOB mob = currRoom.getMOB(argument);
+						result = new LookMOBCommand(argument.toLowerCase());
 					}
 					
 					// Else the user was asking for something that doesn't exist

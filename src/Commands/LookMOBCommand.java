@@ -6,15 +6,15 @@ import MOBs.MOB;
 public class LookMOBCommand extends Command<Client>
 {
 	private static final long serialVersionUID = -6081758707850390721L;
-	private MOB mob;
+	private String mobName;
 	
-	public LookMOBCommand(MOB mob)
+	public LookMOBCommand(String mobName)
 	{
-		this.mob = mob;
+		this.mobName = mobName;
 	}
 
 	public void execute(Client executeOn)
 	{
-		executeOn.lookAtMOBInRoom(mob);
+		executeOn.lookAtMOBInRoom(mobName);
 	}
 } // end of class LookMOBCommand

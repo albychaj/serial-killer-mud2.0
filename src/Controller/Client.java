@@ -289,9 +289,9 @@ public class Client extends JFrame
 	
 	// This has to be implemented by Lisa. To do this, all you have to modify is the wholeMOBDescription method
 	// in the MOB class. 
-	public void lookAtMOBInRoom(MOB mob)
+	public void lookAtMOBInRoom(String mobName)
 	{
-		new MOBdescription(mob.getIdentity());
+		new MOBdescription(mobName);
 		/*commandMessages.add(mob.wholeMOBDescription());
 		mainView.updateCommandLog(commandMessages);*/
 	}
