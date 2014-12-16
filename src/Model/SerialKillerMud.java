@@ -103,11 +103,6 @@ public class SerialKillerMud
 		// Add the player to the rooms. Initially, every new player
 		// will start out in the same location.
 		entrance.addPlayerToRoom(player);
-		
-		// Make sure that the player is holding a reference
-		// to the room it is located in. In this case, that
-		// would be the entrance to the game. 
-		player.setLocation(entrance);
 	}
 	
 	public Room getRoomPlayerIsCurrIn(String username)

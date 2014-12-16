@@ -19,7 +19,6 @@ public class Player implements Serializable
 	private static final long serialVersionUID = 273382826880053009L;
 	private String username;
     private String password;
-    private Room currentLocation;
     private List<Item> backpack;
     private int health;
     private final static int MAXHEALTH = 100;
@@ -36,24 +35,12 @@ public class Player implements Serializable
         attackPoints = -30;
     }
     
-    public void setLocation(Room aRoom)
-    {
-    	currentLocation = aRoom;
-    }
-    
 	public boolean matches(char[] entered)
 	{
 		return new String(entered).equals(password); 
 	}
     
     public String getUsername() { return username; }
-     
-    public void changeRoom(Room room){
-    	//erase self from room and add self to new room
-        currentLocation = room;
-    }
-    
-    public Room getLocation() { return currentLocation; }
     
     public List<Item> getItems() { return backpack; }
     

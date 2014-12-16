@@ -474,19 +474,16 @@ public class Server
 					// or that does exist but is not in the same room that the 
 					// player is currently in. 
 					else
-					{
 						result = new LookErrorCommand();
-					}
 				}
 				
 				break;
 				
-			case COMMANDS: // completely done
+			case COMMANDS: 
 				result = new CommandsCommand();
 				break;
 				
 			case WHO: 
-				// Get the list of players online from the mud
 				result = new WhoCommand(mud.getPlayersOnline());
 				break;
 				
@@ -510,12 +507,12 @@ public class Server
 					result = new GetCommand(new String());
 				break;
 				
-			case INVENTORY: // should work
+			case INVENTORY:
 				List<String> playersInventory = mud.getPlayerInventoryDescription(username);
 				result = new InventoryCommand(playersInventory);
 				break;
 				
-			case DROP: // should work
+			case DROP:
 				Player currPlayer = mud.getPlayer(username);
 				
 				if (currPlayer.hasItem(argument))
@@ -541,7 +538,7 @@ public class Server
 				}
 				break;
 				
-			case QUIT: // should work
+			case QUIT:
 				result = new QuitCommand();
 				break;
 				
