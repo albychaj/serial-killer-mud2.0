@@ -677,6 +677,8 @@ public class Server
 				MOB opponent = mud.getMOBFromName(argument);
 				Boolean go = false;
 //				if(mud.getPlayerRoomName(player).equals(opponent.getCurrentLocation().getRoomName()))
+				if(mud.getRoomPlayerIsCurrIn(username).equals(mud.getMOBCurrLocation(opponent)))
+					go = true;
 				result = new FightCommand(opponent, player, go);
 				break;
 				

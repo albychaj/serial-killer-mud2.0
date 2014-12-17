@@ -35,7 +35,7 @@ public class MOBdescription extends JFrame {
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		try {
-			backgroundImage = ImageIO.read(new File("images/scary-wall.jpg"));
+			backgroundImage = ImageIO.read(new File("images/scary-wall.JPG"));
 			this.setContentPane(new JLabel(new ImageIcon(backgroundImage)));
 		} catch (IOException e) {
 			e.printStackTrace();
