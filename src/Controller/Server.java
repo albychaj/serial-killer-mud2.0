@@ -2,6 +2,9 @@ package Controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -11,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 import Commands.AcceptedItemCommand;
@@ -831,4 +835,65 @@ public class Server
 			e.printStackTrace();
 		}
 	}
+	
+	
+	/*
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * stuff that has to do with persistance
+	 */
+	
+	
+	
+	public void testing(){
+	// Ask the user if they want to load data
+	int answer = JOptionPane.showConfirmDialog(null, "Start with previous saved state?", "Select an Option", JOptionPane.YES_NO_OPTION);
+	if(answer == JOptionPane.NO_OPTION || !loadData()){
+		//initialize accounts
+		mud = new SerialKillerMud();
+	}
+
+	}
+	
+	public boolean loadData() {
+			try{
+				FileInputStream inStream = new FileInputStream(new File("accounts.dat"));
+				ObjectInputStream inObject = new ObjectInputStream(inStream);
+				mud = (SerialKillerMud) inObject.readObject();
+				inObject.close();
+			} catch(Exception e) {
+//				errorLabel.setText("Unable to load data");
+				return false;
+			}
+			return true;
+	}
+	
+	public void saveData() {
+		try{
+			FileOutputStream outStream = new FileOutputStream(new File("accounts.dat"));
+			ObjectOutputStream outObject = new ObjectOutputStream(outStream);
+			outObject.writeObject(mud);
+			outObject.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}	
+	}
+	
+	
+	
 } // end of class Server

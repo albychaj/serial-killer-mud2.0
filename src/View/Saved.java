@@ -12,7 +12,7 @@ public class Saved extends JFrame{
 
 	private JTextArea text;
 	private BufferedImage image;
-	private String message = "Yo Ass Is Dead.";
+	private String message = "Yo Ass Is Saved.";
 	
 	public static void main(String[] args)
 	{
