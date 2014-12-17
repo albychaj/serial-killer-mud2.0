@@ -206,14 +206,14 @@ public class LoginView extends JFrame
 		}
 		
 		// If trying to create a new account with information of an administrator, return an error. 
-		if(username.equalsIgnoreCase("admin"))
+		/*if(username.equalsIgnoreCase("admin"))
 		{
 				error.setText("An account exists with that name");
 				error.setLocation(95,260);
 				usernameField.setText("");
 				passwordField.setText("");
 				return;
-		}
+		}*/
 		
 		Player existingPlayer = playerAccounts.get(username);
 		

@@ -90,7 +90,7 @@ public class Server
 			System.out.println("MUD Server started on port 9001");
 			
 			// spawn a client accepter thread
-			new Thread(new ClientAccepter()).start();
+			new Thread(new ClientAcceptor()).start();
 		}
 		catch (Exception e)
 		{
@@ -150,12 +150,11 @@ public class Server
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			for(int i = 0; i < 9; i++){
+			for(int i = 0; i < 10; i++){
 				for(String p : mud.getPlayersOnline())
 				{
 					Random random = new Random();
 					int r = random.nextInt(mud.getMOBMessages().size());
-					//System.out.println(mud.getMOBs().get(i).getIdentity());
 					updateClientsInSameRoomAsMOB(mud.getMOBs().get(i), mud.getMOBMessages().get(r));
 					System.out.println(mud.getMOBs().get(i).getIdentity() + " to you: " + mud.getMOBMessages().get(r));
 					
@@ -168,7 +167,7 @@ public class Server
 	/**
 	 * This thread listens for and sets up connections to new clients
 	 */
-	public class ClientAccepter implements Runnable
+	public class ClientAcceptor implements Runnable
 	{
 
 		@Override
@@ -391,6 +390,10 @@ public class Server
 		else if (command == Commands.TELL)
 			updateASpecificChatLog(clientName, argument);
 		
+		else if (command == Commands.SHUTDOWN){
+			closeAllClientsAndServer(clientName);
+		}
+		
 		else
 		{
 			try
@@ -410,6 +413,9 @@ public class Server
 			}
 		}
 	}
+
+	
+
 
 	private void closeAllClientsAndServer(String username)
 	{
