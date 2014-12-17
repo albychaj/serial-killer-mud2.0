@@ -11,6 +11,7 @@ import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.swing.JFrame;
@@ -25,6 +26,7 @@ import View.LoginView;
 import View.MOBdescription;
 import View.MainView;
 import View.Map;
+import View.Saved;
 
 /**
  * The client side of Serial Killer MUD. This class displays the chat log
@@ -163,7 +165,7 @@ public class Client extends JFrame
 	}
 
 	/**
-	 * lists all of the players currently online. updates the command side of the gui.
+	 * lists all of the players currently online.  updates the command side of the gui.
 	 * @param playersLoggedIn - list of current players
 	 */
 	public void listWho(String playersLoggedIn) 
@@ -429,7 +431,7 @@ public class Client extends JFrame
 		case "gun":
 		case "handcuffs":
 		case "stick":
-			playah.incrementAttackPoints(5);
+			playah.incrementAttackPoints(-5);
 			
 			
 		break;	
@@ -460,9 +462,36 @@ public class Client extends JFrame
 		mainView.updateCommandLog(commandMessages);
 	}
 
-	public void fight(MOB argument, Player player) {
-		String theFight = "Wat is this???\nIt looks like it is gonna be a fight!\n\n";
-		MOB opponent = argument;
+	public void fight(MOB opponent, Player player, Boolean isGoingToFight) {
+		Random randomGenerator = new Random();
+		
+		String theFight = "";
+		
+		if(isGoingToFight){
+			theFight = "Wat is this???\nIt looks like it is gonna be a fight!\n\n";
+			while (player.getHealth() > 0  && opponent.getHealth() > 0) {
+				int playerRoll = randomGenerator.nextInt(6);
+				int oppenentRoll = randomGenerator.nextInt(6);
+				if (playerRoll >= oppenentRoll) {
+					theFight += "You hit him!\n\n";
+					opponent.incrementHealth(player.getAttackPoints());
+				} else {
+					theFight += "Ouch! He got you.\nDon't worry, it's only a flesh wound!\n\n";
+					player.incrementHealth(opponent.getAttackPoints());
+				}
+			}
+			if (player.getHealth() > 0) {
+				theFight += "rightous! won't be seeing him any time soon. that's for sure.";
+				new Saved();
+			} else
+				theFight += "I guess it wasn't just a flesh wound after all.\n Tell lucy I've always loved her...";
+		} 
+		else
+			theFight = opponent.getIdentity() + " is not around at the moment. Maybe wait a while.";
+		
+		
+		commandMessages.add(theFight);
+		mainView.updateCommandLog(commandMessages);
 		
 		
 	}	
