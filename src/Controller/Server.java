@@ -504,9 +504,9 @@ public class Server
 						case "richard trenton chase":
 						case "richard chase":
 						case "chase":
-						case "henry lee lucus":
-						case "henry lucus":
-						case "lucus":
+						case "henry lee lucas":
+						case "henry lucas":
+						case "lucas":
 						case "ed gein":
 						case "gein":
 						case "psycho":

@@ -24,20 +24,14 @@ public class MOBdescription extends JFrame {
 
 	private BufferedImage backgroundImage;
 	private JButton dahmerImage1, bittakerImage, norrisImage, ramirezImage1, andreChikatilo1;
-	private JButton andreChikatilo2, andreChikatilo3, andreChikatilo4, andraeChikatilo5;
-	private JButton chase1, chase2, chase3, chase4, chase5;
-	private JButton lucus1, lucus2, lucus3, lucus4;
-	private JButton gein1, gein2, gein3, gein4;
-	private JButton hannibal1, hannibal2, hannibal3, hannibal4;
-	private JButton holmes1, holmes2, holmes3, holmes4;
-	private JButton  toolBox2, toolBox3, toolBox4;
+	private JButton chase1, lucus1, gein1, hannibal1, holmes1;
 	private JTextArea infoArea, titleArea;
 	private JLabel title;
 	private String person, info;
 	private Float fontSize;
 	
-	/*public static void main(String []args){
-		new MOBdescription("andre chikatilo");
+/*	public static void main(String []args){
+		new MOBdescription("chase");
 	}*/
 
 	public MOBdescription(String mobName) {
@@ -189,7 +183,7 @@ public class MOBdescription extends JFrame {
 					+ "     The Walk-In Killer\n"
 					+ "     The Valley Intruder\n\n"
 					+ " Height: 6' 1''\n\n"
-					+ " Weight: ~140lbs\n\n"
+					+ " Weight: ~140 lbs\n\n"
 					+ " Convicitions:\n"
 					+ "     13 counts of murder\n"
 					+ "     5 counts of attempted murder\n"
@@ -220,123 +214,81 @@ public class MOBdescription extends JFrame {
 			this.add(ramirezImage1);
 			
 		} 
-		else if (mobName.equalsIgnoreCase("andre chikatilo") || mobName.equalsIgnoreCase("chikatilo") || mobName.equalsIgnoreCase("red ripper")) 
+		else if (mobName.equalsIgnoreCase("andrei chikatilo") || mobName.equalsIgnoreCase("chikatilo") || mobName.equalsIgnoreCase("red ripper")) 
 		{
-			person = "Richard Ramirez";
+			person = "Andrei Chikatilo";
 			fontSize = 50f;
-			info = "\n Legal Name: Ricardo Leyva Muñoz Ramírez\n\n"
-					+ " Born: February 28, 1960\n\n"
-					+ " Died: June 7, 2013\n\n"
+			info = "\n Legal Name: Andrei Romanovich Chikatilo\n\n"
+					+ " Born: 16 October 1936\n\n"
+					+ " Died: 14 February 1994\n\n"
 					+ " Other names:\n"
-					+ "     The Night Stalker\n"
-					+ "     The Walk-In Killer\n"
-					+ "     The Valley Intruder\n\n"
-					+ " Height: 6' 1''\n\n"
-					+ " Weight: ~140lbs\n\n"
+					+ "     The Butcher of Rostov\n"
+					+ "     The Red Ripper\n"
+					+ "     The Forest Strip Killerr\n\n"
+					+ " Height: 6'4''\n\n"
+					+ " Weight: ~170 lbs\n\n"
 					+ " Convicitions:\n"
-					+ "     13 counts of murder\n"
-					+ "     5 counts of attempted murder\n"
-					+ "     11 counts of sexual assault\n"
-					+ "     14 counts of burglary\n\n"
-					+ " Victims: 14\n\n"
+					+ "     murder\n"
+					+ "     Sexual assault\n\n"
+					+ " Victims: 53 confirmed, 56+ claimed\n\n"
 					+ " Criminal penalty:\n"
-					+ "     Death penalty\n\n"
+					+ "     Death\n\n"
 					+ " Criminal Biography:\n"
-					+ "   an American serial killer, rapist, and burglar.\n"
-					+ "   His highly publicized home invasion crime\n"
-					+ "   spree terrorized the residents of the greater\n"
-					+ "   Los Angeles area, and later the residents of the\n"
-					+ "   San Francisco area, from June 1984 until August\n"
-					+ "   1985. The judge who upheld his thirteen death\n"
-					+ "   sentences remarked that Ramirez's deeds\n"
-					+ "   exhibited\"cruelty, callousness, and viciousness\n"
-					+ "   beyond any human understanding.\"\n";
-			infoArea = new JTextArea("\n name: andre chikatilo\n\n height: 6'4''\nweight: 170lbs\n arrest: murdered more than 50 young people in the Soviet Union.\n background: former school teacher.");
-			//add images, later make so text showes when hovering over the images
+					+ "   A Soviet serial killer who committed the sexual\n"
+					+ "   assault, murder and mutilation of a minimum\n"
+					+ "   of 52 women and children between 1978 and\n"
+					+ "   1990 in the Russian SFSR, the Ukrainian SSR\n"
+					+ "   and the Uzbek SSR. He confessed to a total of\n"
+					+ "   56 murders and was tried for 53 of these\n"
+					+ "   killings in April 1992. He was convicted and\n"
+					+ "   sentenced to death for 52 of these murders in\n"
+					+ "   October 1992 and subsequently executed in\n"
+					+ "   February 1994.\n";
 			ImageIcon iconOne = new ImageIcon("images/chikatilo.jpeg");
 			andreChikatilo1 = new JButton(iconOne);
 			andreChikatilo1.setContentAreaFilled(false);
 			andreChikatilo1.setBorderPainted(false);
-			andreChikatilo1.setLocation(62, 250);
+			andreChikatilo1.setLocation(100, 70);
 			andreChikatilo1.setSize(iconOne.getIconWidth(),iconOne.getIconHeight());
-			//dahmerImage.addMouseListener(new MouseMoved("espana"));
-			
-			andreChikatilo2 = new JButton(iconOne);
-			andreChikatilo2.setContentAreaFilled(false);
-			andreChikatilo2.setBorderPainted(false);
-			andreChikatilo2.setLocation(215, 250);
-			andreChikatilo2.setSize(iconOne.getIconWidth(),iconOne.getIconHeight());
-			//dahmerImage.addMouseListener(new MouseMoved("espana"));
-			
-			andreChikatilo3 = new JButton(iconOne);
-			andreChikatilo3.setContentAreaFilled(false);
-			andreChikatilo3.setBorderPainted(false);
-			andreChikatilo3.setLocation(365, 250);
-			andreChikatilo3.setSize(iconOne.getIconWidth(),iconOne.getIconHeight());
-			//dahmerImage.addMouseListener(new MouseMoved("espana"));
-			
-			andreChikatilo4 = new JButton(iconOne);
-			andreChikatilo4.setContentAreaFilled(false);
-			andreChikatilo4.setBorderPainted(false);
-			andreChikatilo4.setLocation(515, 250);
-			andreChikatilo4.setSize(iconOne.getIconWidth(),iconOne.getIconHeight());
-			//dahmerImage.addMouseListener(new MouseMoved("espana"));
-			
-			andraeChikatilo5 = new JButton(iconOne);
-			andraeChikatilo5.setContentAreaFilled(false);
-			andraeChikatilo5.setBorderPainted(false);
-			andraeChikatilo5.setLocation(665, 250);
-			andraeChikatilo5.setSize(iconOne.getIconWidth(),iconOne.getIconHeight());
-			//dahmerImage.addMouseListener(new MouseMoved("espana"));
 			
 			this.add(andreChikatilo1);
-			this.add(andreChikatilo2);
-			this.add(andreChikatilo3);
-			this.add(andreChikatilo4);
-			this.add(andraeChikatilo5);
 		} 
-		else if (mobName.equals("richard trenton chase") || mobName.equals("richard chase") || mobName.equals("chase")) {
-			infoArea = new JTextArea("\n name: richard trenton chase AKA \"The Vampire of Sacramento\"\n\n height: 6'1''\n weight: 180lbs\n born: May 23, 1950 Santa Clara County, California\n arrest: \n killed six people in a span of a month.\n\n warning: he drank his victims' blood and cannibalized their remains.");
-			//add images, later make so text showes when hovering over the images
-			ImageIcon iconOne = new ImageIcon("images/chase.jpeg");
+		else if (mobName.equalsIgnoreCase("richard trenton chase") || mobName.equalsIgnoreCase("richard chase") || mobName.equalsIgnoreCase("chase"))
+		{
+			person = "Richard Chase";
+			fontSize = 50f;
+			info = "\n Legal Name: Richard Trenton Chase\n\n"
+					+ " Born: May 23, 1950\n\n"
+					+ " Died: December 26, 1980\n\n"
+					+ " Other names:\n"
+					+ "     The Dracula Killer\n"
+					+ "     The Vampire of Sacramento\n"
+					+ "     The Vampire Killer\n\n"
+					+ " Height: height: 6'1''\n\n"
+					+ " Weight: ~180 lbs\n\n"
+					+ " Convicitions:\n"
+					+ "     murder\n\n"
+					+ " Victims: 6\n\n"
+					+ " Criminal penalty:\n"
+					+ "     Death\n\n"
+					+ " Criminal Biography:\n"
+					+ "   an American serial killer who killed six\n"
+					+ "   people in a span of a month in Sacramento,\n"
+					+ "   California. He was nicknamed \"The Vampire\n"
+					+ "   of Sacramento\" because he drank his\n"
+					+ "   victims' blood and cannibalized their\n"
+					+ "   remains.\n";
+			ImageIcon iconOne = new ImageIcon("images/chase.jpg");
 			chase1 = new JButton(iconOne);
 			chase1.setContentAreaFilled(false);
 			chase1.setBorderPainted(false);
-			chase1.setLocation(50, 250);
+			chase1.setLocation(100, 70);
 			chase1.setSize(iconOne.getIconWidth(),iconOne.getIconHeight());
-			
-			chase2 = new JButton(iconOne);
-			chase2.setContentAreaFilled(false);
-			chase2.setBorderPainted(false);
-			chase2.setLocation(200, 250);
-			chase2.setSize(iconOne.getIconWidth(),iconOne.getIconHeight());
-			
-			chase3 = new JButton(iconOne);
-			chase3.setContentAreaFilled(false);
-			chase3.setBorderPainted(false);
-			chase3.setLocation(370, 250);
-			chase3.setSize(iconOne.getIconWidth(),iconOne.getIconHeight());
-			
-			chase4 = new JButton(iconOne);
-			chase4.setContentAreaFilled(false);
-			chase4.setBorderPainted(false);
-			chase4.setLocation(525, 250);
-			chase4.setSize(iconOne.getIconWidth(),iconOne.getIconHeight());
-			
-			chase5 = new JButton(iconOne);
-			chase5.setContentAreaFilled(false);
-			chase5.setBorderPainted(false);
-			chase5.setLocation(675, 250);
-			chase5.setSize(iconOne.getIconWidth(),iconOne.getIconHeight());
-			
+					
 			this.add(chase1);
-			this.add(chase2);
-			this.add(chase3);
-			this.add(chase4);
-			this.add(chase5);
 			
-		} else if (mobName.equals("henry lee lucus")
-				|| mobName.equals("henry lucus") || mobName.equals("lucus")) {
+			
+		} else if (mobName.equalsIgnoreCase("henry lee lucas") || mobName.equalsIgnoreCase("henry lucas") || mobName.equalsIgnoreCase("lucas")) {
 			infoArea = new JTextArea("\n name: henry lee lucus\n\n born: August 23, 1936 Blacksburg, Virginia.\n arrest: sentenced for the murder of his mother in 1960.\n\tParoled in 1970, went back to jail for the attempted kidnapping of a 15-year-old girl.\n\tReleased again in 1975, killed two more women, and was arrested in 1983.\n\tHe confessed to murdering hundreds of people, though no proof existed beyond three known victims.\n\n background: alcoholic parents and prostitute mother.");
 			
 			//add images, later make so text showes when hovering over the images
@@ -348,28 +300,7 @@ public class MOBdescription extends JFrame {
 			lucus1.setLocation(50, 250);
 			lucus1.setSize(iconOne.getIconWidth()-25,iconOne.getIconHeight());
 			
-			lucus2 = new JButton(iconOne);
-			lucus2.setContentAreaFilled(false);
-			lucus2.setBorderPainted(false);
-			lucus2.setLocation(250, 250);
-			lucus2.setSize(iconOne.getIconWidth()-25,iconOne.getIconHeight());
-			
-			lucus3 = new JButton(iconOne);
-			lucus3.setContentAreaFilled(false);
-			lucus3.setBorderPainted(false);
-			lucus3.setLocation(450, 250);
-			lucus3.setSize(iconOne.getIconWidth()-25,iconOne.getIconHeight());
-			
-			lucus4 = new JButton(iconOne);
-			lucus4.setContentAreaFilled(false);
-			lucus4.setBorderPainted(false);
-			lucus4.setLocation(600, 250);
-			lucus4.setSize(iconOne.getIconWidth()-25,iconOne.getIconHeight());
-			
 			this.add(lucus1);
-			this.add(lucus2);
-			this.add(lucus3);
-			this.add(lucus4);
 			
 		} else if (mobName.equals(" name: ed gein\n height: 5'7''\n weight: about 160lbs\n born: \n arrest: murderer/body snatcher") || mobName.equals("gein")
 				|| mobName.equals("psycho")) {
@@ -383,28 +314,10 @@ public class MOBdescription extends JFrame {
 			gein1.setLocation(50, 250);
 			gein1.setSize(iconOne.getIconWidth(),iconOne.getIconHeight());
 			
-			gein2 = new JButton(iconOne);
-			gein2.setContentAreaFilled(false);
-			gein2.setBorderPainted(false);
-			gein2.setLocation(50, 250);
-			gein2.setSize(iconOne.getIconWidth(),iconOne.getIconHeight());
 			
-			gein3 = new JButton(iconOne);
-			gein3.setContentAreaFilled(false);
-			gein3.setBorderPainted(false);
-			gein3.setLocation(50, 250);
-			gein3.setSize(iconOne.getIconWidth(),iconOne.getIconHeight());
-			
-			gein4 = new JButton(iconOne);
-			gein4.setContentAreaFilled(false);
-			gein4.setBorderPainted(false);
-			gein4.setLocation(50, 250);
-			gein4.setSize(iconOne.getIconWidth(),iconOne.getIconHeight());
 			
 			this.add(gein1);
-			this.add(gein2);
-			this.add(gein3);
-			this.add(gein4);
+			
 			
 		}
 		else if(mobName.equals("hannibal lecter") || mobName.equals("hannibal") || mobName.equals("lecter")){
@@ -419,28 +332,10 @@ public class MOBdescription extends JFrame {
 			hannibal1.setLocation(50, 250);
 			hannibal1.setSize(iconOne.getIconWidth(),iconOne.getIconHeight());
 			
-			hannibal2 = new JButton(iconOne);
-			hannibal2.setContentAreaFilled(false);
-			hannibal2.setBorderPainted(false);
-			hannibal2.setLocation(50, 250);
-			hannibal2.setSize(iconOne.getIconWidth(),iconOne.getIconHeight());
-			
-			hannibal3 = new JButton(iconOne);
-			hannibal3.setContentAreaFilled(false);
-			hannibal3.setBorderPainted(false);
-			hannibal3.setLocation(50, 250);
-			hannibal3.setSize(iconOne.getIconWidth(),iconOne.getIconHeight());
-			
-			hannibal4 = new JButton(iconOne);
-			hannibal4.setContentAreaFilled(false);
-			hannibal4.setBorderPainted(false);
-			hannibal4.setLocation(50, 250);
-			hannibal4.setSize(iconOne.getIconWidth(),iconOne.getIconHeight());
+	
 			
 			this.add(hannibal1);
-			this.add(hannibal2);
-			this.add(hannibal3);
-			this.add(hannibal4);
+			
 		}
 		else if(mobName.equals("henry howard holmes") || mobName.equals("holmes") || mobName.equals("hhh")){
 			infoArea = new JTextArea("\n name: henry howard holmes\n height: 5'10''\n weight: 170lbs\n born: \n arrest: possible body count of 200.");
@@ -454,28 +349,10 @@ public class MOBdescription extends JFrame {
 			holmes1.setLocation(50, 250);
 			holmes1.setSize(iconOne.getIconWidth(),iconOne.getIconHeight());
 			
-			holmes2 = new JButton(iconOne);
-			holmes2.setContentAreaFilled(false);
-			holmes2.setBorderPainted(false);
-			holmes2.setLocation(50, 250);
-			holmes2.setSize(iconOne.getIconWidth(),iconOne.getIconHeight());
 			
-			holmes3 = new JButton(iconOne);
-			holmes3.setContentAreaFilled(false);
-			holmes3.setBorderPainted(false);
-			holmes3.setLocation(50, 250);
-			holmes3.setSize(iconOne.getIconWidth(),iconOne.getIconHeight());
-			
-			holmes4 = new JButton(iconOne);
-			holmes4.setContentAreaFilled(false);
-			holmes4.setBorderPainted(false);
-			holmes4.setLocation(50, 250);
-			holmes4.setSize(iconOne.getIconWidth(),iconOne.getIconHeight());
 			
 			this.add(holmes1);
-			this.add(holmes2);
-			this.add(holmes3);
-			this.add(holmes4);	
+				
 		}
 		else{
 			infoArea = new JTextArea("why you here idiot");
