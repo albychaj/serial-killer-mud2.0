@@ -656,12 +656,11 @@ public class Server
 				
 			case USE: // don't really know what this is supposed to do....
 				Player playah = mud.getPlayer(username);
-				result = new UseCommand(argument, playah);
 				if (playah.hasItem(argument))
 				{
+					result = new UseCommand(argument, playah);
 					Item item = mud.removeItemFromPlayerBackpack(username, argument);
 					mud.addItemToRoom(currRoom.getRoomName(), item);
-					//result = new DropCommand(argument);
 				}
 				break;
 				
@@ -672,13 +671,13 @@ public class Server
 			case SHUTDOWN: // should work
 				closeAllClientsAndServer(username);
 				break;
-				
 
 			case FIGHT:
 				Player player = mud.getPlayer(username);
 				MOB opponent = mud.getMOBFromName(argument);
 				result = new FightCommand(opponent, player);
 				break;
+				
 			case ACCEPT:
 				// If the user has a transacting pending, then they can use this command. 
 				// Otherwise, they are not allowed to use this command.
