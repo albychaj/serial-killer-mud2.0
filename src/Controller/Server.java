@@ -105,41 +105,39 @@ public class Server
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			
-						
-			
 			for (MOB mob : mud.getMOBs()){
 				int r = randomGenerator.nextInt(4);
 				switch(r){
-				case 0:
-					if(mud.getMOBCurrLocation(mob).hasEast()){
-						mud.moveMOBToNewRoom(mud.getMOBCurrLocation(mob).getRoomName(), 0, mob);
-						System.out.println(mob.getIdentity() + " new location: " + mud.getMOBCurrLocation(mob).getRoomName());
-					}
-					break;
-				case 1:
-					if(mud.getMOBCurrLocation(mob).hasWest()){
-						mud.moveMOBToNewRoom(mud.getMOBCurrLocation(mob).getRoomName(), 1, mob);
-						System.out.println(mob.getIdentity() + "new location: " + mud.getMOBCurrLocation(mob).getRoomName());
-
-					}
-					break;
-				case 2:
-					if(mud.getMOBCurrLocation(mob).hasNorth()){
-						mud.moveMOBToNewRoom(mud.getMOBCurrLocation(mob).getRoomName(), 2, mob);
-						System.out.println(mob.getIdentity() + "new location: " + mud.getMOBCurrLocation(mob).getRoomName());
-
-					}
-					break;
-				case 3:
-					if(mud.getMOBCurrLocation(mob).hasSouth()){
-						mud.moveMOBToNewRoom(mud.getMOBCurrLocation(mob).getRoomName(), 3, mob);
-						System.out.println(mob.getIdentity() + "new location: " + mud.getMOBCurrLocation(mob).getRoomName());
-
-					}
-					break;
-				default:
-					System.out.println("Didn't move");
-					break;
+					case 0:
+						if(mud.getMOBCurrLocation(mob).hasEast()){
+							mud.moveMOBToNewRoom(mud.getMOBCurrLocation(mob).getRoomName(), 0, mob);
+//							System.out.println(mob.getIdentity() + " new location: " + mud.getMOBCurrLocation(mob).getRoomName());
+						}
+						break;
+					case 1:
+						if(mud.getMOBCurrLocation(mob).hasWest()){
+							mud.moveMOBToNewRoom(mud.getMOBCurrLocation(mob).getRoomName(), 1, mob);
+//							System.out.println(mob.getIdentity() + "new location: " + mud.getMOBCurrLocation(mob).getRoomName());
+	
+						}
+						break;
+					case 2:
+						if(mud.getMOBCurrLocation(mob).hasNorth()){
+							mud.moveMOBToNewRoom(mud.getMOBCurrLocation(mob).getRoomName(), 2, mob);
+//							System.out.println(mob.getIdentity() + "new location: " + mud.getMOBCurrLocation(mob).getRoomName());
+	
+						}
+						break;
+					case 3:
+						if(mud.getMOBCurrLocation(mob).hasSouth()){
+							mud.moveMOBToNewRoom(mud.getMOBCurrLocation(mob).getRoomName(), 3, mob);
+//							System.out.println(mob.getIdentity() + "new location: " + mud.getMOBCurrLocation(mob).getRoomName());
+	
+						}
+						break;
+					default:
+						System.out.println("MOB didn't move");
+						break;
 				}
 				
 			}

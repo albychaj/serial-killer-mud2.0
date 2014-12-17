@@ -776,16 +776,17 @@ public class SerialKillerMud
 		//victim = new MOB("Victim", new ArrayList<Item>());
 		//foodStandGuy = new MOB("Food Stand Guy", new ArrayList<Item>());
 		
-		theMOBs.add(hannibalLecter);
+		
 		theMOBs.add(jefferyDahmer);
 		theMOBs.add(lawrenceBittaker);
 		theMOBs.add(royNorris);
 		theMOBs.add(richardRamirez);
 		theMOBs.add(andreChikatilo);
 		theMOBs.add(richardTrentonChase);
-		theMOBs.add(henryHowardHolmes);
 		theMOBs.add(henryLeeLucus);
 		theMOBs.add(edGein);
+		theMOBs.add(hannibalLecter);
+		theMOBs.add(henryHowardHolmes);
 	}
 	
 	public void addMOBSToRoom()
@@ -821,10 +822,47 @@ public class SerialKillerMud
 	}
 
 	public MOB getMOBFromName(String argument) {
-		for(MOB m : theMOBs){
-			if(m.getIdentity().equalsIgnoreCase(argument)){
-				return m;
-			}
+		
+		switch(argument.toLowerCase()){
+			case "jeffery dahmer":
+			case "dahmer":
+				return theMOBs.get(0);
+			case "lawrence bittaker":
+			case "bittaker":
+				return theMOBs.get(1);
+			case "roy norris":
+			case "norris":
+				return theMOBs.get(2);
+			case "richard ramirez":
+			case "ramirez":
+			case "night stalker":
+				return theMOBs.get(3);
+			case "andre chikatilo":
+			case "chikatilo":
+			case "red ripper":
+				return theMOBs.get(4);
+			case "richard trenton chase":
+			case "richard chase":
+			case "chase":
+				return theMOBs.get(5);
+			case "henry lee lucus":
+			case "henry lucus":
+			case "lucus":
+				return theMOBs.get(6);
+			case "ed gein":
+			case "gein":
+			case "psycho":
+				return theMOBs.get(7);
+			case "hannibal lecter":
+			case "hannibal":
+			case "lecter":
+				return theMOBs.get(8);
+			case "henry howard holmes":
+			case "holmes":
+			case "hhh":
+				return theMOBs.get(9);
+			default:
+				break;
 		}
 		return null;
 	}
