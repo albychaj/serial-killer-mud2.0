@@ -183,7 +183,7 @@ public class LoginView extends JFrame
 			return;
 		}
 		
-		client.setPlayer(username);
+		client.loginExistingPlayer(username);
 		dispose();
 		//client.finishSettingUpPlayer();
 	} // end of method login
@@ -194,7 +194,6 @@ public class LoginView extends JFrame
 	public void addPlayer(ConcurrentHashMap<String, Player> playerAccounts)
 	{
 		String username = usernameField.getText();
-		String password = passwordField.getText();
 		
 		// If either the username or password field are empty, return an error. 
 		if(username.equals("") || passwordField.equals(""))
@@ -205,19 +204,6 @@ public class LoginView extends JFrame
 			passwordField.setText("");
 			return;
 		}
-		
-		// If trying to create a new account with information of an administrator, return an error. 
-		/*if(username.equalsIgnoreCase("admin"))
-=======
-		if(username.equalsIgnoreCase("admin") && !password.equalsIgnoreCase("0000"))
->>>>>>> 31aa352fc9faa41e1e75b6f629193391588f7bd6
-		{
-				error.setText("An account exists with that name");
-				error.setLocation(95,260);
-				usernameField.setText("");
-				passwordField.setText("");
-				return;
-		}*/
 		
 		Player existingPlayer = playerAccounts.get(username);
 		
@@ -231,7 +217,6 @@ public class LoginView extends JFrame
 			return;
 		}
 		
-		client.setPlayer(username);
 		dispose();
 		Player newPlayer = new Player(username, new String(passwordField.getPassword()));
 		client.finishSettingUpPlayer(newPlayer);

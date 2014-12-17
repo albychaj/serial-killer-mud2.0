@@ -25,7 +25,7 @@ public class SerialKillerMud implements Serializable
 {
 	private ConcurrentHashMap<String, Player> playerAccounts; // all players accounts
 	private List<String> playersOnline; // list of usernames of players online
-	private List<MOB> mobs; // list of mobs in game
+	private final static Player admin = new Player("admin", "0000");
 	
 	private List<Room> rooms; // just here to hold all the rooms, not really used
 	private ConcurrentHashMap<String, Room> roomsMap;
@@ -37,23 +37,16 @@ public class SerialKillerMud implements Serializable
 	private Item water, food, bandaid, aidKit, energyBoost, stick, knife, gun, sword, shovel, rope;
 	private Item handcuffs, flashlight, nightVisionGoggles, key, money, disguise;
 	
-	private List<MOB> theMOBs;
+	private List<MOB> mobs;
 	private List<String> mobMessages;
 	
-	private MOB hannibalLecter;
-	private MOB jefferyDahmer;
-	private MOB lawrenceBittaker;
-	private MOB royNorris;
-	private MOB richardRamirez;
-	private MOB andreChikatilo;
-	private MOB richardTrentonChase;
-	private MOB henryHowardHolmes;
-	private MOB edGein;
-	private MOB henryLeeLucus;
+	private MOB hannibalLecter, jefferyDahmer, lawrenceBittaker, royNorris, richardRamirez, andreChikatilo, richardTrentonChase;
+	private MOB henryHowardHolmes, edGein, henryLeeLucus;
 	
 	public SerialKillerMud()
 	{
 		playerAccounts = new ConcurrentHashMap<String, Player>();
+		playerAccounts.put("admin", admin); // add the admin automatically to the player accounts
 		playersOnline = new ArrayList<String>();
 	
 		
@@ -108,7 +101,7 @@ public class SerialKillerMud implements Serializable
 		return null;
 	}
 		
-	public void addPlayerToGame(Player player)
+	public void addNewPlayerToGame(Player player)
 	{		
 		// Add the new player to the collection of existing players
 		playerAccounts.put(player.getUsername(), player);
@@ -118,6 +111,15 @@ public class SerialKillerMud implements Serializable
 		
 		// Add the player to the rooms. Initially, every new player
 		// will start out in the same location.
+		entrance.addPlayerToRoom(player);
+	}
+	
+	public void addExistingPlayerToGame(String username) 
+	{
+		// Add the existing player to the collection of players online
+		playersOnline.add(username);
+		
+		Player player = playerAccounts.get(username);
 		entrance.addPlayerToRoom(player);
 	}
 	
@@ -299,7 +301,7 @@ public class SerialKillerMud implements Serializable
 	}
 	
 	public List<MOB> getMOBs(){
-		return theMOBs;
+		return mobs;
 	}
 	
 	public Room getMOBCurrLocation(MOB mob){
@@ -753,7 +755,7 @@ public class SerialKillerMud implements Serializable
 	
 	public void instantiateMOBS()
 	{
-		theMOBs = new ArrayList<MOB>();
+		mobs = new ArrayList<MOB>();
 		mobMessages = new ArrayList<String>();
 		ArrayList<String> mobMessages = new ArrayList<String>();
 		this.mobMessages.add("Hello there.");
@@ -778,16 +780,16 @@ public class SerialKillerMud implements Serializable
 		//foodStandGuy = new MOB("Food Stand Guy", new ArrayList<Item>());
 		
 		
-		theMOBs.add(jefferyDahmer);
-		theMOBs.add(lawrenceBittaker);
-		theMOBs.add(royNorris);
-		theMOBs.add(richardRamirez);
-		theMOBs.add(andreChikatilo);
-		theMOBs.add(richardTrentonChase);
-		theMOBs.add(henryLeeLucus);
-		theMOBs.add(edGein);
-		theMOBs.add(hannibalLecter);
-		theMOBs.add(henryHowardHolmes);
+		mobs.add(jefferyDahmer);
+		mobs.add(lawrenceBittaker);
+		mobs.add(royNorris);
+		mobs.add(richardRamirez);
+		mobs.add(andreChikatilo);
+		mobs.add(richardTrentonChase);
+		mobs.add(henryLeeLucus);
+		mobs.add(edGein);
+		mobs.add(hannibalLecter);
+		mobs.add(henryHowardHolmes);
 	}
 	
 	public void addMOBSToRoom()
@@ -828,45 +830,45 @@ public class SerialKillerMud implements Serializable
 			case "jeffery dahmer":
 			case "jeffery":
 			case "dahmer":
-				return theMOBs.get(0);
+				return mobs.get(0);
 			case "lawrence bittaker":
 			case "lawrence":
 			case "bittaker":
-				return theMOBs.get(1);
+				return mobs.get(1);
 			case "roy norris":
 			case "roy":
 			case "norris":
-				return theMOBs.get(2);
+				return mobs.get(2);
 			case "richard ramirez":
 			case "ramirez":
 			case "night stalker":
-				return theMOBs.get(3);
+				return mobs.get(3);
 			case "andre chikatilo":
 			case "andre":
 			case "chikatilo":
 			case "red ripper":
-				return theMOBs.get(4);
+				return mobs.get(4);
 			case "richard trenton chase":
 			case "richard chase":
 			case "chase":
-				return theMOBs.get(5);
+				return mobs.get(5);
 			case "henry lee lucus":
 			case "henry lucus":
 			case "lucus":
-				return theMOBs.get(6);
+				return mobs.get(6);
 			case "ed gein":
 			case "ed":
 			case "gein":
 			case "psycho":
-				return theMOBs.get(7);
+				return mobs.get(7);
 			case "hannibal lecter":
 			case "hannibal":
 			case "lecter":
-				return theMOBs.get(8);
+				return mobs.get(8);
 			case "henry howard holmes":
 			case "holmes":
 			case "hhh":
-				return theMOBs.get(9);
+				return mobs.get(9);
 			default:
 				break;
 		}

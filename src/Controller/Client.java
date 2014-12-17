@@ -19,6 +19,8 @@ import javax.swing.JOptionPane;
 
 import Commands.Command;
 import Commands.DisconnectCommand;
+import Commands.createNewPlayerAccountCommand;
+import Commands.loginPlayerCommand;
 import Items.Item;
 import MOBs.MOB;
 import Players.Player;
@@ -350,13 +352,16 @@ public class Client extends JFrame
 	{
 		try
 		{
-			
+			clientName = newPlayer.getUsername();
 			commandMessages = new ArrayList<String>();
 			chatMessages = new ArrayList<String>();
 			commandMessages.add(welcomeMessage(clientName));
 			
 			// Write out player associated with this client
-			out.writeObject(newPlayer);
+			out.writeObject(clientName);
+			
+			// Send command to the server letting it know to set up the new client in the mud
+			out.writeObject(new createNewPlayerAccountCommand(newPlayer));
 			
 			// Add a listener that sends a disconnect command to when closing
 			this.addWindowListener(new WindowAdapter()
@@ -386,6 +391,49 @@ public class Client extends JFrame
 			e.printStackTrace();
 		} // end of try/catch statement
 	} // end of method finishSettingUpPlayer
+	
+	public void loginExistingPlayer(String username) 
+	{
+		try
+		{
+			clientName = username;
+			commandMessages = new ArrayList<String>();
+			chatMessages = new ArrayList<String>();
+			commandMessages.add("Welcome back " + clientName);
+			
+			// Write out player associated with this client
+			out.writeObject(clientName);
+			
+			out.writeObject(new loginPlayerCommand(username));
+			
+			// Add a listener that sends a disconnect command to when closing
+			this.addWindowListener(new WindowAdapter()
+			{
+				public void windowClosing(WindowEvent arg0) 
+				{
+					try 
+					{
+						out.writeObject(new DisconnectCommand(clientName));
+						out.close();
+						in.close();
+					} 
+					catch (IOException e) 
+					{
+						e.printStackTrace();
+					}
+				}
+			});
+						
+			setupGUI();
+			
+			// Start a thread for handling server events.
+			new Thread(new ServerHandler()).start();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		} // end of try/catch statement
+	}
 	
 	private void setupGUI()
 	{

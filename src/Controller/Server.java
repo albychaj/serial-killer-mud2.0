@@ -192,20 +192,18 @@ public class Server
 					// the same user to be logged in multiple times. 
 					output.writeObject(mud.getAllExistingPlayerAccounts());
 					output.writeObject(mud.getPlayersOnline());
-					// Read in the information of the player associated with this client.
-					Player player = (Player)input.readObject();
 					
-					// Add the player to the MUD. 
-					mud.addPlayerToGame(player);
-					
-					// Map the player's username to the output stream.
-					outputs.put(player.getUsername(), output);
+					// Read in the name of the user and 
+					String playerName = (String)input.readObject();
 					
 					// Spawn a thread to handle communication with this client. 
 					new Thread(new ClientHandler(input)).start();
 					
+					// Map the player's username to the output stream.
+					outputs.put(playerName, output);
+					
 					// Add a notification message to the chat log
-					updateAllClientsChatLog(player.getUsername() + " connected");
+					updateAllClientsChatLog(playerName + " connected");
 				}
 			}
 			catch (Exception e)
@@ -249,16 +247,16 @@ public class Server
 			}
 		}
 	} // end of private class ClientHandler
-
-//	public void addMessageToEveryone(String message) 
-//	{
-//		chatMessages.add(message);
-//		updateAllClientsChatLog();
-//	} // end of method addMessage
 	
-	public void addMessageToCertainPeople(String message)
+	public void AddNewPlayerToTheGame(Player player)
 	{
-		
+		// Add the player to the MUD. 
+		mud.addNewPlayerToGame(player);
+	}
+	
+	public void LoginExistingPlayer(String username)
+	{
+		mud.addExistingPlayerToGame(username);
 	}
 
 	public void updateAllClientsChatLog(String chatMessage)
