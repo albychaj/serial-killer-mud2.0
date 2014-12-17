@@ -40,7 +40,7 @@ public class SerialKillerMud implements Serializable
 	private List<MOB> mobs;
 	private List<String> mobMessages;
 	
-	private MOB hannibalLecter, jefferyDahmer, lawrenceBittaker, royNorris, richardRamirez, andreChikatilo, richardTrentonChase;
+	private MOB hannibalLecter, jefferyDahmer, lawrenceBittaker, royNorris, richardRamirez, andreiChikatilo, richardTrentonChase;
 	private MOB henryHowardHolmes, edGein, henryLeeLucus;
 	
 	public SerialKillerMud()
@@ -769,7 +769,7 @@ public class SerialKillerMud implements Serializable
 		lawrenceBittaker = new MOB("Lawrence Bittaker", new ArrayList<Item>());
 		royNorris = new MOB("Roy Norris", new ArrayList<Item>());
 		richardRamirez = new MOB("Richard Ramirez", new ArrayList<Item>());
-		andreChikatilo = new MOB("Andre Chikatilo", new ArrayList<Item>());
+		andreiChikatilo = new MOB("Andrei Chikatilo", new ArrayList<Item>());
 		richardTrentonChase = new MOB("Richard Trenton Chase", new ArrayList<Item>());
 		henryLeeLucus = new MOB("Henry Lee Lucus", new ArrayList<Item>());
 		edGein = new MOB("Ed Gein", new ArrayList<Item>());
@@ -784,7 +784,7 @@ public class SerialKillerMud implements Serializable
 		mobs.add(lawrenceBittaker);
 		mobs.add(royNorris);
 		mobs.add(richardRamirez);
-		mobs.add(andreChikatilo);
+		mobs.add(andreiChikatilo);
 		mobs.add(richardTrentonChase);
 		mobs.add(henryLeeLucus);
 		mobs.add(edGein);
@@ -798,7 +798,7 @@ public class SerialKillerMud implements Serializable
 		lawn.addMOBToRoom(royNorris);
 		lawn.addMOBToRoom(lawrenceBittaker);
 		streets.addMOBToRoom(richardRamirez);
-		spain.addMOBToRoom(andreChikatilo);
+		spain.addMOBToRoom(andreiChikatilo);
 		woods.addMOBToRoom(richardTrentonChase);
 		factory.addMOBToRoom(henryLeeLucus);
 		farmhouse.addMOBToRoom(edGein);

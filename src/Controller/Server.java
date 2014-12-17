@@ -498,7 +498,7 @@ public class Server
 						case "richard ramirez":
 						case "ramirez":
 						case "night stalker":
-						case "andre chikatilo":
+						case "andrei chikatilo":
 						case "chikatilo":
 						case "red ripper":
 						case "richard trenton chase":

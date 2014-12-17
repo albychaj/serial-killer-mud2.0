@@ -23,9 +23,8 @@ import javax.swing.SwingConstants;
 public class MOBdescription extends JFrame {
 
 	private BufferedImage backgroundImage;
-	private JButton dahmerImage1, bittakerImage, norrisImage, ramirezImage1;
-	private JButton  ramirezImage2, ramirezImage3, ramirezImage4;
-	private JButton andreChikatilo1, andreChikatilo2, andreChikatilo3, andreChikatilo4, andraeChikatilo5;
+	private JButton dahmerImage1, bittakerImage, norrisImage, ramirezImage1, andreChikatilo1;
+	private JButton andreChikatilo2, andreChikatilo3, andreChikatilo4, andraeChikatilo5;
 	private JButton chase1, chase2, chase3, chase4, chase5;
 	private JButton lucus1, lucus2, lucus3, lucus4;
 	private JButton gein1, gein2, gein3, gein4;
@@ -36,9 +35,9 @@ public class MOBdescription extends JFrame {
 	private JLabel title;
 	private String person, info;
 	private Float fontSize;
-	/*
-	public static void main(String []args){
-		new MOBdescription("Richard Ramirez");
+	
+	/*public static void main(String []args){
+		new MOBdescription("andre chikatilo");
 	}*/
 
 	public MOBdescription(String mobName) {
@@ -178,7 +177,7 @@ public class MOBdescription extends JFrame {
 			
 			
 		} 
-		else if (mobName.equalsIgnoreCase("richard ramirez") || mobName.equalsIgnoreCase("ramirez")) 
+		else if (mobName.equalsIgnoreCase("richard ramirez") || mobName.equalsIgnoreCase("ramirez") || mobName.equalsIgnoreCase("night stalker")) 
 		{
 			person = "Richard Ramirez";
 			fontSize = 50f;
@@ -220,8 +219,38 @@ public class MOBdescription extends JFrame {
 						
 			this.add(ramirezImage1);
 			
-		} else if (mobName.equals("andre chikatilo")
-				|| mobName.equals("chikatilo") || mobName.equals("red ripper")) {
+		} 
+		else if (mobName.equalsIgnoreCase("andre chikatilo") || mobName.equalsIgnoreCase("chikatilo") || mobName.equalsIgnoreCase("red ripper")) 
+		{
+			person = "Richard Ramirez";
+			fontSize = 50f;
+			info = "\n Legal Name: Ricardo Leyva Muñoz Ramírez\n\n"
+					+ " Born: February 28, 1960\n\n"
+					+ " Died: June 7, 2013\n\n"
+					+ " Other names:\n"
+					+ "     The Night Stalker\n"
+					+ "     The Walk-In Killer\n"
+					+ "     The Valley Intruder\n\n"
+					+ " Height: 6' 1''\n\n"
+					+ " Weight: ~140lbs\n\n"
+					+ " Convicitions:\n"
+					+ "     13 counts of murder\n"
+					+ "     5 counts of attempted murder\n"
+					+ "     11 counts of sexual assault\n"
+					+ "     14 counts of burglary\n\n"
+					+ " Victims: 14\n\n"
+					+ " Criminal penalty:\n"
+					+ "     Death penalty\n\n"
+					+ " Criminal Biography:\n"
+					+ "   an American serial killer, rapist, and burglar.\n"
+					+ "   His highly publicized home invasion crime\n"
+					+ "   spree terrorized the residents of the greater\n"
+					+ "   Los Angeles area, and later the residents of the\n"
+					+ "   San Francisco area, from June 1984 until August\n"
+					+ "   1985. The judge who upheld his thirteen death\n"
+					+ "   sentences remarked that Ramirez's deeds\n"
+					+ "   exhibited\"cruelty, callousness, and viciousness\n"
+					+ "   beyond any human understanding.\"\n";
 			infoArea = new JTextArea("\n name: andre chikatilo\n\n height: 6'4''\nweight: 170lbs\n arrest: murdered more than 50 young people in the Soviet Union.\n background: former school teacher.");
 			//add images, later make so text showes when hovering over the images
 			ImageIcon iconOne = new ImageIcon("images/chikatilo.jpeg");
@@ -265,8 +294,8 @@ public class MOBdescription extends JFrame {
 			this.add(andreChikatilo3);
 			this.add(andreChikatilo4);
 			this.add(andraeChikatilo5);
-		} else if (mobName.equals("richard trenton chase")
-				|| mobName.equals("richard chase") || mobName.equals("chase")) {
+		} 
+		else if (mobName.equals("richard trenton chase") || mobName.equals("richard chase") || mobName.equals("chase")) {
 			infoArea = new JTextArea("\n name: richard trenton chase AKA \"The Vampire of Sacramento\"\n\n height: 6'1''\n weight: 180lbs\n born: May 23, 1950 Santa Clara County, California\n arrest: \n killed six people in a span of a month.\n\n warning: he drank his victims' blood and cannibalized their remains.");
 			//add images, later make so text showes when hovering over the images
 			ImageIcon iconOne = new ImageIcon("images/chase.jpeg");
