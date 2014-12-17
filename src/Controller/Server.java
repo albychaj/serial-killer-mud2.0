@@ -66,6 +66,7 @@ public class Server
 	private SerialKillerMud mud;
 	private Timer t;
 	private Timer t2;
+	private Random randomGenerator;
 	
 	public static void main(String [] args)
 	{
@@ -82,6 +83,7 @@ public class Server
 		t.start();
 		t2 = new Timer(20000, new MoveListener());
 		t2.start();
+		randomGenerator = new Random();
 		
 		try
 		{
@@ -102,42 +104,40 @@ public class Server
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			Random random = new Random();
-						
 			
 			for (MOB mob : mud.getMOBs()){
-				int r = random.nextInt(4);
+				int r = randomGenerator.nextInt(4);
 				switch(r){
-				case 0:
-					if(mud.getMOBCurrLocation(mob).hasEast()){
-						mud.moveMOBToNewRoom(mud.getMOBCurrLocation(mob).getRoomName(), 0, mob);
-						System.out.println(mob.getIdentity() + " new location: " + mud.getMOBCurrLocation(mob).getRoomName());
-					}
-					break;
-				case 1:
-					if(mud.getMOBCurrLocation(mob).hasWest()){
-						mud.moveMOBToNewRoom(mud.getMOBCurrLocation(mob).getRoomName(), 1, mob);
-						System.out.println(mob.getIdentity() + "new location: " + mud.getMOBCurrLocation(mob).getRoomName());
-
-					}
-					break;
-				case 2:
-					if(mud.getMOBCurrLocation(mob).hasNorth()){
-						mud.moveMOBToNewRoom(mud.getMOBCurrLocation(mob).getRoomName(), 2, mob);
-						System.out.println(mob.getIdentity() + "new location: " + mud.getMOBCurrLocation(mob).getRoomName());
-
-					}
-					break;
-				case 3:
-					if(mud.getMOBCurrLocation(mob).hasSouth()){
-						mud.moveMOBToNewRoom(mud.getMOBCurrLocation(mob).getRoomName(), 3, mob);
-						System.out.println(mob.getIdentity() + "new location: " + mud.getMOBCurrLocation(mob).getRoomName());
-
-					}
-					break;
-				default:
-					System.out.println("Didn't move");
-					break;
+					case 0:
+						if(mud.getMOBCurrLocation(mob).hasEast()){
+							mud.moveMOBToNewRoom(mud.getMOBCurrLocation(mob).getRoomName(), 0, mob);
+//							System.out.println(mob.getIdentity() + " new location: " + mud.getMOBCurrLocation(mob).getRoomName());
+						}
+						break;
+					case 1:
+						if(mud.getMOBCurrLocation(mob).hasWest()){
+							mud.moveMOBToNewRoom(mud.getMOBCurrLocation(mob).getRoomName(), 1, mob);
+//							System.out.println(mob.getIdentity() + "new location: " + mud.getMOBCurrLocation(mob).getRoomName());
+	
+						}
+						break;
+					case 2:
+						if(mud.getMOBCurrLocation(mob).hasNorth()){
+							mud.moveMOBToNewRoom(mud.getMOBCurrLocation(mob).getRoomName(), 2, mob);
+//							System.out.println(mob.getIdentity() + "new location: " + mud.getMOBCurrLocation(mob).getRoomName());
+	
+						}
+						break;
+					case 3:
+						if(mud.getMOBCurrLocation(mob).hasSouth()){
+							mud.moveMOBToNewRoom(mud.getMOBCurrLocation(mob).getRoomName(), 3, mob);
+//							System.out.println(mob.getIdentity() + "new location: " + mud.getMOBCurrLocation(mob).getRoomName());
+	
+						}
+						break;
+					default:
+						System.out.println("MOB didn't move");
+						break;
 				}
 				
 			}
@@ -153,10 +153,10 @@ public class Server
 			for(int i = 0; i < 10; i++){
 				for(String p : mud.getPlayersOnline())
 				{
-					Random random = new Random();
-					int r = random.nextInt(mud.getMOBMessages().size());
+
+					int r = randomGenerator.nextInt(mud.getMOBMessages().size());
 					updateClientsInSameRoomAsMOB(mud.getMOBs().get(i), mud.getMOBMessages().get(r));
-					System.out.println(mud.getMOBs().get(i).getIdentity() + " to you: " + mud.getMOBMessages().get(r));
+//					System.out.println(mud.getMOBs().get(i).getIdentity() + " to you: " + mud.getMOBMessages().get(r));
 					
 				}
 			}

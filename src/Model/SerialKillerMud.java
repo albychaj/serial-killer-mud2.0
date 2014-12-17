@@ -762,30 +762,31 @@ public class SerialKillerMud
 		this.mobMessages.add("mwahahahhaha");
 		this.mobMessages.add("Prepare to die.");
 		this.mobMessages.add("You would look good tied up in my basement.");
-		jefferyDahmer = new MOB("Jeffery Dahmer", new ArrayList<Item>(), mobMessages);
-		lawrenceBittaker = new MOB("Lawrence Bittaker", new ArrayList<Item>(), mobMessages);
-		royNorris = new MOB("Roy Norris", new ArrayList<Item>(), mobMessages);
-		richardRamirez = new MOB("Richard Ramirez", new ArrayList<Item>(), mobMessages);
-		andreChikatilo = new MOB("Andre Chikatilo", new ArrayList<Item>(), mobMessages);
-		richardTrentonChase = new MOB("Richard Trenton Chase", new ArrayList<Item>(), mobMessages);
-		henryLeeLucus = new MOB("Henry Lee Lucus", new ArrayList<Item>(), mobMessages);
-		edGein = new MOB("Ed Gein", new ArrayList<Item>(), mobMessages);
-		hannibalLecter = new MOB("Hannibal Lecter", new ArrayList<Item>(), mobMessages);
-		henryHowardHolmes = new MOB("Henry Howard Holmes", new ArrayList<Item>(), mobMessages);
+		jefferyDahmer = new MOB("Jeffery Dahmer", new ArrayList<Item>());
+		lawrenceBittaker = new MOB("Lawrence Bittaker", new ArrayList<Item>());
+		royNorris = new MOB("Roy Norris", new ArrayList<Item>());
+		richardRamirez = new MOB("Richard Ramirez", new ArrayList<Item>());
+		andreChikatilo = new MOB("Andre Chikatilo", new ArrayList<Item>());
+		richardTrentonChase = new MOB("Richard Trenton Chase", new ArrayList<Item>());
+		henryLeeLucus = new MOB("Henry Lee Lucus", new ArrayList<Item>());
+		edGein = new MOB("Ed Gein", new ArrayList<Item>());
+		hannibalLecter = new MOB("Hannibal Lecter", new ArrayList<Item>());
+		henryHowardHolmes = new MOB("Henry Howard Holmes", new ArrayList<Item>());
 		
-		//victim = new MOB("Victim", new ArrayList<Item>(), new ArrayList<String>());
-		//foodStandGuy = new MOB("Food Stand Guy", new ArrayList<Item>(), new ArrayList<String>());
+		//victim = new MOB("Victim", new ArrayList<Item>());
+		//foodStandGuy = new MOB("Food Stand Guy", new ArrayList<Item>());
 		
-		theMOBs.add(hannibalLecter);
+		
 		theMOBs.add(jefferyDahmer);
 		theMOBs.add(lawrenceBittaker);
 		theMOBs.add(royNorris);
 		theMOBs.add(richardRamirez);
 		theMOBs.add(andreChikatilo);
 		theMOBs.add(richardTrentonChase);
-		theMOBs.add(henryHowardHolmes);
 		theMOBs.add(henryLeeLucus);
 		theMOBs.add(edGein);
+		theMOBs.add(hannibalLecter);
+		theMOBs.add(henryHowardHolmes);
 	}
 	
 	public void addMOBSToRoom()
@@ -821,10 +822,47 @@ public class SerialKillerMud
 	}
 
 	public MOB getMOBFromName(String argument) {
-		for(MOB m : theMOBs){
-			if(m.getIdentity().equalsIgnoreCase(argument)){
-				return m;
-			}
+		
+		switch(argument.toLowerCase()){
+			case "jeffery dahmer":
+			case "dahmer":
+				return theMOBs.get(0);
+			case "lawrence bittaker":
+			case "bittaker":
+				return theMOBs.get(1);
+			case "roy norris":
+			case "norris":
+				return theMOBs.get(2);
+			case "richard ramirez":
+			case "ramirez":
+			case "night stalker":
+				return theMOBs.get(3);
+			case "andre chikatilo":
+			case "chikatilo":
+			case "red ripper":
+				return theMOBs.get(4);
+			case "richard trenton chase":
+			case "richard chase":
+			case "chase":
+				return theMOBs.get(5);
+			case "henry lee lucus":
+			case "henry lucus":
+			case "lucus":
+				return theMOBs.get(6);
+			case "ed gein":
+			case "gein":
+			case "psycho":
+				return theMOBs.get(7);
+			case "hannibal lecter":
+			case "hannibal":
+			case "lecter":
+				return theMOBs.get(8);
+			case "henry howard holmes":
+			case "holmes":
+			case "hhh":
+				return theMOBs.get(9);
+			default:
+				break;
 		}
 		return null;
 	}
