@@ -825,12 +825,15 @@ public class SerialKillerMud
 		
 		switch(argument.toLowerCase()){
 			case "jeffery dahmer":
+			case "jeffery":
 			case "dahmer":
 				return theMOBs.get(0);
 			case "lawrence bittaker":
+			case "lawrence":
 			case "bittaker":
 				return theMOBs.get(1);
 			case "roy norris":
+			case "roy":
 			case "norris":
 				return theMOBs.get(2);
 			case "richard ramirez":
@@ -838,6 +841,7 @@ public class SerialKillerMud
 			case "night stalker":
 				return theMOBs.get(3);
 			case "andre chikatilo":
+			case "andre":
 			case "chikatilo":
 			case "red ripper":
 				return theMOBs.get(4);
@@ -850,6 +854,7 @@ public class SerialKillerMud
 			case "lucus":
 				return theMOBs.get(6);
 			case "ed gein":
+			case "ed":
 			case "gein":
 			case "psycho":
 				return theMOBs.get(7);
