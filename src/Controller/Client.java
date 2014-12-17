@@ -11,6 +11,7 @@ import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.swing.JFrame;
@@ -461,36 +462,36 @@ public class Client extends JFrame
 		mainView.updateCommandLog(commandMessages);
 	}
 
-	public void fight(MOB opponent, Player player) {
-//		String theFight = "Wat is this???\nIt looks like it is gonna be a fight!\n\n";
-//		if (player.getLocation().hasMOB(argument)) {
-//			MOB opponent = player.getLocation().getMobByName(argument);
-//			while (player.isAlive() && opponent.isAlive()) {
-//				int playerRoll = randomGenerator.nextInt(6);
-//				int oppenentRoll = randomGenerator.nextInt(6);
-//				if (playerRoll >= oppenentRoll) {
-//					theFight += "You hit him!\n\n";
-//					opponent.incrementHealth(player.getAttackPoints());
-//				} else {
-//					theFight += "Ouch! He got you.\nDon't worry, it's only a flesh wound!\n\n";
-//					player.incrementHealth(opponent.getAttackPoints());
-//				}
-//			}
-//			if (player.isAlive()) {
-//				theFight += "rightous! won't be seeing him any time soon. that's for sure.";
-//				player.getLocation().removeMOB(opponent);
-////				opponent.death();
-//				new Saved();
-//			} else {
-//				theFight += "I guess it wasn't just a flesh wound after all.\n Tell lucy I've always loved her...";
-//				player.death();
-//			}
-//		} else {
-//			theFight = argument
-//					+ " is not around at the moment. Maybe wait a while.";
-//		}
-//		commandMessages.add(theFight);
-//		mainView.updateCommands(commandMessages);
+	public void fight(MOB opponent, Player player, Boolean isGoingToFight) {
+		Random randomGenerator = new Random();
+		
+		String theFight = "";
+		
+		if(isGoingToFight){
+			theFight = "Wat is this???\nIt looks like it is gonna be a fight!\n\n";
+			while (player.getHealth() > 0  && opponent.getHealth() > 0) {
+				int playerRoll = randomGenerator.nextInt(6);
+				int oppenentRoll = randomGenerator.nextInt(6);
+				if (playerRoll >= oppenentRoll) {
+					theFight += "You hit him!\n\n";
+					opponent.incrementHealth(player.getAttackPoints());
+				} else {
+					theFight += "Ouch! He got you.\nDon't worry, it's only a flesh wound!\n\n";
+					player.incrementHealth(opponent.getAttackPoints());
+				}
+			}
+			if (player.getHealth() > 0) {
+				theFight += "rightous! won't be seeing him any time soon. that's for sure.";
+				new Saved();
+			} else
+				theFight += "I guess it wasn't just a flesh wound after all.\n Tell lucy I've always loved her...";
+		} 
+		else
+			theFight = opponent.getIdentity() + " is not around at the moment. Maybe wait a while.";
+		
+		
+		commandMessages.add(theFight);
+		mainView.updateCommandLog(commandMessages);
 		
 		
 	}	

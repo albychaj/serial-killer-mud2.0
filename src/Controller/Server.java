@@ -675,7 +675,9 @@ public class Server
 			case FIGHT:
 				Player player = mud.getPlayer(username);
 				MOB opponent = mud.getMOBFromName(argument);
-				result = new FightCommand(opponent, player);
+				Boolean go = false;
+//				if(mud.getPlayerRoomName(player).equals(opponent.getCurrentLocation().getRoomName()))
+				result = new FightCommand(opponent, player, go);
 				break;
 				
 			case ACCEPT:

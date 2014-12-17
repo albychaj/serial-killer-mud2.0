@@ -83,6 +83,10 @@ public class Player implements Serializable
     	new Death();
     }
     
+    public void fight(){
+    	
+    }
+    
     /**
      * 
      * @param newItem
@@ -105,49 +109,7 @@ public class Player implements Serializable
     	}
     	return false;
     }
-    
-    /**
-     * 
-     */
-    public void interactWithOtherPlayer(Player thePlayer)
-    {
-         //talk to other player determine if going to fight or what
-    	//fight()
-    }
-    
-    /**
-     * 
-     */
-    public void InteractWithMOB(MOB theMOB)
-    {
-         //mob talks and states what items it holds, good or bad, etc
-    	//fight()
-    }
-    
-    /**
-     * 
-     */
-    public void fight()
-    {
-         
-    }
-    
-    /**
-     * 
-     */
-    public void defend()
-    {
-         
-    }
-    
-    /**
-     * 
-     */
-    public void run()
-    {
-         
-    }
-
+ 
 	public boolean hasItem(String item)
 	{
 		for (Item i: backpack)
@@ -277,13 +239,4 @@ public class Player implements Serializable
 	{
 		transactionPending = true;
 	}
-    
-//    public void setBackpack(List<Item> list)
-//    {
-//    	backpack = list;
-//    }
-
-//	public void setHealth(int health) {
-//		this.health = health;
-//	}
 }//end of class Player
