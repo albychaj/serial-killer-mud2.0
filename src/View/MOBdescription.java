@@ -1,6 +1,8 @@
 package View;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -11,14 +13,17 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.SwingConstants;
 
 //import View.Map.MouseMoved;
 
 public class MOBdescription extends JFrame {
 
 	private BufferedImage backgroundImage;
-	private JButton dahmerImage1, dahmerImage2, dahmerImage3, dahmerImage4;
+	private JButton dahmerImage1, bittakerImage, norrisImage;
 	private JButton ramirezImage1, ramirezImage2, ramirezImage3, ramirezImage4;
 	private JButton andreChikatilo1, andreChikatilo2, andreChikatilo3, andreChikatilo4, andraeChikatilo5;
 	private JButton chase1, chase2, chase3, chase4, chase5;
@@ -26,8 +31,15 @@ public class MOBdescription extends JFrame {
 	private JButton gein1, gein2, gein3, gein4;
 	private JButton hannibal1, hannibal2, hannibal3, hannibal4;
 	private JButton holmes1, holmes2, holmes3, holmes4;
-	private JButton toolBox1, toolBox2, toolBox3, toolBox4;
-	private JTextArea infoArea;
+	private JButton  toolBox2, toolBox3, toolBox4;
+	private JTextArea infoArea, titleArea;
+	private JLabel title;
+	private String person, info;
+	private Float fontSize;
+	
+	public static void main(String []args){
+		new MOBdescription("NORRIs");
+	}
 
 	public MOBdescription(String mobName) {
 
@@ -42,73 +54,132 @@ public class MOBdescription extends JFrame {
 		}
 		
 
-		this.setSize(backgroundImage.getWidth(), backgroundImage.getHeight()-250);
+		this.setSize(backgroundImage.getWidth()-550, backgroundImage.getHeight()-250);
 		this.setLayout(null);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 
-		if (mobName.equals("jeffrey dahmer") || mobName.equals("dahmer")) {
-			infoArea = new JTextArea(
-					"\n name: jeffrey dahmer\n\n height: 6'1''\n weight: about 180lbs\n born: May 21, 1960. Milwaukee.\narrest: Notorious sex offender and serial killer.\n Sentenced to 15 consecutive life terms.\n killed his first victim with a blow to the head in 1978.\n killed 17 men total, molesting some of them, between 1978 to 1991.");
-			//add images, later make so text showes when hovering over the images
-			ImageIcon iconOne = new ImageIcon("images/dahmer2.jpeg");
+		if (mobName.equalsIgnoreCase("jeffrey dahmer") || mobName.equalsIgnoreCase("dahmer"))
+		{
+			person = "Jeffrey Dahmer";
+			fontSize = 50f;
+			info = "\n Legal Name: Jeffrey Lionel Dahmer\n\n"
+					+ " Born: May 21, 1960\n\n"
+					+ " Died: November 28, 1994\n\n"
+					+ " Nick Names:\n"
+					+ "     The Milwaukee Cannibal\n"
+					+ "     The Milwaukee Monster\n\n"
+					+ " Height: 6' 0''\n\n"
+					+ " Weight: 180 lbs\n\n"
+					+ " Convicitions:\n"
+					+ "     Child molestation\n"
+					+ "     Disorderly conduct\n"
+					+ "     Indecent exposure\n"
+					+ "     Murder\n"
+					+ "     Public intoxication\n\n"
+					+ " Victims: 17\n\n"
+					+ " Criminal penalty:\n"
+					+ "     Life imprisonment (16 life terms)\n\n"
+					+ " Criminal Biography:\n"
+					+ "   An American serial killer and sex offender,\n"
+					+ "   who committed the rape, murder and\n"
+					+ "   dismemberment of 17 men and boys between\n"
+					+ "   1978 and 1991, with many of his later murders\n"
+					+ "   also involving necrophilia, cannibalism and\n"
+					+ "   the permanent preservation of body parts.\n";
+			// setting image
+			ImageIcon iconOne = new ImageIcon("images/dahmer.jpg");
 			dahmerImage1 = new JButton(iconOne);
 			dahmerImage1.setContentAreaFilled(false);
 			dahmerImage1.setBorderPainted(false);
-			dahmerImage1.setLocation(50, 250);
+			dahmerImage1.setLocation(100, 70);
 			dahmerImage1.setSize(iconOne.getIconWidth(),iconOne.getIconHeight());
-			//dahmerImage.addMouseListener(new MouseMoved("espana"));
-			
-			dahmerImage2 = new JButton(iconOne);
-			dahmerImage2.setContentAreaFilled(false);
-			dahmerImage2.setBorderPainted(false);
-			dahmerImage2.setLocation(250, 250);
-			dahmerImage2.setSize(iconOne.getIconWidth(),iconOne.getIconHeight());
-			//dahmerImage.addMouseListener(new MouseMoved("espana"));
-			
-			dahmerImage3 = new JButton(iconOne);
-			dahmerImage3.setContentAreaFilled(false);
-			dahmerImage3.setBorderPainted(false);
-			dahmerImage3.setLocation(450, 250);
-			dahmerImage3.setSize(iconOne.getIconWidth(),iconOne.getIconHeight());
-			//dahmerImage.addMouseListener(new MouseMoved("espana"));
-			
-			dahmerImage4 = new JButton(iconOne);
-			dahmerImage4.setContentAreaFilled(false);
-			dahmerImage4.setBorderPainted(false);
-			dahmerImage4.setLocation(650, 250);
-			dahmerImage4.setSize(iconOne.getIconWidth(),iconOne.getIconHeight());
-			//dahmerImage.addMouseListener(new MouseMoved("espana"));
 			
 			this.add(dahmerImage1);
-			this.add(dahmerImage2);
-			this.add(dahmerImage3);
-			this.add(dahmerImage4);
 			
-		} else if (mobName.equals("lawrence bittaker")
-				|| mobName.equals("roy norris") || mobName.equals("bittaker")
-				|| mobName.equals("norris")
-				|| mobName.equals("toolbox killers")) {
-			infoArea = new JTextArea("\n\tthe toolbox killers info\n"
-					+ "name: Lawrence bittaker\n"
-					+ "height: N/A\n "
-					+ "weight: N/A\n "
-					+ "name: roy norris\n"
-					+ "height: N/A\n"
-					+ "weight: N/a n"
-					+ "arrest: committed the kidnap, rape, torture and murder of five teenage girls over a period of five months\n"
-					+ " in southern California in 1979");
-			ImageIcon iconOne = new ImageIcon("images/toolKillers.jpg");
-			toolBox1 = new JButton(iconOne);
-			toolBox1.setContentAreaFilled(false);
-			toolBox1.setBorderPainted(false);
-			toolBox1.setLocation(50, 250);
-			toolBox1.setSize(iconOne.getIconWidth(),iconOne.getIconHeight());
+		} else if (mobName.equalsIgnoreCase("lawrence bittaker") || mobName.equalsIgnoreCase("bittaker")) {
+			person = "Lawrence Bittaker";
+			fontSize = 45f;
+			info = "\n Legal Name: Lawrence Sigmund Bittaker\n\n"
+					+ " Born: September 27, 1940\n\n"
+					+ " Died: N/A\n\n"
+					+ " Nick Names:\n"
+					+ "     Toolbox Killer\n\n"
+					+ " Height: Not on file\n\n"
+					+ " Weight: not on file\n\n"
+					+ " Convicitions:\n"
+					+ "     First-degree murder\n"
+					+ "     Kidnapping\n"
+					+ "     Conspiracy\n"
+					+ "     Rape\n"
+					+ "     Hit and Run\n\n"
+					+ " Victims: 5\n\n"
+					+ " Criminal penalty:\n"
+					+ "     Death\n\n"
+					+ " Criminal Biography:\n"
+					+ "   An American serial killer and rapist, who was\n"
+					+ "   known as one of the toolbox killers.\n"
+					+ "   Committed to te kidnap, rape, torture, and\n"
+					+ "   murder of five, teenage girls ove ther period\n"
+					+ "   of five months in Souther California 1979.\n"
+					+ "   Sentenced to death and is currently in the\n"
+					+ "   Quentin Sate prison on death row. Known as\n"
+					+ "   the a tool box killer because the tools used\n"
+					+ "   to torture and murder victims were items that\n"
+					+ "   are normally stored inside a household.\n";
+			ImageIcon iconOne = new ImageIcon("images/bittaker.jpg");
+			bittakerImage = new JButton(iconOne);
+			bittakerImage.setContentAreaFilled(false);
+			bittakerImage.setBorderPainted(false);
+			bittakerImage.setLocation(78, 80);
+			bittakerImage.setSize(iconOne.getIconWidth(),iconOne.getIconHeight());
 			
-			this.add(toolBox1);
-			// add images
-		} else if (mobName.equals("richard ramirez")
-				|| mobName.equals("ramirez")) {
+			this.add(bittakerImage);
+		}
+		else if (mobName.equalsIgnoreCase("norris")|| mobName.equalsIgnoreCase("roy norris") ){
+			person = "Roy Norris";
+			fontSize = 50f;
+			info = "\n Legal Name: Roy Lewis Norris\n\n"
+					+ " Born: February 2, 1948\n\n"
+					+ " Died: N/A\n\n"
+					+ " Nick Names:\n"
+					+ "     Toolbox Killer\n\n"
+					+ " Height: Not on file\n\n"
+					+ " Weight: not on file\n\n"
+					+ " Convicitions:\n"
+					+ "     First-degree murder\n"
+					+ "     Second-degree murder\n"
+					+ "     Assault with a deadly weapon\n"
+					+ "     Rape\n"
+					+ "     Robbery\n\n"
+					+ " Victims: 5\n\n"
+					+ " Criminal penalty:\n"
+					+ "     Life imprisonment\n\n"
+					+ " Criminal Biography:\n"
+					+ "   An American serial killer and rapist, who was\n"
+					+ "   known as one of the toolbox killers.\n"
+					+ "   Committed to te kidnap, rape, torture, and\n"
+					+ "   murder of five, teenage girls ove ther period\n"
+					+ "   of five months in Souther California 1979.\n"
+					+ "   Norris accepted a plea bargain whereby he\n"
+					+ "   agreed to testify against Bittaker and was\n"
+					+ "   sentenced to life imprisonment on May 7, 1980,\n"
+					+ "   with possibility of parole after serving 30\n"
+					+ "   years. He is currently incarcerated at Pelican\n"
+					+ "   Bay State Prison.\n";
+			ImageIcon iconOne = new ImageIcon("images/norris.jpg");
+			norrisImage = new JButton(iconOne);
+			norrisImage.setContentAreaFilled(false);
+			norrisImage.setBorderPainted(false);
+			norrisImage.setLocation(88, 88);
+			norrisImage.setSize(iconOne.getIconWidth(),iconOne.getIconHeight());
+			
+			this.add(norrisImage);	
+			
+			
+		} 
+		else if (mobName.equals("richard ramirez") || mobName.equals("ramirez")) 
+		{
 			infoArea = new JTextArea("\n name: richard ramirez AKA the Night Stalker\n\n ehight: 6'1''\n weight: about 140lbs\narrest: broke into Californian homes, raping and torturing more than 25 victims.\n killed at least 13, over a two-year rampage.");
 			//add images, later make so text showed when hovering over the images
 			ImageIcon iconOne = new ImageIcon("images/ramirez4.jpeg");
@@ -374,17 +445,42 @@ public class MOBdescription extends JFrame {
 			this.add(holmes3);
 			this.add(holmes4);	
 		}
-		else
+		else{
 			infoArea = new JTextArea("why you here idiot");
-
+		}
+		
+		
+		title = new JLabel(person, SwingConstants.CENTER);
+		title.setFont(getFont("fonts/ARMY RUST.ttf").deriveFont(fontSize));
+		title.setForeground(Color.RED);
+		title.setOpaque(true);
+		title.setBackground(Color.BLACK);
+		title.setSize(370,50);
+		title.setLocation(15,10);
+		// name formating black 
+		titleArea = new JTextArea();
+		//titleArea.setFont(getFont("fonts/ARMY RUST.ttf").deriveFont(24f));
+		titleArea.setEditable(false);
+		titleArea.setSize(350,100);
+		titleArea.setLocation(25,25);
+		
+		titleArea.setBackground(Color.BLACK);
+		
+		// killer stats
+		
+		infoArea = new JTextArea(info);
 		infoArea.setFont(getFont("fonts/trajan.ttf").deriveFont(12f));
 		infoArea.setEditable(false);
-		infoArea.setSize(800, 200);
-		infoArea.setLocation(50, 50);
+
 		infoArea.setBackground(Color.BLACK);
 		infoArea.setForeground(Color.WHITE);
-
-		this.add(infoArea);
+		JScrollPane scroll = new JScrollPane(infoArea);
+		scroll.setSize(372, 225);
+		scroll.setLocation(15, 335);
+		//this.add(titleArea);
+		this.add(scroll);
+		
+		this.add(title);
 		this.setVisible(true);
 	}
 

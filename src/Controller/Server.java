@@ -495,7 +495,6 @@ public class Server
 						case "roy norris":
 						case "bittaker":
 						case "norris":
-						case "toolbox killers":
 						case "richard ramirez":
 						case "ramirez":
 						case "night stalker":
