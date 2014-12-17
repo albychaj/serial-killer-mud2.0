@@ -23,8 +23,8 @@ import javax.swing.SwingConstants;
 public class MOBdescription extends JFrame {
 
 	private BufferedImage backgroundImage;
-	private JButton dahmerImage1, bittakerImage, norrisImage;
-	private JButton ramirezImage1, ramirezImage2, ramirezImage3, ramirezImage4;
+	private JButton dahmerImage1, bittakerImage, norrisImage, ramirezImage1;
+	private JButton  ramirezImage2, ramirezImage3, ramirezImage4;
 	private JButton andreChikatilo1, andreChikatilo2, andreChikatilo3, andreChikatilo4, andraeChikatilo5;
 	private JButton chase1, chase2, chase3, chase4, chase5;
 	private JButton lucus1, lucus2, lucus3, lucus4;
@@ -36,10 +36,10 @@ public class MOBdescription extends JFrame {
 	private JLabel title;
 	private String person, info;
 	private Float fontSize;
-	
+	/*
 	public static void main(String []args){
-		new MOBdescription("NORRIs");
-	}
+		new MOBdescription("Richard Ramirez");
+	}*/
 
 	public MOBdescription(String mobName) {
 
@@ -66,7 +66,7 @@ public class MOBdescription extends JFrame {
 			info = "\n Legal Name: Jeffrey Lionel Dahmer\n\n"
 					+ " Born: May 21, 1960\n\n"
 					+ " Died: November 28, 1994\n\n"
-					+ " Nick Names:\n"
+					+ " Other names:\n"
 					+ "     The Milwaukee Cannibal\n"
 					+ "     The Milwaukee Monster\n\n"
 					+ " Height: 6' 0''\n\n"
@@ -103,7 +103,7 @@ public class MOBdescription extends JFrame {
 			info = "\n Legal Name: Lawrence Sigmund Bittaker\n\n"
 					+ " Born: September 27, 1940\n\n"
 					+ " Died: N/A\n\n"
-					+ " Nick Names:\n"
+					+ " Other names:\n"
 					+ "     Toolbox Killer\n\n"
 					+ " Height: Not on file\n\n"
 					+ " Weight: not on file\n\n"
@@ -142,7 +142,7 @@ public class MOBdescription extends JFrame {
 			info = "\n Legal Name: Roy Lewis Norris\n\n"
 					+ " Born: February 2, 1948\n\n"
 					+ " Died: N/A\n\n"
-					+ " Nick Names:\n"
+					+ " Other names:\n"
 					+ "     Toolbox Killer\n\n"
 					+ " Height: Not on file\n\n"
 					+ " Weight: not on file\n\n"
@@ -178,45 +178,48 @@ public class MOBdescription extends JFrame {
 			
 			
 		} 
-		else if (mobName.equals("richard ramirez") || mobName.equals("ramirez")) 
+		else if (mobName.equalsIgnoreCase("richard ramirez") || mobName.equalsIgnoreCase("ramirez")) 
 		{
-			infoArea = new JTextArea("\n name: richard ramirez AKA the Night Stalker\n\n ehight: 6'1''\n weight: about 140lbs\narrest: broke into Californian homes, raping and torturing more than 25 victims.\n killed at least 13, over a two-year rampage.");
-			//add images, later make so text showed when hovering over the images
+			person = "Richard Ramirez";
+			fontSize = 50f;
+			info = "\n Legal Name: Ricardo Leyva Muñoz Ramírez\n\n"
+					+ " Born: February 28, 1960\n\n"
+					+ " Died: June 7, 2013\n\n"
+					+ " Other names:\n"
+					+ "     The Night Stalker\n"
+					+ "     The Walk-In Killer\n"
+					+ "     The Valley Intruder\n\n"
+					+ " Height: 6' 1''\n\n"
+					+ " Weight: ~140lbs\n\n"
+					+ " Convicitions:\n"
+					+ "     13 counts of murder\n"
+					+ "     5 counts of attempted murder\n"
+					+ "     11 counts of sexual assault\n"
+					+ "     14 counts of burglary\n\n"
+					+ " Victims: 14\n\n"
+					+ " Criminal penalty:\n"
+					+ "     Death penalty\n\n"
+					+ " Criminal Biography:\n"
+					+ "   an American serial killer, rapist, and burglar.\n"
+					+ "   His highly publicized home invasion crime\n"
+					+ "   spree terrorized the residents of the greater\n"
+					+ "   Los Angeles area, and later the residents of the\n"
+					+ "   San Francisco area, from June 1984 until August\n"
+					+ "   1985. The judge who upheld his thirteen death\n"
+					+ "   sentences remarked that Ramirez's deeds\n"
+					+ "   exhibited\"cruelty, callousness, and viciousness\n"
+					+ "   beyond any human understanding.\"\n";
+			
 			ImageIcon iconOne = new ImageIcon("images/ramirez4.jpeg");
-			ImageIcon iconTwo = new ImageIcon("images/ramirez2.jpeg");
+			
 			ramirezImage1 = new JButton(iconOne);
 			ramirezImage1.setContentAreaFilled(false);
 			ramirezImage1.setBorderPainted(false);
-			ramirezImage1.setLocation(50, 250);
+			ramirezImage1.setLocation(100, 75);
 			ramirezImage1.setSize(iconOne.getIconWidth(),iconOne.getIconHeight());
-			//dahmerImage.addMouseListener(new MouseMoved("espana"));
-			
-			ramirezImage2 = new JButton(iconOne);
-			ramirezImage2.setContentAreaFilled(false);
-			ramirezImage2.setBorderPainted(false);
-			ramirezImage2.setLocation(250, 250);
-			ramirezImage2.setSize(iconOne.getIconWidth(),iconOne.getIconHeight());
-			//dahmerImage.addMouseListener(new MouseMoved("espana"));
-			
-			ramirezImage3 = new JButton(iconTwo);
-			ramirezImage3.setContentAreaFilled(false);
-			ramirezImage3.setBorderPainted(false);
-			ramirezImage3.setSize(ramirezImage3.getWidth(), ramirezImage3.getHeight());
-			ramirezImage3.setLocation(442, 250);
-			ramirezImage3.setSize(iconOne.getIconWidth(),iconTwo.getIconHeight());
-			//dahmerImage.addMouseListener(new MouseMoved("espana"));
-			
-			ramirezImage4 = new JButton(iconOne);
-			ramirezImage4.setContentAreaFilled(false);
-			ramirezImage4.setBorderPainted(false);
-			ramirezImage4.setLocation(635, 250);
-			ramirezImage4.setSize(iconOne.getIconWidth(),iconOne.getIconHeight());
-			//dahmerImage.addMouseListener(new MouseMoved("espana"));
-			
+						
 			this.add(ramirezImage1);
-			this.add(ramirezImage2);
-			this.add(ramirezImage3);
-			this.add(ramirezImage4);
+			
 		} else if (mobName.equals("andre chikatilo")
 				|| mobName.equals("chikatilo") || mobName.equals("red ripper")) {
 			infoArea = new JTextArea("\n name: andre chikatilo\n\n height: 6'4''\nweight: 170lbs\n arrest: murdered more than 50 young people in the Soviet Union.\n background: former school teacher.");
