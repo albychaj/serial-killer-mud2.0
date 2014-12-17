@@ -55,6 +55,7 @@ public class SerialKillerMud
 	{
 		playerAccounts = new ConcurrentHashMap<String, Player>();
 		playersOnline = new ArrayList<String>();
+	
 		
 		instantiateRooms();
 		setupRoomLayout();
@@ -1102,5 +1103,14 @@ public class SerialKillerMud
 		
 		playerAccounts.put(senderName, senderOfRequest);
 		playerAccounts.put(recipientName, recipientOfRequest);
+	}
+
+	public Item getItemFromName(String argument) {
+		for(Item i : items){
+			if(i.getName().equalsIgnoreCase(argument)){
+				return i;
+			}
+		}
+		return null;
 	}
 } // end of class SerialKillerMud

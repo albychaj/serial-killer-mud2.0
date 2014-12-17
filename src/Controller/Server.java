@@ -454,10 +454,15 @@ public class Server
 				break;
 				
 			case MOVE: 
+				
+				
 				if (currRoom.validMoveDirection(argument))
 				{
-					String newRoomDescription = mud.movePlayerToNewRoom(roomName, argument, username);
-					result = new MoveCommand(newRoomDescription);
+					if((currRoom.getRoomName().equalsIgnoreCase("The Lawn") && mud.getPlayer(username).hasItem("key")) || !currRoom.getRoomName().equalsIgnoreCase("The Lawn")){
+						String newRoomDescription = mud.movePlayerToNewRoom(roomName, argument, username);
+						result = new MoveCommand(newRoomDescription);
+					}
+					
 				}
 				
 				else
@@ -624,7 +629,13 @@ public class Server
 				// If true, then the user is trying to get an item from the room
 				else if (currRoom.hasItem(argument))
 				{
-					Item item = mud.removeItemFromRoom(currRoom.getRoomName(), argument);
+					Item item;
+					if(!argument.equalsIgnoreCase("key")){
+						item = mud.removeItemFromRoom(currRoom.getRoomName(), argument);
+					}
+					else{
+						item = mud.getItemFromName(argument);
+					}
 					mud.giveItemToPlayer(username, item);
 					result = new GetCommand(argument);
 				}

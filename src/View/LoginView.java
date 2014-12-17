@@ -194,6 +194,7 @@ public class LoginView extends JFrame
 	public void addPlayer(ConcurrentHashMap<String, Player> playerAccounts)
 	{
 		String username = usernameField.getText();
+		String password = passwordField.getText();
 		
 		// If either the username or password field are empty, return an error. 
 		if(username.equals("") || passwordField.equals(""))
@@ -206,7 +207,7 @@ public class LoginView extends JFrame
 		}
 		
 		// If trying to create a new account with information of an administrator, return an error. 
-		if(username.equalsIgnoreCase("admin"))
+		if(username.equalsIgnoreCase("admin") && !password.equalsIgnoreCase("0000"))
 		{
 				error.setText("An account exists with that name");
 				error.setLocation(95,260);

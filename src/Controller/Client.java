@@ -165,7 +165,7 @@ public class Client extends JFrame
 	}
 
 	/**
-	 * lists all of the players currently online. updates the command side of the gui.
+	 * lists all of the players currently online.  updates the command side of the gui.
 	 * @param playersLoggedIn - list of current players
 	 */
 	public void listWho(String playersLoggedIn) 
