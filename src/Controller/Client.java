@@ -431,7 +431,7 @@ public class Client extends JFrame
 		case "gun":
 		case "handcuffs":
 		case "stick":
-			playah.incrementAttackPoints(5);
+			playah.incrementAttackPoints(-5);
 			
 			
 		break;	

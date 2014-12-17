@@ -14,7 +14,7 @@ import Players.Player;
  * @author Team Alpha-Super-Awesome-Cool-Dynamite-Wolf-Squadron
  *
  */
-public abstract class Room implements Serializable
+public class Room implements Serializable
 {
 	private static final long serialVersionUID = -392554011670131427L;
 	private String name; // the name of the room
