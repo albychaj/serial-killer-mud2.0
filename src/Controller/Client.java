@@ -674,14 +674,9 @@ public class Client extends JFrame
 		mainView.updateCommandLog(commandMessages);
 	}
 
-<<<<<<< HEAD
 	public void getFromMOBError(String recipient) 
 	{
 		String rejection = "Excuse me, but " + recipient + " does not give items to plebians like yourself. Now get outta here before"
-=======
-	public void getFromMOBError(String recipient) {
-		String rejection = "Excuse me, but " + recipient + " does not give items to plebians\nlike yourself. Now get outta here before"
->>>>>>> 74de135e7908c18692bbbf01d921bc13983f015d
 				+ " I kick yo ass.\n";
 		commandMessages.add(rejection);
 		mainView.updateCommandLog(commandMessages);

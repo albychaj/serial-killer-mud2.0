@@ -450,11 +450,7 @@ public class SerialKillerMud implements Serializable
 		alley = new Room("The Dark Alley", "The best place for illegal transactions. But watch out this alley is pretty narrow and might I add dark. Not all sharks live in the ocean.");
 		spain = new Room("Spain", "Ole ... Welcome to Spain! Beware of the bulls that roam the street. They pack a punch if you get "
 	             + "hit by one. It is best not to stay here unless you want to die.");
-<<<<<<< HEAD
 		dubai = new Room("Dubai", "Finally a place of relaxation. Nothing bad can happen to you here but you cannot stay forever. For now enjoy "
-=======
-		paris = new Room("Paris", "Finally a place of relaxation. Nothing bad can happen to you here but you cannot stay forever. For now enjoy "
->>>>>>> 74de135e7908c18692bbbf01d921bc13983f015d
 	             + "your million dollar view.");
 		paris = new Room("Paris", "Welcome to Paris! Visit the crypts under the city and get lost in the Louvre. You wish right? Too bad you are restricted to "
 	             + "the catacombs which lie right beneath the heart of Paris. This historic labyrinth contains the remains of at least six million "
@@ -712,12 +708,8 @@ public class SerialKillerMud implements Serializable
 		nightVisionGoggles = new ReusableItem("night-vision-goggles", "Use these to see in dark places to stay alive", true, false, false);
 		key = new ReusableItem("key", "Use this to unlock doors to run away to stay alive.", true, false, false);
 		money = new ReusableItem("money", "Use this to buy energy boosts", true, true, true); 
-<<<<<<< HEAD
 		disguise = new ReusableItem("disguise", "This is a rare find. Use this to hide your face from your enemies.", true, true, true); 
 		skull = new ReusableItem("skull", "Use this to transport yourself to the catacombs in Paris", true, true, true);
-=======
-		disguise = new ReusableItem("disguise", "This is a rare find. Use this to hide your face from\nyour enemies.", true, true, true); 
->>>>>>> 74de135e7908c18692bbbf01d921bc13983f015d
 		
 		// Add all the items to the item list
 		items = new ArrayList<Item>();
