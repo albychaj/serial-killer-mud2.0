@@ -607,4 +607,16 @@ public class Client extends JFrame
 		commandMessages.add(rejectedRequestMessage);
 		mainView.updateCommandLog(commandMessages);
 	}
+
+	public void getFromMOBError(String recipient) {
+		String rejection = "Excuse me, but " + recipient + " does not give items to plebians like yourself. Now get outta here before"
+				+ " I kick yo ass.\n";
+		commandMessages.add(rejection);
+		mainView.updateCommandLog(commandMessages);
+	}
+
+	public void printMovedIntoMessage(String player) {
+		// TODO Auto-generated method stub
+		
+	}
 }

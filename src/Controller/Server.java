@@ -35,6 +35,7 @@ import Commands.LookItemCommand;
 import Commands.LookMOBCommand;
 import Commands.LookPlayerCommand;
 import Commands.LookRoomCommand;
+import Commands.MOBGetErrorCommand;
 import Commands.MapCommand;
 import Commands.MoveCommand;
 import Commands.MoveErrorCommand;
@@ -296,6 +297,29 @@ public class Server
 		}
 	}
 	
+	private void updateClientsChatLogInSameRoomBesidesPlayer(String username, String chatMessage) 
+	{
+		List<String> playersInSameRoom = mud.getPlayersInSameRoom(username);
+		
+		// make an UpdatedClientsCommand, write to all connected users
+		UpdateChatLogCommand update = new UpdateChatLogCommand(chatMessage);
+				
+		try
+		{
+			for (String playerName: playersInSameRoom)
+			{
+				if(!playerName.equalsIgnoreCase(username)){
+					ObjectOutputStream out = outputs.get(playerName);
+					out.writeObject(update);
+				}
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
 	private void updateClientsInSameRoomAsMOB(MOB mob, String chatMessage){
 		String mobMessage = mob.getIdentity() + ": " + chatMessage; 
 		List<String> playersInSameRoom = mud.getPlayersInSameRoomAsMOB(mob);
@@ -539,7 +563,9 @@ public class Server
 				if (currRoom.validMoveDirection(argument))
 				{
 					if((currRoom.getRoomName().equalsIgnoreCase("The Lawn") && mud.getPlayer(username).hasItem("key")) || !currRoom.getRoomName().equalsIgnoreCase("The Lawn")){
+						updateClientsChatLogInSameRoomBesidesPlayer(username, username + " has left the room.");
 						String newRoomDescription = mud.movePlayerToNewRoom(roomName, argument, username);
+						updateClientsChatLogInSameRoomBesidesPlayer(username, username + " has moved into " + roomName + ".");
 						result = new MoveCommand(newRoomDescription);
 					}
 					
@@ -686,6 +712,19 @@ public class Server
 						String[] splitArgument = argument.split(" ", 2);
 						String itemName = splitArgument[0].toLowerCase(); 
 						String recipient = splitArgument[1].toLowerCase();
+						List<MOB> mobs = mud.getMOBs();
+						boolean isMOB = false;
+						for (MOB m : mobs){
+							if(m.getIdentity().equalsIgnoreCase(recipient)){
+								isMOB = true;
+								result = new MOBGetErrorCommand(recipient);
+								break;
+							}
+							
+						}
+						if(isMOB == true)
+							break;
+						
 						
 						// Now check to see if the player is online and/or exists. Also check to see if the
 						// player has the item. Otherwise, an error will be returned to the sender. 
