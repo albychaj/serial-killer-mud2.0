@@ -198,12 +198,25 @@ public class Client extends JFrame
 	 */
 	public void listCommands() 
 	{
-		String listOfCommands = "Here are the commands: \nMAP\n     An interactive map will appear.\nMOVE <direction>\n     Move into the room to the <direction>"
-				+ "\nCOMMANDS\n     List all of the available commands\nOOC <message>\n     Send <message> to all players\n"
-				+ "WHO\n     Lists all of the current players\nSCORE\n     Lists your current score\nGET <item>\n     Retrieves an item"
-				+ "from the room and adds it to your backpack\nINVENTORY\n     Lists all of the items in your backpack"
-				+ "\nDROP <item>\n     Removes the item from your backpack\nLOOK\n     provides a 360 description of your surroundings"
-				+ "\nLOOK <argument>\n     provides in depth description of specified argument\nQUIT\n     quits the game and closes the window\n";
+		String listOfCommands = "Here are the commands: \n"
+				+ "MAP\n     An interactive map will appear.\n"
+				+ "MOVE <direction>\n     Move into the room to the <direction>\n"
+				+ "COMMANDS\n     List all of the available commands\n"
+				+ "OOC <message>\n     Send <message> to all players\n"
+				+ "SAY <message>\n     Send a <message> to all players in the same room\n"
+				+ "TELL <player> <message>\n     Send a <message> to a specific player\n"
+				+ "WHO\n     Lists all of the current players\n"
+				+ "SCORE\n     Lists your current score\n"
+				+ "GET <item>\n     Retrieves an item from the room and adds it to your backpack\n"
+				+ "GET <item> <target>\n     Retrieves an item from the a player/MOB\n"
+				+ "GIVE <item> <target>\n     Give an item in you backpack to another player\n"
+				+ "INVENTORY\n     Lists all of the items in your backpack\n"
+				+ "DROP <item>\n     Removes the item from your backpack\n"
+				+ "USE <item>\n     Use an item in your backpack\n"
+				+ "LOOK\n     provides a 360 description of your surroundings\n"
+				+ "LOOK <argument>\n     provides in depth description of specified argument\n"
+				+ "FIGHT <MOB>\n     Fight an MOB that is currently in the same room\n"
+				+ "QUIT\n     quits the game and closes the window\n";
 		commandMessages.add(listOfCommands);
 		mainView.updateCommandLog(commandMessages);
 	}
@@ -294,7 +307,7 @@ public class Client extends JFrame
 			pickUp = "You cannot pick up this specified item.\n";
 		
 		else
-			pickUp = "You have picked up item <" + itemName + "> and added it to your inventory.\n";
+			pickUp = "You have picked up item <" + itemName + "> and added it to your\ninventory.\n";
 			
 		commandMessages.add(pickUp);
 		mainView.updateCommandLog(commandMessages);
@@ -317,8 +330,8 @@ public class Client extends JFrame
 	
 	public void moveError() 
 	{ 
-		String moveErrorMessage = "Sorry, can't move in this direction. For an overview of the rooms adjacent to your "
-				+ "current room, simply type: look. Remember, you can only move \nnorth, south, east, or west.\n\n";
+		String moveErrorMessage = "Sorry, can't move in this direction. For an overview of the\nrooms adjacent to your "
+				+ "current room, simply type: look.\nRemember, you can only move \nnorth, south, east, or west.\n\n";
 		commandMessages.add(moveErrorMessage);
 		mainView.updateCommandLog(commandMessages);
 	}
@@ -367,8 +380,8 @@ public class Client extends JFrame
 	
 	public void lookError()
 	{
-		String lookErrorMessage = "You are attempting to view an item/mob/player that does not exist or is \nnot "
-				+ "currently in this room. For an overview of the items/mobs/players \nthat are currently in this "
+		String lookErrorMessage = "You are attempting to view an item/mob/player that does not\nexist or is not "
+				+ "currently in this room. For an overview of\nthe items/mobs/players that are currently in this "
 				+ "room, simply type: look\n\n";
 		commandMessages.add(lookErrorMessage);
 		mainView.updateCommandLog(commandMessages);
@@ -543,8 +556,8 @@ public class Client extends JFrame
 
 	public void tellError() 
 	{
-		String tellErrorMessage = "You are attempting to message a player that does not exist or is currently" + "\n" 
-				+ "not " + "online. For a list of the players that are currently online, simply type:" + "\n" 
+		String tellErrorMessage = "You are attempting to message a player that does not exist or is\ncurrently" + "" 
+				+ "not " + "online. For a list of the players that are\ncurrently online, simply type:" + "" 
 				+ "who\n\n";
 		commandMessages.add(tellErrorMessage);
 		mainView.updateCommandLog(commandMessages);
@@ -552,7 +565,7 @@ public class Client extends JFrame
 
 	public void giveOrGetError() 
 	{
-		String tellErrorMessage = "Fucked up trade man. Please input a valid player's username to trade with or a "
+		String tellErrorMessage = "Fucked up trade man. Please input a valid player's username to\ntrade with or a "
 				+ "valid item that you would like to trade.\n";
 		commandMessages.add(tellErrorMessage);
 		mainView.updateCommandLog(commandMessages);
@@ -625,7 +638,7 @@ public class Client extends JFrame
 
 	public void tradeRequestSent(String recipient, String itemName) 
 	{
-		String sentGiveRequest = "Player <" + recipient + "> has been informed of your desire to trade. "
+		String sentGiveRequest = "Player <" + recipient + "> has been informed of your desire to trade.\n"
 				+ "Now we wait...\n";
 		commandMessages.add(sentGiveRequest);
 		mainView.updateCommandLog(commandMessages);
@@ -633,22 +646,22 @@ public class Client extends JFrame
 
 	public void CommandError() 
 	{
-		String commandErrorMessage = "This is not a valid command. For a list of valid commands, type: commands\n";
+		String commandErrorMessage = "This is not a valid command. For a list of valid commands,\ntype: commands\n";
 		commandMessages.add(commandErrorMessage);
 		mainView.updateCommandLog(commandMessages);
 	}
 
 	public void acceptedItem(String sender, String itemName) 
 	{
-		String acceptedItemMessage = "You have sucessfully accepted item <" + itemName + "> from " + sender + "! For an updated look of the items "
-				+ "currently stored in your backpack, type: inventory\n";
+		String acceptedItemMessage = "You have sucessfully accepted item <" + itemName + "> from " + sender + "!\nFor an updated look of the items "
+				+ "currently stored in your backpack,\ntype: inventory\n";
 		commandMessages.add(acceptedItemMessage);
 		mainView.updateCommandLog(commandMessages);
 	}
 
 	public void itemAccepted(String recipient, String itemName) 
 	{
-		String sentGiveRequestAccepted = "Success! " + recipient + " has accepted item <" + itemName + ">. For an updated look of the items "
+		String sentGiveRequestAccepted = "Success! " + recipient + " has accepted item <" + itemName + ">.\nFor an updated look of the items "
 				+ "currently stored in your backpack, type: inventory\n";
 		commandMessages.add(sentGiveRequestAccepted);
 		mainView.updateCommandLog(commandMessages);
@@ -656,21 +669,21 @@ public class Client extends JFrame
 
 	public void rejectionSent(String sender) 
 	{
-		String sentRejection = "<" + sender + "> has been notified of your rejection. Hope you know what you're doing." ;
+		String sentRejection = "<" + sender + "> has been notified of your rejection.\nHope you know what you're doing." ;
 		commandMessages.add(sentRejection);
 		mainView.updateCommandLog(commandMessages);
 	}
 	
 	public void requestRejected(String recipient) 
 	{
-		String rejectedRequestMessage = "So sorry but <" + recipient + "> has not accepted your request to transfer "
+		String rejectedRequestMessage = "So sorry but <" + recipient + "> has not accepted your\nrequest to transfer "
 				+ "an item. Better luck next time, kid.\n" ;
 		commandMessages.add(rejectedRequestMessage);
 		mainView.updateCommandLog(commandMessages);
 	}
 
 	public void getFromMOBError(String recipient) {
-		String rejection = "Excuse me, but " + recipient + " does not give items to plebians like yourself. Now get outta here before"
+		String rejection = "Excuse me, but " + recipient + " does not give items to plebians\nlike yourself. Now get outta here before"
 				+ " I kick yo ass.\n";
 		commandMessages.add(rejection);
 		mainView.updateCommandLog(commandMessages);
