@@ -18,7 +18,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
-//import View.Map.MouseMoved;
 
 public class MOBdescription extends JFrame {
 
@@ -29,11 +28,11 @@ public class MOBdescription extends JFrame {
 	private JLabel title;
 	private String person, info;
 	private Float fontSize;
-/*	
-	public static void main(String []args){
-		new MOBdescription("lecter");
-	}*/
-
+	
+/*	public static void main(String []args){
+		new MOBdescription("hhh");
+	}
+*/
 	public MOBdescription(String mobName) {
 
 		this.setTitle("Save Yo Ass MOB Description");
@@ -431,26 +430,20 @@ public class MOBdescription extends JFrame {
 					+ " Criminal penalty:\n"
 					+ "     Death\n\n"
 					+ " Criminal Biography:\n"
-					+ "   An American murderer and body snatcher. His\n"
-					+ "   crimes, committed around his hometown.\n"
-					+ "   Authorities discovered Gein had exhumed\n"
-					+ "   corpses from local graveyards and\n"
-					+ "   fashioned trophies and keepsakes from their\n"
-					+ "   bones and skin. He confessed to killing two\n"
-					+ "   women tavern owner Mary Hogan on December\n"
-					+ "   8, 1954, and a Plainfield hardware store\n"
-					+ "   owner, Bernice Worden, on November 16, 1957.\n"
-					+ "   Initially found unfit for trial, after\n"
-					+ "   confinement in a mental health facility he\n"
-					+ "   was tried in 1968 for the murder of Worden\n"
-					+ "   and sentenced to life imprisonment.\n";
-			ImageIcon iconOne = new ImageIcon("images/holmes2");
-			ImageIcon inconTwo = new ImageIcon("images/holmes");
-			
+					+ "   One of the first documented serial killers.\n"
+					+ "   In Chicago at the time of the 1893 World's\n"
+					+ "   Columbian Exposition, Holmes opened a hotel\n"
+					+ "   which he had designed and built for himself\n"
+					+ "   specifically with murder in mind, and which\n"
+					+ "   was the location of many of his murders.\n"
+					+ "   While he confessed to 27 murders, of which\n"
+					+ "   nine were confirmed, his actual body count\n"
+					+ "   could be as high as 200.\n";
+			ImageIcon iconOne = new ImageIcon("images/hhh.jpg");			
 			holmes1 = new JButton(iconOne);
 			holmes1.setContentAreaFilled(false);
 			holmes1.setBorderPainted(false);
-			holmes1.setLocation(50, 250);
+			holmes1.setLocation(97, 70);
 			holmes1.setSize(iconOne.getIconWidth(),iconOne.getIconHeight());
 			
 			
