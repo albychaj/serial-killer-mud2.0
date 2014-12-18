@@ -185,7 +185,8 @@ public class MainView extends JPanel
 					c.equalsIgnoreCase("TELL") || c.equalsIgnoreCase("SCORE") || c.equalsIgnoreCase("GIVE") || c.equalsIgnoreCase("GET") ||
 					c.equalsIgnoreCase("INVENTORY") || c.equalsIgnoreCase("DROP") || c.equalsIgnoreCase("USE") || c.equalsIgnoreCase("QUIT") ||
 					c.equalsIgnoreCase("SHUTDOWN") || c.equalsIgnoreCase("MOVE") || c.equalsIgnoreCase("LOOK") || c.equalsIgnoreCase("MAP") ||
-					c.equalsIgnoreCase("ACCEPT") || c.equalsIgnoreCase("DENY") || c.equalsIgnoreCase("MOBSAY") || c.equalsIgnoreCase("FIGHT")    ){
+					c.equalsIgnoreCase("ACCEPT") || c.equalsIgnoreCase("DENY") || c.equalsIgnoreCase("MOBSAY") || c.equalsIgnoreCase("FIGHT") ||
+					c.equalsIgnoreCase("TELLMOB")){
 				
 				Commands command = Commands.valueOf(c);
 				
