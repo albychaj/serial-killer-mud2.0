@@ -35,7 +35,7 @@ public class SerialKillerMud implements Serializable
 	
 	private List<Item> items; // list of items in game
 	private Item water, food, bandaid, aidKit, energyBoost, stick, knife, gun, sword, shovel, rope;
-	private Item handcuffs, flashlight, nightVisionGoggles, key, money, disguise;
+	private Item handcuffs, flashlight, nightVisionGoggles, key, money, disguise, skull;
 	
 	private List<MOB> mobs;
 	private List<String> mobMessages;
@@ -209,7 +209,7 @@ public class SerialKillerMud implements Serializable
 
 	public String getPlayerRoomName(String username) 
 	{
-	Iterator<Room> it = rooms.iterator();
+		Iterator<Room> it = rooms.iterator();
 		
 		while (it.hasNext())
 		{
@@ -256,7 +256,12 @@ public class SerialKillerMud implements Serializable
 		
 		String newRoomName = new String();
 		
-		if (direction.equalsIgnoreCase("north"))
+		if (direction.equals("Paris"))
+		{
+			newRoomName = direction;
+		}
+		
+		else if (direction.equalsIgnoreCase("north"))
 		{	
 			newRoomName = oldRoom.getNorthRoom().getRoomName();
 		}
@@ -421,9 +426,9 @@ public class SerialKillerMud implements Serializable
 		alley = new Room("The Dark Alley", "The best place for illegal transactions. But watch out this alley is pretty narrow and might I add dark. Not all sharks live in the ocean.");
 		spain = new Room("Spain", "Ole ... Welcome to Spain! Beware of the bulls that roam the street. They pack a punch if you get "
 	             + "hit by one. It is best not to stay here unless you want to die.");
-		paris = new Room("Dubai", "Finally a place of relaxation. Nothing bad can happen to you here but you cannot stay forever. For now enjoy "
+		dubai = new Room("Dubai", "Finally a place of relaxation. Nothing bad can happen to you here but you cannot stay forever. For now enjoy "
 	             + "your million dollar view.");
-		dubai = new Room("Paris", "Welcome to Paris! Visit the crypts under the city and get lost in the Louvre. You wish right? Too bad you are restricted to "
+		paris = new Room("Paris", "Welcome to Paris! Visit the crypts under the city and get lost in the Louvre. You wish right? Too bad you are restricted to "
 	             + "the catacombs which lie right beneath the heart of Paris. This historic labyrinth contains the remains of at least six million "
 	             + "Parisians kept at a chilling 14 degrees Celsius. Try not to lean on the wall made of bones");
 		airport = new Room("The International Airport", "Need to get away or do some international business? Travel to Paris, Spain, or Dubai! The airport "
@@ -680,6 +685,7 @@ public class SerialKillerMud implements Serializable
 		key = new ReusableItem("key", "Use this to unlock doors to run away to stay alive.", true, false, false);
 		money = new ReusableItem("money", "Use this to buy energy boosts", true, true, true); 
 		disguise = new ReusableItem("disguise", "This is a rare find. Use this to hide your face from your enemies.", true, true, true); 
+		skull = new ReusableItem("skull", "Use this to transport yourself to the catacombs in Paris", true, true, true);
 		
 		// Add all the items to the item list
 		items = new ArrayList<Item>();
@@ -700,6 +706,7 @@ public class SerialKillerMud implements Serializable
 		items.add(key);
 		items.add(money);
 		items.add(disguise);
+		items.add(skull);
 	}
 	
 	/**
@@ -751,6 +758,7 @@ public class SerialKillerMud implements Serializable
 		dahmerApt.addItemToRoom(energyBoost);
 		
 		cemetery.addItemToRoom(shovel);
+		cemetery.addItemToRoom(skull);
 		
 		bank.addItemToRoom(money);
 		
@@ -771,14 +779,13 @@ public class SerialKillerMud implements Serializable
 	{
 		mobs = new ArrayList<MOB>();
 		mobMessages = new ArrayList<String>();
-		ArrayList<String> mobMessages = new ArrayList<String>();
-		this.mobMessages.add("Hello there.");
-		this.mobMessages.add("Who are you lookin' at? Do you wanna fight?");
-		this.mobMessages.add("Get outta here.");
-		this.mobMessages.add("Want to go for a ride in my van?");
-		this.mobMessages.add("mwahahahhaha");
-		this.mobMessages.add("Prepare to die.");
-		this.mobMessages.add("You would look good tied up in my basement.");
+		mobMessages.add("Hello there.");
+		mobMessages.add("Who are you lookin' at? Do you wanna fight?");
+		mobMessages.add("Get outta here.");
+		mobMessages.add("Want to go for a ride in my van?");
+		mobMessages.add("mwahahahhaha");
+		mobMessages.add("Prepare to die.");
+		mobMessages.add("You would look good tied up in my basement.");
 		jefferyDahmer = new MOB("Jeffery Dahmer", new ArrayList<Item>());
 		lawrenceBittaker = new MOB("Lawrence Bittaker", new ArrayList<Item>());
 		royNorris = new MOB("Roy Norris", new ArrayList<Item>());
@@ -1064,5 +1071,20 @@ public class SerialKillerMud implements Serializable
 	public void resetPlayersOnline() 
 	{
 		playersOnline = new ArrayList<String>();
+	}
+
+	/**
+	 * Determines whether or not two players are in the same room as one another.
+	 * This is important for commands like GIVE and GET with targets.
+	 * @param playerOne
+	 * @param playerTwo
+	 * @return Return true if two players are in the same room. Otherwise, return false.
+	 */
+	public boolean playersAreInSameRoom(String playerOne, String playerTwo) 
+	{
+		String playerOneRoom = this.getPlayerRoomName(playerOne);
+		String playerTwoRoom = this.getPlayerRoomName(playerTwo);
+		
+		return (playerOneRoom.equals(playerTwoRoom));
 	}
 } // end of class SerialKillerMud

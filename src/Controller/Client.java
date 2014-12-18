@@ -97,15 +97,6 @@ public class Client extends JFrame
 		//t = new Timer(1000, new keepTrackOfTimeListener());
 		
 	} // end of constructor Client
-	
-	/*private class keepTrackOfTimeListener implements ActionListener{
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			
-		}
-		
-	}*/
 
 	/**
 	 * This class reads and executes commands sent from the server
@@ -670,15 +661,19 @@ public class Client extends JFrame
 		mainView.updateCommandLog(commandMessages);
 	}
 
-	public void getFromMOBError(String recipient) {
+	public void getFromMOBError(String recipient) 
+	{
 		String rejection = "Excuse me, but " + recipient + " does not give items to plebians like yourself. Now get outta here before"
 				+ " I kick yo ass.\n";
 		commandMessages.add(rejection);
 		mainView.updateCommandLog(commandMessages);
 	}
 
-	public void printMovedIntoMessage(String player) {
-		// TODO Auto-generated method stub
-		
+	public void notInSameRoomError() 
+	{
+		String rejection = "What the fuck are you trying to do? Y'all are clearly not in the same room. "
+				+ "What? Were you just planning on throwing shit \nacross all the rooms? Dumbass.";
+		commandMessages.add(rejection);
+		mainView.updateCommandLog(commandMessages);
 	}
 }

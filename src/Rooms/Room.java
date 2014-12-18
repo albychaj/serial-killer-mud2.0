@@ -32,7 +32,7 @@ public class Room implements Serializable
 		this.mobs = new ArrayList<MOB>();
 		this.items = new ArrayList<Item>();
 		
-		// initially, a Room does not have any adjacent Rooms
+		// Initially, a Room does not have any adjacent Rooms
 		northRoom = null;
 		southRoom = null;
 		eastRoom = null;
