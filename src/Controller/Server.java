@@ -39,7 +39,6 @@ import Commands.MOBGetErrorCommand;
 import Commands.MapCommand;
 import Commands.MoveCommand;
 import Commands.MoveErrorCommand;
-import Commands.PlayerMovedIntoRoomCommand;
 import Commands.QuitCommand;
 import Commands.RejectionSentCommand;
 import Commands.RequestDeniedCommand;
@@ -493,8 +492,9 @@ public class Server
 				if (currRoom.validMoveDirection(argument))
 				{
 					if((currRoom.getRoomName().equalsIgnoreCase("The Lawn") && mud.getPlayer(username).hasItem("key")) || !currRoom.getRoomName().equalsIgnoreCase("The Lawn")){
+						updateClientsChatLogInSameRoomBesidesPlayer(username, username + " has left the room.");
 						String newRoomDescription = mud.movePlayerToNewRoom(roomName, argument, username);
-						updateClientsChatLogInSameRoomBesidesPlayer(username, username + " has moved into " + roomName);
+						updateClientsChatLogInSameRoomBesidesPlayer(username, username + " has moved into " + roomName + ".");
 						result = new MoveCommand(newRoomDescription);
 					}
 					
