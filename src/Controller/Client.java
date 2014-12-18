@@ -143,10 +143,38 @@ public class Client extends JFrame
 	 */
 	private String welcomeMessage(String username)
 	{
-		String welcomeMessage = "Hello " + username + " and welcome to SAVE YO ASS.\n\n"
-				+ "For a list of commands at your disposal, type: commands\n";
+		String introStory = "Warning this game is for mature audiences only.\n\n"
+				+ "Welcome " + username +  "!!\n\n"
+				+ "You have chosen to enter a world that most turn and run\n"
+				+ "from. You have a brave soul but bravery and pride only go so\n"
+				+ "far in this world. Be prepared to walk in the shoes of many who\n"
+				+ "have been unjustly murdered. Victims who have been tortured\n"
+				+ "and slayed in cruel and unimaginable ways. Many of the people\n"
+				+ "who committed such horrid and unforgivable crimes have died.\n"
+				+ "That’s a good thing right if there dead then they can’t kill\n"
+				+ "you. Wrong! This world is Serial Killer purgatory. A place\n"
+				+ "in which serial killers have risen from the dead and can\n"
+				+ "continue their murder spree; starting off with your ass\n"
+				+ "first. This place will test your skills in survival. And\n"
+				+ "unfortunately to save yo own ass you will have to become\n"
+				+ "someone you will grow to hate. Murderers lurk in every corner\n"
+				+ "in this world, you are never safe and you are never alone.\n"
+				+ "Are you scared yet? You should be! There are others just\n"
+				+ "like you. They too want to survive. It’s up to you and the\n"
+				+ "other sane people to kill all  evil that exists within this\n"
+				+ "world. Leave all your fears at the entrance to the murder\n"
+				+ "castle. As a gift to you I will tell you that you are on the\n"
+				+ "front lawn of the murder castle. I cannot guarantee your\n"
+				+ "safety killers can be hidden in this area right now.\n\n"
+				+ "If you ever need assistance navigating through this world\n"
+				+ "type in commands and press enter. Those commands will be\n"
+				+ "of great use through the game. I suggest looking at the map.\n\n"
+				+ "I now send you off with a fair warning … watch your back!!\n"
+				+ "Go at once and don't forget to save yo ass.\n\n";
+//		String welcomeMessage = "Hello " + username + " and welcome to SAVE YO ASS.\n\n"
+//				+ "For a list of commands at your disposal, type: commands\n";
 		
-		return welcomeMessage;
+		return introStory;
 	}
 
 	/**
@@ -395,10 +423,16 @@ public class Client extends JFrame
 	{
 		try
 		{
+			
 			clientName = username;
+			String returnMessage = "Didn’t think you would show again. Welcome back " + clientName + "!!\n\n"
+					+ "Remember if you ever need assistance navigating through this\n"
+					+ "world or have forgotten how to perform a certain task just type\n"
+					+ "commands and a list of commands are at your disposal.\n\n"
+					+ "Good luck on your journey " + clientName + "!\n\n";
 			commandMessages = new ArrayList<String>();
 			chatMessages = new ArrayList<String>();
-			commandMessages.add("Welcome back " + clientName);
+			commandMessages.add(returnMessage);
 			
 			// Write out player associated with this client
 			out.writeObject(clientName);
