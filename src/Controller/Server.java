@@ -72,13 +72,7 @@ public class Server
 	private ServerSocket socket; // the server socket
 	private HashMap<String, ObjectOutputStream> outputs; // map of all connected user's output streams
 	private SerialKillerMud mud;
-<<<<<<< HEAD
-	private Timer t, t2;
-=======
-	private Timer t;
-	private Timer t2;
-	private Timer t3;
->>>>>>> 5d0474283760c0484c3801278b859fcc25032630
+	private Timer t, t2, t3;
 	private Random randomGenerator;
 
 	public static void main(String[] args) 
@@ -89,19 +83,12 @@ public class Server
 	public Server() 
 	{
 		outputs = new HashMap<String, ObjectOutputStream>(); // setup the map
-<<<<<<< HEAD
 		//mud = new SerialKillerMud(); // setup the model
 		t = new Timer(10000, new SayListener());
 		t2 = new Timer(20000, new MoveListener());
-		t.start();
-=======
-		mud = new SerialKillerMud(); // setup the model
-		t = new Timer(100000, new SayListener());
-		t.start();
-		t2 = new Timer(70000, new MoveListener());
->>>>>>> 5d0474283760c0484c3801278b859fcc25032630
-		t2.start();
 		t3 = new Timer(100000, new DropHealthListener());
+		t.start();
+		t2.start();
 		t3.start();
 		randomGenerator = new Random();
 
@@ -500,6 +487,30 @@ public class Server
 		{
 			e.printStackTrace();
 		}
+	}
+	
+	public void updateFightResults(String player, String result) 
+	{
+		updateClientsChatLogInSameRoomBesidesPlayer(player, result);
+	}
+	
+	public void updateClientsChatLogInSameRoomBesidesPlayers(
+			String senderOfRequest, String username, String message) {
+		List<String> playersInSameRoom = mud.getPlayersInSameRoom(username);
+
+		// make an UpdatedClientsCommand, write to all connected users
+		UpdateChatLogCommand update = new UpdateChatLogCommand(message);
+
+		try {
+			for (String playerName : playersInSameRoom) {
+				if (!playerName.equalsIgnoreCase(username) && !playerName.equalsIgnoreCase(senderOfRequest)) {
+					ObjectOutputStream out = outputs.get(playerName);
+					out.writeObject(update);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
 	}
 	
 	private class SimpleCommandFactory
@@ -1014,50 +1025,11 @@ public class Server
 	 * 
 	 * stuff that has to do with persistance
 	 */
-<<<<<<< HEAD
 	public boolean loadData() 
 	{
 		try 
 		{
 			FileInputStream inStream = new FileInputStream(new File("accounts.dat"));
-=======
-
-	public void testing() {
-		// Ask the user if they want to load data
-		int answer = JOptionPane.showConfirmDialog(null,
-				"Start with previous saved state?", "Select an Option",
-				JOptionPane.YES_NO_OPTION);
-		if (answer == JOptionPane.NO_OPTION || !loadData()) {
-			// initialize accounts
-			mud = new SerialKillerMud();
-		}
-
-	}
-
-	public void updateClientsChatLogInSameRoomBesidesPlayers(
-			String senderOfRequest, String username, String message) {
-		List<String> playersInSameRoom = mud.getPlayersInSameRoom(username);
-
-		// make an UpdatedClientsCommand, write to all connected users
-		UpdateChatLogCommand update = new UpdateChatLogCommand(message);
-
-		try {
-			for (String playerName : playersInSameRoom) {
-				if (!playerName.equalsIgnoreCase(username) && !playerName.equalsIgnoreCase(senderOfRequest)) {
-					ObjectOutputStream out = outputs.get(playerName);
-					out.writeObject(update);
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}		
-	}
-
-	public boolean loadData() {
-		try {
-			FileInputStream inStream = new FileInputStream(new File(
-					"accounts.dat"));
->>>>>>> 5d0474283760c0484c3801278b859fcc25032630
 			ObjectInputStream inObject = new ObjectInputStream(inStream);
 			mud = (SerialKillerMud) inObject.readObject();
 			inObject.close();
@@ -1084,9 +1056,4 @@ public class Server
 			e.printStackTrace();
 		}
 	}
-
-	public void updateFightResults(String player, String result) {
-		updateClientsChatLogInSameRoomBesidesPlayer(player, result);
-	}
-
 } // end of class Server
