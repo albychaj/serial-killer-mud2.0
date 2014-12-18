@@ -29,9 +29,9 @@ public class MOBdescription extends JFrame {
 	private JLabel title;
 	private String person, info;
 	private Float fontSize;
-	
-/*	public static void main(String []args){
-		new MOBdescription("chase");
+/*	
+	public static void main(String []args){
+		new MOBdescription("lecter");
 	}*/
 
 	public MOBdescription(String mobName) {
@@ -57,14 +57,14 @@ public class MOBdescription extends JFrame {
 			person = "Jeffrey Dahmer";
 			fontSize = 50f;
 			info = "\n Legal Name: Jeffrey Lionel Dahmer\n\n"
-					+ " Born: May 21, 1960\n\n"
+					+ " Born: May 21, 1960 (West Allis, Wisconsin)\n\n"
 					+ " Died: November 28, 1994\n\n"
 					+ " Other names:\n"
 					+ "     The Milwaukee Cannibal\n"
 					+ "     The Milwaukee Monster\n\n"
 					+ " Height: 6' 0''\n\n"
 					+ " Weight: 180 lbs\n\n"
-					+ " Convicitions:\n"
+					+ " Convictions:\n"
 					+ "     Child molestation\n"
 					+ "     Disorderly conduct\n"
 					+ "     Indecent exposure\n"
@@ -94,13 +94,14 @@ public class MOBdescription extends JFrame {
 			person = "Lawrence Bittaker";
 			fontSize = 45f;
 			info = "\n Legal Name: Lawrence Sigmund Bittaker\n\n"
-					+ " Born: September 27, 1940\n\n"
+					+ " Born: September 27, 1940\n"
+					+ "       (Pittsburgh, Pennsylvania)\n\n"
 					+ " Died: N/A\n\n"
 					+ " Other names:\n"
 					+ "     Toolbox Killer\n\n"
 					+ " Height: Not on file\n\n"
 					+ " Weight: not on file\n\n"
-					+ " Convicitions:\n"
+					+ " Convictions:\n"
 					+ "     First-degree murder\n"
 					+ "     Kidnapping\n"
 					+ "     Conspiracy\n"
@@ -133,13 +134,13 @@ public class MOBdescription extends JFrame {
 			person = "Roy Norris";
 			fontSize = 50f;
 			info = "\n Legal Name: Roy Lewis Norris\n\n"
-					+ " Born: February 2, 1948\n\n"
+					+ " Born: February 2, 1948 (Greeley, Colorado)\n\n"
 					+ " Died: N/A\n\n"
 					+ " Other names:\n"
 					+ "     Toolbox Killer\n\n"
 					+ " Height: Not on file\n\n"
 					+ " Weight: not on file\n\n"
-					+ " Convicitions:\n"
+					+ " Convictions:\n"
 					+ "     First-degree murder\n"
 					+ "     Second-degree murder\n"
 					+ "     Assault with a deadly weapon\n"
@@ -176,7 +177,7 @@ public class MOBdescription extends JFrame {
 			person = "Richard Ramirez";
 			fontSize = 50f;
 			info = "\n Legal Name: Ricardo Leyva Muñoz Ramírez\n\n"
-					+ " Born: February 28, 1960\n\n"
+					+ " Born: February 28, 1960 (El Paso, Texas)\n\n"
 					+ " Died: June 7, 2013\n\n"
 					+ " Other names:\n"
 					+ "     The Night Stalker\n"
@@ -184,7 +185,7 @@ public class MOBdescription extends JFrame {
 					+ "     The Valley Intruder\n\n"
 					+ " Height: 6' 1''\n\n"
 					+ " Weight: ~140 lbs\n\n"
-					+ " Convicitions:\n"
+					+ " Convictions:\n"
 					+ "     13 counts of murder\n"
 					+ "     5 counts of attempted murder\n"
 					+ "     11 counts of sexual assault\n"
@@ -219,7 +220,8 @@ public class MOBdescription extends JFrame {
 			person = "Andrei Chikatilo";
 			fontSize = 50f;
 			info = "\n Legal Name: Andrei Romanovich Chikatilo\n\n"
-					+ " Born: 16 October 1936\n\n"
+					+ " Born: 16 October 1936\n"
+					+ "      (Ukrainian SSR, Soviet Union)\n\n"
 					+ " Died: 14 February 1994\n\n"
 					+ " Other names:\n"
 					+ "     The Butcher of Rostov\n"
@@ -227,7 +229,7 @@ public class MOBdescription extends JFrame {
 					+ "     The Forest Strip Killerr\n\n"
 					+ " Height: 6'4''\n\n"
 					+ " Weight: ~170 lbs\n\n"
-					+ " Convicitions:\n"
+					+ " Convictions:\n"
 					+ "     murder\n"
 					+ "     Sexual assault\n\n"
 					+ " Victims: 53 confirmed, 56+ claimed\n\n"
@@ -258,7 +260,8 @@ public class MOBdescription extends JFrame {
 			person = "Richard Chase";
 			fontSize = 50f;
 			info = "\n Legal Name: Richard Trenton Chase\n\n"
-					+ " Born: May 23, 1950\n\n"
+					+ " Born: May 23, 1950\n"
+					+ "      (Santa Clara County, California)\n\n"
 					+ " Died: December 26, 1980\n\n"
 					+ " Other names:\n"
 					+ "     The Dracula Killer\n"
@@ -266,13 +269,13 @@ public class MOBdescription extends JFrame {
 					+ "     The Vampire Killer\n\n"
 					+ " Height: height: 6'1''\n\n"
 					+ " Weight: ~180 lbs\n\n"
-					+ " Convicitions:\n"
+					+ " Convictions:\n"
 					+ "     murder\n\n"
 					+ " Victims: 6\n\n"
 					+ " Criminal penalty:\n"
 					+ "     Death\n\n"
 					+ " Criminal Biography:\n"
-					+ "   an American serial killer who killed six\n"
+					+ "   An American serial killer who killed six\n"
 					+ "   people in a span of a month in Sacramento,\n"
 					+ "   California. He was nicknamed \"The Vampire\n"
 					+ "   of Sacramento\" because he drank his\n"
@@ -289,29 +292,83 @@ public class MOBdescription extends JFrame {
 			
 			
 		} else if (mobName.equalsIgnoreCase("henry lee lucas") || mobName.equalsIgnoreCase("henry lucas") || mobName.equalsIgnoreCase("lucas")) {
-			infoArea = new JTextArea("\n name: henry lee lucus\n\n born: August 23, 1936 Blacksburg, Virginia.\n arrest: sentenced for the murder of his mother in 1960.\n\tParoled in 1970, went back to jail for the attempted kidnapping of a 15-year-old girl.\n\tReleased again in 1975, killed two more women, and was arrested in 1983.\n\tHe confessed to murdering hundreds of people, though no proof existed beyond three known victims.\n\n background: alcoholic parents and prostitute mother.");
-			
+			person = "Henry Lucas";
+			fontSize = 50f;
+			info = "\n Legal Name: Henry Lee Lucas\n\n"
+					+ " Born: August 23, 1936 (Blacksburg, Virginia)\n\n"
+					+ " Died: March 13, 2001\n\n"
+					+ " Other names:\n"
+					+ "     The Confession Killer\n\n"
+					+ " Height: height: not on file\n\n"
+					+ " Weight: not on file\n\n"
+					+ " Convictions:\n"
+					+ "     murder\n\n"
+					+ " Victims: 3 confirmed, convicted in other cases\n\n"
+					+ " Criminal penalty:\n"
+					+ "     Death\n"
+					+ "     Life imprisonment\n\n"
+					+ " Criminal Biography:\n"
+					+ "   An American serial killer who was convicted of\n"
+					+ "   murdering 11 people and condemned to death\n"
+					+ "   for a single case with an unidentified victim.\n"
+					+ "   He confessed to murdering hundreds of people\n"
+					+ "   though no proof existed beyond three known\n"
+					+ "   victims. The Attorney General of Texas\n"
+					+ "   concluded he had falsely confessed; the death\n"
+					+ "   sentence was commuted to life in prison in\n"
+					+ "   1998. One of his vitims was his mother\n"
+					+ "   in which he was sentenced to between 20\n"
+					+ "   and 40 years' imprisonment but  was released\n"
+					+ "   after serving 10 years in June 1970 due to\n"
+					+ "   prison overcrowding.\n";
 			//add images, later make so text showes when hovering over the images
 			ImageIcon iconOne = new ImageIcon("images/lucus.jpeg");
 			System.out.println(iconOne.getIconWidth());
 			lucus1 = new JButton(iconOne);
 			lucus1.setContentAreaFilled(false);
 			lucus1.setBorderPainted(false);
-			lucus1.setLocation(50, 250);
+			lucus1.setLocation(98, 75);
 			lucus1.setSize(iconOne.getIconWidth()-25,iconOne.getIconHeight());
 			
 			this.add(lucus1);
 			
-		} else if (mobName.equals(" name: ed gein\n height: 5'7''\n weight: about 160lbs\n born: \n arrest: murderer/body snatcher") || mobName.equals("gein")
-				|| mobName.equals("psycho")) {
-			infoArea = new JTextArea("\n ed gein info");
-			//add images, later make so text showes when hovering over the images
-			ImageIcon iconOne = new ImageIcon("");
+		} else if (mobName.equalsIgnoreCase("ed gein") || mobName.equalsIgnoreCase("gein") || mobName.equalsIgnoreCase("psycho")) {
+			person = "Ed Gein";
+			fontSize = 50f;
+			info = "\n Legal Name: Edward Theodore \"Ed\" Gein\n\n"
+					+ " Born: August 27, 1906\n"
+					+ "      (La Crosse County, Wisconsin)\n\n"
+					+ " Died: July 26, 1984\n\n"
+					+ " Other names:\n"
+					+ "     The Plainfield Ghoul\n"
+					+ "     The Mad Butcher\n\n"
+					+ " Height: height: 5'7''\n\n"
+					+ " Weight: ~160 lbs\n\n"
+					+ " Convictions:\n"
+					+ "     murder\n\n"
+					+ " Victims: 2 (known)\n\n"
+					+ " Criminal penalty:\n"
+					+ "     Death\n\n"
+					+ " Criminal Biography:\n"
+					+ "   An American murderer and body snatcher. His\n"
+					+ "   crimes, committed around his hometown.\n"
+					+ "   Authorities discovered Gein had exhumed\n"
+					+ "   corpses from local graveyards and\n"
+					+ "   fashioned trophies and keepsakes from their\n"
+					+ "   bones and skin. He confessed to killing two\n"
+					+ "   women tavern owner Mary Hogan on December\n"
+					+ "   8, 1954, and a Plainfield hardware store\n"
+					+ "   owner, Bernice Worden, on November 16, 1957.\n"
+					+ "   Initially found unfit for trial, after\n"
+					+ "   confinement in a mental health facility he\n"
+					+ "   was tried in 1968 for the murder of Worden\n"
+					+ "   and sentenced to life imprisonment.\n";
+			ImageIcon iconOne = new ImageIcon("images/gein.jpg");
 			
 			gein1 = new JButton(iconOne);
 			gein1.setContentAreaFilled(false);
 			gein1.setBorderPainted(false);
-			gein1.setLocation(50, 250);
+			gein1.setLocation(100, 70);
 			gein1.setSize(iconOne.getIconWidth(),iconOne.getIconHeight());
 			
 			
@@ -320,26 +377,73 @@ public class MOBdescription extends JFrame {
 			
 			
 		}
-		else if(mobName.equals("hannibal lecter") || mobName.equals("hannibal") || mobName.equals("lecter")){
-			infoArea = new JTextArea("\n name: Hannibal Lecter\n height: 6'0''\n weight: 190lbs\n born: \n arrest: unknown body count");
-			//add images, later make so text showes when hovering over the images
-			ImageIcon iconOne = new ImageIcon("images/hannibal");
-			ImageIcon iconTwo = new ImageIcon("images/hannibal2");
-			
+		else if(mobName.equalsIgnoreCase("hannibal lecter") || mobName.equalsIgnoreCase("hannibal") || mobName.equalsIgnoreCase("lecter")){
+			person = "Hannibal Lecter";
+			fontSize = 50f;
+			info = "\n Legal Name: Dr. Hannibal Lecter\n\n"
+					+ " Born: March 27, 1981\n"
+					+ "      (hollywood, California)\n\n"
+					+ " Died: N/A\n\n"
+					+ " Other names:\n"
+					+ "     Hannibal the Cannibal\n"
+					+ "     The Chesapeake Ripper\n\n"
+					+ " Height: height: 6' 0''\n\n"
+					+ " Weight: ~190 lbs\n\n"
+					+ " Convictions:\n"
+					+ "     suspected murderer\n"
+					+ "     canabalism\n\n"
+					+ " Victims: unknown\n\n"
+					+ " Criminal penalty:\n"
+					+ "     Maximum Security\n"
+					+ "     life imprisonment\n\n"
+					+ " Criminal Biography:\n"
+					+ "   Lecter is intellectually brilliant, cultured\n"
+					+ "   and sophisticated, with refined tastes in art\n"
+					+ "   music and cuisine. He is known to kill people\n"
+					+ "   with bad manners.\n";
+			ImageIcon iconOne = new ImageIcon("images/lecter.jpg");			
 			hannibal1 = new JButton(iconOne);
 			hannibal1.setContentAreaFilled(false);
 			hannibal1.setBorderPainted(false);
-			hannibal1.setLocation(50, 250);
+			hannibal1.setLocation(73, 84);
 			hannibal1.setSize(iconOne.getIconWidth(),iconOne.getIconHeight());
-			
-	
-			
+					
 			this.add(hannibal1);
 			
 		}
 		else if(mobName.equals("henry howard holmes") || mobName.equals("holmes") || mobName.equals("hhh")){
 			infoArea = new JTextArea("\n name: henry howard holmes\n height: 5'10''\n weight: 170lbs\n born: \n arrest: possible body count of 200.");
-			//add images, later make so text showes when hovering over the images
+			person = "H. H. Holmes";
+			fontSize = 50f;
+			info = "\n Legal Name: Herman Webster Mudgett\n\n"
+					+ " Born: May 16, 1861\n"
+					+ "      (Gilmanton, New Hampshire)\n\n"
+					+ " Died: May 7, 1896\n\n"
+					+ " Other names:\n"
+					+ "     Dr. Henry Howard Holmes\n\n"
+					+ " Height: height: 5'10''\n\n"
+					+ " Weight: ~170 lbs\n\n"
+					+ " Convictions:\n"
+					+ "     4 counts of murder in the first degree\n"
+					+ "     6 counts of attempted murder\n\n"
+					+ " Victims: 9–200\n"
+					+ "     (9 confirmed, 27 confessed, 200 estimated)\n\n"
+					+ " Criminal penalty:\n"
+					+ "     Death\n\n"
+					+ " Criminal Biography:\n"
+					+ "   An American murderer and body snatcher. His\n"
+					+ "   crimes, committed around his hometown.\n"
+					+ "   Authorities discovered Gein had exhumed\n"
+					+ "   corpses from local graveyards and\n"
+					+ "   fashioned trophies and keepsakes from their\n"
+					+ "   bones and skin. He confessed to killing two\n"
+					+ "   women tavern owner Mary Hogan on December\n"
+					+ "   8, 1954, and a Plainfield hardware store\n"
+					+ "   owner, Bernice Worden, on November 16, 1957.\n"
+					+ "   Initially found unfit for trial, after\n"
+					+ "   confinement in a mental health facility he\n"
+					+ "   was tried in 1968 for the murder of Worden\n"
+					+ "   and sentenced to life imprisonment.\n";
 			ImageIcon iconOne = new ImageIcon("images/holmes2");
 			ImageIcon inconTwo = new ImageIcon("images/holmes");
 			
