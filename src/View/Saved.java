@@ -40,7 +40,7 @@ public class Saved extends JFrame{
 		this.setLocationRelativeTo(null);
 		text = new JTextArea(message);
 		text.setEditable(false);
-		text.setSize(200, 200);
+		text.setSize(250, 200);
 		text.setLocation(45, 60);
 		text.setBackground(Color.BLACK);
 		text.setForeground(Color.WHITE);

@@ -385,9 +385,17 @@ public class Server {
 			recipient = splitArgument[0];
 			chatMessage = splitArgument[1];
 		}
+		
 
 		else
 			recipient = argument;
+		
+		List<MOB> mobs = mud.getMOBs();
+		for(MOB m : mobs){
+			if(m.getIdentity().equalsIgnoreCase(recipient)){
+				talkWithMOB(sender, m, chatMessage);
+			}
+		}
 
 		// Check to see if the user that the sender is trying to message
 		// is online. Iterate through the list of players online - if
@@ -417,6 +425,18 @@ public class Server {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void talkWithMOB(String sender, MOB mob, String message){
+		String mobName = mob.getIdentity();
+		
+		String[] wordsInMessage = message.split(" ");
+		for(int i = 0; i < wordsInMessage.length; i++){
+			if(wordsInMessage[i].equalsIgnoreCase("hi") || wordsInMessage[i].equalsIgnoreCase("hey") || wordsInMessage[i].equalsIgnoreCase("hello")  ){
+				
+			}
+		}
+		
 	}
 
 	public void disconnect(String clientName) {

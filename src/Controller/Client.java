@@ -562,6 +562,7 @@ public class Client extends JFrame
 			out.writeObject(new UpdateFightStatsCommand(player.getUsername(), fightResults));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		commandMessages.add(theFight);
