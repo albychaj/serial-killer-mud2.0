@@ -2,7 +2,6 @@ package Model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -889,47 +888,6 @@ public class SerialKillerMud implements Serializable
 		}
 		return null;
 	}
-//	public void setGiveRecipient(String username, String recipient) 
-//	{
-//		Player sender = playerAccounts.get(username);
-//		sender.setGiveRecipient(recipient);
-//		playerAccounts.put(username, sender);
-//	}
-
-//	@SuppressWarnings("rawtypes")
-//	public String returnGiveSender(String recipient) 
-//	{
-//		String senderName = new String();
-//		
-//		Iterator it = playerAccounts.entrySet().iterator();
-//		
-//		while (it.hasNext())
-//		{
-//			Map.Entry pairs = (Map.Entry)it.next();
-//			Player player = (Player)pairs.getValue();
-//			
-//			if (player.getGiveRecipient().equalsIgnoreCase(recipient))
-//				senderName = player.getUsername();
-//		}
-//		
-//		return senderName;
-//	}
-
-//	public String transferItemBetweenPlayers(String sender, String recipient) 
-//	{
-//		Player playerGivingItem = playerAccounts.get(sender.toLowerCase());
-//		Player playerGettingItem = playerAccounts.get(recipient.toLowerCase());
-//		
-//		String itemName = playerGivingItem.getGiveItem();
-//		playerGivingItem.resetGiveFields();
-//		Item item = playerGivingItem.removeItemFromBackpack(itemName);
-//		playerGettingItem.pickUpItem(item);
-//		
-//		playerAccounts.put(sender, playerGivingItem);
-//		playerAccounts.put(recipient, playerGettingItem);
-//		
-//		return itemName;
-//	}
 	
 	public String completeTransaction(String recipientName) 
 	{

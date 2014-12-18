@@ -20,7 +20,6 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import Commands.CommandErrorCommand;
 import Commands.ForServerCommand;
 import Enums.Commands;
 

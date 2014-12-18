@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Items.Item;
-import MOBs.MOB;
 import View.Death;
 
 /**
@@ -146,37 +145,6 @@ public class Player implements Serializable
 		
 		return result;
 	}
-
-//	public void setGiveRecipient(String recipient) 
-//	{
-//		giveRecipient = recipient;
-//	}
-//
-//	public void setGiveItem(String itemName) 
-//	{
-//		giveItem = itemName;
-//	}
-//
-//	public String getGiveItem() 
-//	{
-//		return giveItem;
-//	}
-//
-//	public void resetGiveFields() 
-//	{
-//		giveRecipient = new String();
-//		giveItem = new String();
-//	}
-//
-//	public String getGiveRecipient() 
-//	{
-//		return giveRecipient;
-//	}
-//
-//	public String getRecipientOfGet() 
-//	{
-//		return getRecipient;
-//	}
 
 	public void setSenderOfRequest(String senderName) 
 	{

@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -15,7 +13,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 public class Map extends JFrame 
@@ -452,11 +449,11 @@ public class Map extends JFrame
 		        				+ "is only one way out. Find the key and\n"
 		        				+ "enter the Murder Castle. You can stay\n"
 		        				+ "but your chances of survival are slim\n"
-		        				+ "to none. Do yourself a favor if you’re\n"
+		        				+ "to none. Do yourself a favor if youï¿½re\n"
 		        				+ "on the lawn, leave at once and save yo\n"
 		        				+ "ass.\n\n"
 		        				+ "Adjacent Rooms: \n"
-		        				+ "North – Murder Castle\n\n");
+		        				+ "North ï¿½ Murder Castle\n\n");
 				break;
 			case "room2":
 				secretRoom.setBackground(Color.BLACK);
@@ -467,7 +464,7 @@ public class Map extends JFrame
 		        				+ "are confidential. You have to play\n"
 		        				+ "the game and explore it yourself\n\n"
 		        				+ "Adjacent Rooms:\n"
-		        				+ "North – Abandoned Factory\n\n");
+		        				+ "North ï¿½ Abandoned Factory\n\n");
 				break;
 			case "room3":
 				darkWoods.setBackground(Color.BLACK);
@@ -479,10 +476,10 @@ public class Map extends JFrame
 	        			   + "hidden in the brush. Their eyes\n"
 	        			   + "glow with a lively flourish that\n"
 	        			   + "juxtaposes your inevitable fate.\n"
-	        			   + "There isn’t much to see here since\n"
-	        			   + "it is dark. Perhaps you’ll find a\n"
+	        			   + "There isnï¿½t much to see here since\n"
+	        			   + "it is dark. Perhaps youï¿½ll find a\n"
 	        			   + "flashlight hidden amongst the trees.\n"
-	        			   + "Word of advice… Watch your back!!\n\n"
+	        			   + "Word of adviceï¿½ Watch your back!!\n\n"
 	        			   + "Adjacent Rooms:\n"
 	        			   + "North - Save Yo Self Hospital\n"
 	        			   + "East - Basement of the Murder Castle\n\n");
@@ -496,7 +493,7 @@ public class Map extends JFrame
 	        			   + "of the murder castle. Beware the\n "
 	        			   + "piles of corpses. That stench isn't\n"
 	        			   + "just your feet. Besides the eeriness\n"
-	        			   + "feeling this room gives you there isn’t\n"
+	        			   + "feeling this room gives you there isnï¿½t\n"
 	        			   + "much within the space enclosed by\n"
 	        			   + "these nicely painted red walls.\n\n"
 	        			   + "Adjacent Rooms: \n"
@@ -512,7 +509,7 @@ public class Map extends JFrame
 		        			   + "Welcome to the cozy home of Sir\n"
 		        			   + "HH Holmes. There's no need to be\n"
 		        			   + "afraid. Unless HH comes home. The\n"
-		        			   + "‘Castle’ is located 601-603 W. 63rd St.\n"
+		        			   + "ï¿½Castleï¿½ is located 601-603 W. 63rd St.\n"
 		        			   + "Chicago. It's three stories and a block\n"
 		        			   + "long. The ground floor contains Dr.\n"
 		        			   + "Holmes drugstore. The upper two\n"
@@ -537,8 +534,8 @@ public class Map extends JFrame
 	        			   + "Ed Gein definately does not want to\n"
 	        			   + "scare you away. The house is in\n"
 	        			   + "pristine shape but a little out\n"
-	        			   + "dated. I wouldn’t touch anything Ed\n"
-	        			   + "wouldn’t like that. He should be\n"
+	        			   + "dated. I wouldnï¿½t touch anything Ed\n"
+	        			   + "wouldnï¿½t like that. He should be\n"
 	        			   + "arriving shortly. If I were you get\n"
 	        			   + "what you need and leave."
 	        			   + "\n\n"
@@ -552,15 +549,15 @@ public class Map extends JFrame
 				infoArea.setText("Location:\nCleveland Strangler Murder House\n\n"
 	        			   + "Description:\n"
 	        			   + "You are currently standing in the\n"
-	        			   + "Cleveland Strangler’s living room.\n"
+	        			   + "Cleveland Stranglerï¿½s living room.\n"
 	        			   + "It is here where two bodies were\n"
 	        			   + "found during the time of the\n"
-	        			   + "Strangler’s arrest. Don’t worry he\n"
-	        			   + "won’t be coming for you but someone\n"
+	        			   + "Stranglerï¿½s arrest. Donï¿½t worry he\n"
+	        			   + "wonï¿½t be coming for you but someone\n"
 	        			   + "else could be. There is a couch to\n"
 	        			   + "the north of the room and a\n"
 	        			   + "television. The room is pretty empty\n"
-	        			   + "the Strangler wasn’t too keen on\n"
+	        			   + "the Strangler wasnï¿½t too keen on\n"
 	        			   + "indoor decorating.\n\n"
 	        			   + "Adjacent Rooms:\n"
 	        			   + "North - Manson Family Murder House\n"
@@ -638,7 +635,7 @@ public class Map extends JFrame
 			case "room12":
 				kitchen.setBackground(Color.BLACK);
 				kitchen.setEnabled(false);
-				infoArea.setText("Location:\nHannibal’s Kitchen\n\n"
+				infoArea.setText("Location:\nHannibalï¿½s Kitchen\n\n"
 	        			   + "Description: \n"
 	        			   + "You're in for a treat. Pull up a chair\n"
 	        			   + "and prepare to be served the finest\n"
@@ -658,7 +655,7 @@ public class Map extends JFrame
 				infoArea.setText("Location:\nManson Family Murder House\n\n"
 	        			   + "Description: \n"
 	        			   + "This is a really nice home but its best\n"
-	        			   + "that you don’t make yourself\n"
+	        			   + "that you donï¿½t make yourself\n"
 	        			   + "comfortable. Some really messed up\n"
 	        			   + "murders were planned here. "
 	        			   + ""
@@ -666,7 +663,7 @@ public class Map extends JFrame
 	        			   + "Adjacent Rooms: \n"
 	        			   + "North - cemetery\n"
 	        			   + "South - Wisconsin Farmhouse of Horrors\n"
-	        			   + "West - Hannibal’s Kitchen\n\n");
+	        			   + "West - Hannibalï¿½s Kitchen\n\n");
 				break;
 			case "room14":
 				room14.setBackground(Color.BLACK);
@@ -724,7 +721,7 @@ public class Map extends JFrame
 				infoArea.setText("Location:\nJeffrey Dahmer's Apartment\n\n"
 	        			   + "Description: \n"
 	        			   + "How is it in Milwaukee? I hope Jeffrey\n"
-	        			   + "hasn’t marked you as his next victim.\n"
+	        			   + "hasnï¿½t marked you as his next victim.\n"
 	        			   + "Last time I heard none of his male\n"
 	        			   + "confidants made it out in one piece.\n"
 	        			   + "Do yourself a favor and leave\n"
@@ -886,7 +883,7 @@ public class Map extends JFrame
 	        			   + "Description: \n"
 	        			   + "This may look like a normal Big\n"
 	        			   + "Rig, but look closer. You probably\n"
-	        			   + "don’t want to be in this mobile\n"
+	        			   + "donï¿½t want to be in this mobile\n"
 	        			   + "torture chamber."
 	        			   + "\n\n"
 	        			   + "Adjacent Rooms: \n"

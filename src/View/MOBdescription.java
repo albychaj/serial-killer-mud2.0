@@ -1,8 +1,6 @@
 package View;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -13,7 +11,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
@@ -175,7 +172,7 @@ public class MOBdescription extends JFrame {
 		{
 			person = "Richard Ramirez";
 			fontSize = 50f;
-			info = "\n Legal Name: Ricardo Leyva Muñoz Ramírez\n\n"
+			info = "\n Legal Name: Ricardo Leyva Muï¿½oz Ramï¿½rez\n\n"
 					+ " Born: February 28, 1960 (El Paso, Texas)\n\n"
 					+ " Died: June 7, 2013\n\n"
 					+ " Other names:\n"
@@ -425,7 +422,7 @@ public class MOBdescription extends JFrame {
 					+ " Convictions:\n"
 					+ "     4 counts of murder in the first degree\n"
 					+ "     6 counts of attempted murder\n\n"
-					+ " Victims: 9–200\n"
+					+ " Victims: 9ï¿½200\n"
 					+ "     (9 confirmed, 27 confessed, 200 estimated)\n\n"
 					+ " Criminal penalty:\n"
 					+ "     Death\n\n"

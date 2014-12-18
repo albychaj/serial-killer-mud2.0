@@ -1,7 +1,6 @@
 package Commands;
 
 import Controller.Client;
-import MOBs.MOB;
 
 public class LookMOBCommand extends Command<Client>
 {

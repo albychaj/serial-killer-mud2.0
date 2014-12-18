@@ -27,9 +27,9 @@ import Commands.FightCommand;
 import Commands.GetCommand;
 import Commands.GetRequestReceivedCommand;
 import Commands.GiveOrGetErrorCommand;
-import Commands.ItemGivenToIntendedCommand;
 import Commands.GiveRequestRecievedCommand;
 import Commands.InventoryCommand;
+import Commands.ItemGivenToIntendedCommand;
 import Commands.LookErrorCommand;
 import Commands.LookItemCommand;
 import Commands.LookMOBCommand;
@@ -54,7 +54,6 @@ import MOBs.MOB;
 import Model.SerialKillerMud;
 import Players.Player;
 import Rooms.Room;
-import View.MOBdescription;
 
 /**
  * The class is the server side of the Serial Killer MUD. The server
