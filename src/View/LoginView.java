@@ -153,6 +153,9 @@ public class LoginView extends JFrame
 	{
 		String username = usernameField.getText();
 		
+//		ConcurrentHashMap<String, Player> temp = new ConcurrentHashMap<String, Player>();
+//		temp.putAll(playerAccounts);
+		
 		// If the player is already online, don't let this motherfucker try to 
 		// sign in again
 		for (String playerName: playersOnline)

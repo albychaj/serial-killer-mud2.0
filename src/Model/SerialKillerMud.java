@@ -120,7 +120,10 @@ public class SerialKillerMud implements Serializable
 		playersOnline.add(username);
 		
 		Player player = playerAccounts.get(username);
-		entrance.addPlayerToRoom(player);
+		String lastLocation = player.getLastLocation();
+		Room room = roomsMap.get(lastLocation);
+		room.addPlayerToRoom(player);
+		roomsMap.put(lastLocation, room);
 	}
 	
 	public Room getRoomPlayerIsCurrIn(String username)
@@ -278,14 +281,26 @@ public class SerialKillerMud implements Serializable
 	}
 	
 
-	public void disconnectPlayer(String username) 
+	public void disconnectPlayer(String playerName) 
 	{
-		// Remove the player from the room it is currently in
-		String currRoomName = this.getPlayerRoomName(username);
-		Room currRoom = roomsMap.get(currRoomName);
-		currRoom.removePlayerFromRoom(username);
-		
 		// Remove the player from the list of players online
+		playersOnline.remove(playerName);
+		
+		
+		// Remove the player from the room it is currently in
+		Room currRoom = this.getRoomPlayerIsCurrIn(playerName);
+		currRoom.removePlayerFromRoom(playerName);
+		
+		// Update the room in the HashMap
+		roomsMap.put(currRoom.getRoomName(), currRoom);
+		
+		// Keep an reference to the location the player was in when they
+		// left the game. Only new players should start on the lawn. That
+		// way, when a player with an existing account logs back in, they will
+		// start where they left off in the game.
+		Player playerDisconnecting = playerAccounts.get(playerName);
+		playerDisconnecting.setLastLocation(currRoom.getRoomName());
+		playerAccounts.put(playerName, playerDisconnecting);
 	}
 
 	public List<String> getPlayerInventoryDescription(String username) 
@@ -874,47 +889,47 @@ public class SerialKillerMud implements Serializable
 		}
 		return null;
 	}
-	public void setGiveRecipient(String username, String recipient) 
-	{
-		Player sender = playerAccounts.get(username);
-		sender.setGiveRecipient(recipient);
-		playerAccounts.put(username, sender);
-	}
+//	public void setGiveRecipient(String username, String recipient) 
+//	{
+//		Player sender = playerAccounts.get(username);
+//		sender.setGiveRecipient(recipient);
+//		playerAccounts.put(username, sender);
+//	}
 
-	@SuppressWarnings("rawtypes")
-	public String returnGiveSender(String recipient) 
-	{
-		String senderName = new String();
-		
-		Iterator it = playerAccounts.entrySet().iterator();
-		
-		while (it.hasNext())
-		{
-			Map.Entry pairs = (Map.Entry)it.next();
-			Player player = (Player)pairs.getValue();
-			
-			if (player.getGiveRecipient().equalsIgnoreCase(recipient))
-				senderName = player.getUsername();
-		}
-		
-		return senderName;
-	}
+//	@SuppressWarnings("rawtypes")
+//	public String returnGiveSender(String recipient) 
+//	{
+//		String senderName = new String();
+//		
+//		Iterator it = playerAccounts.entrySet().iterator();
+//		
+//		while (it.hasNext())
+//		{
+//			Map.Entry pairs = (Map.Entry)it.next();
+//			Player player = (Player)pairs.getValue();
+//			
+//			if (player.getGiveRecipient().equalsIgnoreCase(recipient))
+//				senderName = player.getUsername();
+//		}
+//		
+//		return senderName;
+//	}
 
-	public String transferItemBetweenPlayers(String sender, String recipient) 
-	{
-		Player playerGivingItem = playerAccounts.get(sender.toLowerCase());
-		Player playerGettingItem = playerAccounts.get(recipient.toLowerCase());
-		
-		String itemName = playerGivingItem.getGiveItem();
-		playerGivingItem.resetGiveFields();
-		Item item = playerGivingItem.removeItemFromBackpack(itemName);
-		playerGettingItem.pickUpItem(item);
-		
-		playerAccounts.put(sender, playerGivingItem);
-		playerAccounts.put(recipient, playerGettingItem);
-		
-		return itemName;
-	}
+//	public String transferItemBetweenPlayers(String sender, String recipient) 
+//	{
+//		Player playerGivingItem = playerAccounts.get(sender.toLowerCase());
+//		Player playerGettingItem = playerAccounts.get(recipient.toLowerCase());
+//		
+//		String itemName = playerGivingItem.getGiveItem();
+//		playerGivingItem.resetGiveFields();
+//		Item item = playerGivingItem.removeItemFromBackpack(itemName);
+//		playerGettingItem.pickUpItem(item);
+//		
+//		playerAccounts.put(sender, playerGivingItem);
+//		playerAccounts.put(recipient, playerGettingItem);
+//		
+//		return itemName;
+//	}
 	
 	public String completeTransaction(String recipientName) 
 	{
@@ -1009,38 +1024,38 @@ public class SerialKillerMud implements Serializable
 		return typeOfTransaction;
 	}
 	
-	public void resetGiveFields(String sender)
-	{
-		Player playerGivingItem = playerAccounts.get(sender.toLowerCase());
-		playerGivingItem.resetGiveFields();
-		playerAccounts.put(sender, playerGivingItem);
-	}
-
-	public void setGiveItem(String username, String itemName) 
-	{
-		Player sender = playerAccounts.get(username);
-		sender.setGiveItem(itemName);
-		playerAccounts.put(username, sender);
-	}
-
-	@SuppressWarnings("rawtypes")
-	public String returnGetSender(String recipient) 
-	{
-		String senderName = new String();
-		
-		Iterator it = playerAccounts.entrySet().iterator();
-		
-		while (it.hasNext())
-		{
-			Map.Entry pairs = (Map.Entry)it.next();
-			Player player = (Player)pairs.getValue();
-			
-			if (player.getRecipientOfGet().equalsIgnoreCase(recipient))
-				senderName = player.getUsername();
-		}
-		
-		return senderName;
-	}
+//	public void resetGiveFields(String sender)
+//	{
+//		Player playerGivingItem = playerAccounts.get(sender.toLowerCase());
+//		playerGivingItem.resetGiveFields();
+//		playerAccounts.put(sender, playerGivingItem);
+//	}
+//
+//	public void setGiveItem(String username, String itemName) 
+//	{
+//		Player sender = playerAccounts.get(username);
+//		sender.setGiveItem(itemName);
+//		playerAccounts.put(username, sender);
+//	}
+//
+//	@SuppressWarnings("rawtypes")
+//	public String returnGetSender(String recipient) 
+//	{
+//		String senderName = new String();
+//		
+//		Iterator it = playerAccounts.entrySet().iterator();
+//		
+//		while (it.hasNext())
+//		{
+//			Map.Entry pairs = (Map.Entry)it.next();
+//			Player player = (Player)pairs.getValue();
+//			
+//			if (player.getRecipientOfGet().equalsIgnoreCase(recipient))
+//				senderName = player.getUsername();
+//		}
+//		
+//		return senderName;
+//	}
 
 	public void setSenderOfRequest(String recipientName, String senderName) 
 	{

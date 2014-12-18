@@ -23,22 +23,20 @@ public class Player implements Serializable
     private final static int MAXHEALTH = 100;
     private final static int MAX_ITEMS = 5;
     private int attackPoints;
-    private String giveRecipient, getRecipient, giveItem, getItem, senderOfRequest;
-    private String itemToGive, itemReceived; // The item to give
+    private String senderOfRequest;
+    private String itemToGive, itemReceived; 
     private boolean transactionPending;
+    private String lastLocation;
     
      
     public Player(String username, String password)
     {
         this.username = username;
         this.password = password;
-        giveRecipient = new String();
-        getRecipient = new String();
-        giveItem = new String();
-        getItem = new String();
-        itemReceived = new String();
+        lastLocation = "The Lawn";
         transactionPending = false;
         itemToGive = new String();
+        itemReceived = new String();
         backpack = new ArrayList<Item>();
         health = 50;
         attackPoints = -30;
@@ -149,36 +147,36 @@ public class Player implements Serializable
 		return result;
 	}
 
-	public void setGiveRecipient(String recipient) 
-	{
-		giveRecipient = recipient;
-	}
-
-	public void setGiveItem(String itemName) 
-	{
-		giveItem = itemName;
-	}
-
-	public String getGiveItem() 
-	{
-		return giveItem;
-	}
-
-	public void resetGiveFields() 
-	{
-		giveRecipient = new String();
-		giveItem = new String();
-	}
-
-	public String getGiveRecipient() 
-	{
-		return giveRecipient;
-	}
-
-	public String getRecipientOfGet() 
-	{
-		return getRecipient;
-	}
+//	public void setGiveRecipient(String recipient) 
+//	{
+//		giveRecipient = recipient;
+//	}
+//
+//	public void setGiveItem(String itemName) 
+//	{
+//		giveItem = itemName;
+//	}
+//
+//	public String getGiveItem() 
+//	{
+//		return giveItem;
+//	}
+//
+//	public void resetGiveFields() 
+//	{
+//		giveRecipient = new String();
+//		giveItem = new String();
+//	}
+//
+//	public String getGiveRecipient() 
+//	{
+//		return giveRecipient;
+//	}
+//
+//	public String getRecipientOfGet() 
+//	{
+//		return getRecipient;
+//	}
 
 	public void setSenderOfRequest(String senderName) 
 	{
@@ -238,5 +236,15 @@ public class Player implements Serializable
 	public void setTransactionPending() 
 	{
 		transactionPending = true;
+	}
+
+	public void setLastLocation(String roomName) 
+	{
+		lastLocation = roomName;
+	}
+
+	public String getLastLocation() 
+	{
+		return lastLocation;
 	}
 }//end of class Player
