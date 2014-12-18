@@ -1,5 +1,7 @@
 package Controller;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.EOFException;
@@ -15,9 +17,11 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 
 import Commands.Command;
 import Commands.DisconnectCommand;
+import Commands.UpdateFightStatsCommand;
 import Commands.createNewPlayerAccountCommand;
 import Commands.loginPlayerCommand;
 import Items.Item;
@@ -49,6 +53,7 @@ public class Client extends JFrame
 	private String clientName; // name of client
 	private ObjectOutputStream out; // output stream
 	private ObjectInputStream in; // input stream
+	private Timer t;
 			
 	public static void main (String []args)
 	{
@@ -91,8 +96,18 @@ public class Client extends JFrame
 			e.printStackTrace();
 		}
 		
+		//t = new Timer(1000, new keepTrackOfTimeListener());
 		
 	} // end of constructor Client
+	
+	/*private class keepTrackOfTimeListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+		}
+		
+	}*/
 
 	/**
 	 * This class reads and executes commands sent from the server
@@ -536,7 +551,19 @@ public class Client extends JFrame
 		else
 			theFight = opponent.getIdentity() + " is not around at the moment. Maybe wait a while.";
 		
-		
+		String fightResults = new String();
+		if(player.getHealth() > 0){
+			fightResults += "OOOOOOHHHHHH " + player.getUsername() + " demolished " + opponent.getIdentity()+ "!!!";
+		}
+		else{
+			fightResults += "OUCH, " + opponent.getIdentity() + " killed " + player.getUsername() + ". Sorry, " + player.getUsername() + " yo ass is DEAD.";
+		}
+		try {
+			out.writeObject(new UpdateFightStatsCommand(player.getUsername(), fightResults));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		commandMessages.add(theFight);
 		mainView.updateCommandLog(commandMessages);
 		
