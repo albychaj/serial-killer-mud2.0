@@ -13,6 +13,7 @@ public class LookItemCommand extends Command<Client>
 		this.item = item;
 	}
 	
+	@Override
 	public void execute(Client executeOn)
 	{
 		executeOn.lookAtItemInRoom(item);

@@ -7,6 +7,7 @@ import java.io.File;
 
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
+import javax.swing.WindowConstants;
 
 public class Death extends JFrame{
 
@@ -22,7 +23,7 @@ public class Death extends JFrame{
 	public Death()
 	{
 		this.setTitle("Yo Ass Is Dead");
-		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		
 		this.setSize(300, 200);
 		this.setLayout(null);

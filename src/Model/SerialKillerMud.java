@@ -22,6 +22,7 @@ import Rooms.Room;
  */
 public class SerialKillerMud implements Serializable
 {
+	private static final long serialVersionUID = 8453581806535931723L;
 	private ConcurrentHashMap<String, Player> playerAccounts; // all players accounts
 	private List<String> playersOnline; // list of usernames of players online
 	private final static Player admin = new Player("admin", "0000");
@@ -431,10 +432,10 @@ public class SerialKillerMud implements Serializable
 		foxHollowFarm = new Room("Chamber Station", "This elegant Tudor-style farm house comes four furnished bedrooms, indoor swimming pool, and a riding "
 	                               + "stable. You have plenty of privacy since it lies on eighteen and half acres of land. Not too shabby right? "
 	                               + "Just ignore the fact that the remains of 11 men lie scattered around the land.");
-		cleveland = new Room("The Cleveland Strangler's Murder House", "You are currently standing in the Cleveland Strangler�s living room. It is here where two bodies were "
-	                                                  + "found during the time of the Strangler�s arrest. Don�t worry he won�t be coming for you but someone "
+		cleveland = new Room("The Cleveland Strangler's Murder House", "You are currently standing in the Cleveland Strangler's living room. It is here where two bodies were "
+	                                                  + "found during the time of the Strangler's arrest. Don't worry he won't be coming for you but someone "
 	                                                  + "else could be. There is a couch to the north of the room and a television. The room is pretty empty "
-	                                                  + "the Strangler wasn�t too keen on indoor decorating.");
+	                                                  + "the Strangler wasn't too keen on indoor decorating.");
 		bigRig = new Room("Robert Ben Rhodes' Big Rig", "This may look like a normal Big Rig, but look closer. You probably don�t want to be in this mobile torture chamber.");
 		desert = new Room("The Deadly Desert", "I hope you brought plenty of water. And watch out for those scorpions too.  Stay here too long, and yo ass "
 	                          + "will suffer death by dehydration.");
@@ -665,8 +666,8 @@ public class SerialKillerMud implements Serializable
 		water = new EnergyBoostItem("water", "you drink it to stay alive", true, false);
 		food = new EnergyBoostItem("food", "you eat it to stay alive", true, false);
 		bandaid = new EnergyBoostItem("bandaid", "patch up your wound", true, false);
-		aidKit = new EnergyBoostItem("first aid kit", "patch up your wound", true, false);
-		energyBoost = new EnergyBoostItem("energy boost", "You look a little tired, use this to increase your energy.", true, false);
+		aidKit = new EnergyBoostItem("firstaid-kit", "patch up your wound", true, false);
+		energyBoost = new EnergyBoostItem("energy-boost", "You look a little tired, use this to increase your energy.", true, false);
 		stick = new FightingItem("stick","Use this fine piece of wood to protect yourself in anyway possible. It's more powerful than you think.", true, false, false);
 		knife = new FightingItem("knife", "You can stab people with it to stay alive", true, false, false);
 		gun = new FightingItem("gun", "Use this to kill enemies/victims.", true, false, false);
@@ -674,8 +675,8 @@ public class SerialKillerMud implements Serializable
 		shovel = new FightingItem("shovel", "Use this to digg wholes or to whack MOB's upside there heads.", true, false, false);
 		rope = new FightingItem("rope", "Need to tie up a victim?", true, false, false);
 		handcuffs = new ReusableItem("handcuffs", "Use this to save yourself some time. MOB's will struggle to get free from this restraint.", true, false, false);
-		flashlight = new ReusableItem("falsh light", "Use this item to light up your night.", true, false, false);
-		nightVisionGoggles = new ReusableItem("night vision goggles", "Use these to see in dark places to stay alive", true, false, false);
+		flashlight = new ReusableItem("flashlight", "Use this item to light up your night.", true, false, false);
+		nightVisionGoggles = new ReusableItem("night-vision-goggles", "Use these to see in dark places to stay alive", true, false, false);
 		key = new ReusableItem("key", "Use this to unlock doors to run away to stay alive.", true, false, false);
 		money = new ReusableItem("money", "Use this to buy energy boosts", true, true, true); 
 		disguise = new ReusableItem("disguise", "This is a rare find. Use this to hide your face from your enemies.", true, true, true); 
@@ -980,39 +981,6 @@ public class SerialKillerMud implements Serializable
 		// Return type of transaction
 		return typeOfTransaction;
 	}
-	
-//	public void resetGiveFields(String sender)
-//	{
-//		Player playerGivingItem = playerAccounts.get(sender.toLowerCase());
-//		playerGivingItem.resetGiveFields();
-//		playerAccounts.put(sender, playerGivingItem);
-//	}
-//
-//	public void setGiveItem(String username, String itemName) 
-//	{
-//		Player sender = playerAccounts.get(username);
-//		sender.setGiveItem(itemName);
-//		playerAccounts.put(username, sender);
-//	}
-//
-//	@SuppressWarnings("rawtypes")
-//	public String returnGetSender(String recipient) 
-//	{
-//		String senderName = new String();
-//		
-//		Iterator it = playerAccounts.entrySet().iterator();
-//		
-//		while (it.hasNext())
-//		{
-//			Map.Entry pairs = (Map.Entry)it.next();
-//			Player player = (Player)pairs.getValue();
-//			
-//			if (player.getRecipientOfGet().equalsIgnoreCase(recipient))
-//				senderName = player.getUsername();
-//		}
-//		
-//		return senderName;
-//	}
 
 	public void setSenderOfRequest(String recipientName, String senderName) 
 	{

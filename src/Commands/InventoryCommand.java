@@ -14,6 +14,7 @@ public class InventoryCommand extends Command<Client>
 		this.playersInventory = playersInventory;
 	}
 
+	@Override
 	public void execute(Client executeOn)
 	{
 		executeOn.listInventory(playersInventory);

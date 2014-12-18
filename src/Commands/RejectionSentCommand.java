@@ -12,6 +12,7 @@ public class RejectionSentCommand extends Command<Client>
 		this.senderToReject = senderToReject;
 	}
 
+	@Override
 	public void execute(Client executeOn) 
 	{
 		executeOn.rejectionSent(senderToReject); 

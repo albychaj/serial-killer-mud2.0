@@ -26,6 +26,7 @@ public class UpdateChatLogCommand extends Command<Client>
 	/**
 	 * Updates the client
 	 */
+	@Override
 	public void execute(Client executeOn) 
 	{
 		executeOn.updateChatLog(chatMessage);

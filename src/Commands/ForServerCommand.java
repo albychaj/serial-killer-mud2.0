@@ -22,6 +22,7 @@ public class ForServerCommand extends Command<Server>
 		this.argument = argument;
 	}
 
+	@Override
 	public void execute(Server executeOn) 
 	{
 		executeOn.PrintToClient(clientName, command, argument);

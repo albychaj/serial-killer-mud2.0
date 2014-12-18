@@ -6,6 +6,7 @@ public class LookErrorCommand extends Command<Client>
 {
 	private static final long serialVersionUID = -3278728470244955855L;
 
+	@Override
 	public void execute(Client executeOn) 
 	{
 		executeOn.lookError();
