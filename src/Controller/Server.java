@@ -81,9 +81,9 @@ public class Server
 	{
 		outputs = new HashMap<String, ObjectOutputStream>(); // setup the map
 		//mud = new SerialKillerMud(); // setup the model
-		t = new Timer(30000, new SayListener());
-		t2 = new Timer(50000, new MoveListener());
-		t3 = new Timer(100000, new DropHealthListener());
+		t = new Timer(180000, new SayListener());
+		t2 = new Timer(300000, new MoveListener());
+		t3 = new Timer(420000, new DropHealthListener());
 
 		t.start();
 		t2.start();
