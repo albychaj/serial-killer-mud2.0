@@ -369,26 +369,50 @@ public class SerialKillerMud implements Serializable
 	
 	private void instantiateRooms()
 	{
-		lawn = new Room("The Lawn", "There is no escaping now! The lawn is home-\nbase for all players. You are surrounded by thousands upon "
-			       + "\nthousands of acres of dead grass and trees. Daylight does not \nexist in this area and anything can happen. There "
-			       + "is only one way\nout. Find the key and enter the Murder Castle. You can stay but\nyour chances of survival are slim "
-			       + "to none. Do yourself a favor -\nif you're on the lawn, leave at once and save yo ass.");
-		bonus = new Room("The Bonus Room", "Congratulations you have made to the bonus room. There isn't much to this room. The floor is navy blue and the "
-                      + "walls are painted white. There is a table to the north of this room which hold a few items for your collection. Take advantage of the unique item "
-                      + "that can only be found in this room! There isn't much to do here and it's not a safe zone so leave once you are done.\n");
-		woods = new Room("The Dark Woods", "AAAAAOOOOOOWWWWWWWW. Watch out for those deathly predators hidden in the brush. Their eyes glow with a lively flourish that "
-	                      + "juxtaposes your inevitable fate. There isn't much to see here since it is dark. Perhaps you'll find a flashlight hidden amongst the trees. "
-	                      + "Word of advice... Watch your back!!");
-		basement = new Room("The Basement of the Murder Castle", "Welcome to the deepest trenches of the murder castle. Beware the piles of corpses. That stench isn't just your feet. Besides the eeriness "
-	                                            + "feeling this room gives you there isn't much within the space enclosed by these nicely painted red walls.There are no windows to light up "
-	                                            + "you path. The floor is a little slippery as well it's better that you don't ask and continue to explore if you please.");
-		castle = new Room("The Murder Castle", "Welcome to the cozy home of Sir HH Holmes. There's no need to be afraid. Unless HH comes home. The �Castle� is located 601-603 W. 63rd St. "
-     			          + "Chicago. It's three stories and a block long. The ground floor contains Dr. Holmes drugstore. The upper two floors consist of 100 windowless "
-     			          + "rooms with doorways opening to brick walls, oddly angles hallways, and stairways to nowhere. Sir HH only had one thing in mind when he built "
-     			          + "this place ... to murder.");
-		farmhouse = new Room("The Wisconsin Farmhouse of Horrors", "Welcome to Ed Gein's farmhouse. Pay no mind to the human paraphernalia, Ed Gein definitely does not want to "
-	                                              + "scare you away. The house is in pristine shape but a little out dated. I wouldn't touch anything Ed wouldn't like that. "
-	                                              + "He should be arriving shortly. If I were you get what you need and leave.");
+		lawn = new Room("The Lawn", "There is no escaping now! The lawn is home-\n"
+				      + "base for all players. You are surrounded by thousands upon\n"
+				      + "thousands of acres of dead grass and trees. Daylight does\n"
+				      + "not exist in this area and anything can happen. There is\n"
+			          + "only one way out. Find the key and enter the Murder Castle.\n"
+			          + "You can stay but your chances of survival are slime to none\n"
+			          + "Do yourself a favor if you're on the lawn, leave at once\n"
+			          + "and save yo ass.\n");
+		bonus = new Room("The Bonus Room", "Congratulations you have made to the bonus\n"
+				       + "room. There isn't much to this room. The floor is navy blue\n"
+				       + "and the walls are painted white. There is a table to the\n"
+				       + "north of this room which hold a few items for your\n"
+				       + "collection. Take advantage of the unique item that can only\n"
+				       + "be found in this room! There isn't much to do here and it's\n"
+				       + "not a safe zone so leave once you are done.\n");
+		woods = new Room("The Dark Woods", "AAAAAOOOOOOWWWWWWWW. Watch out for\n"
+				       + "those deathly predators hidden in the brush. Their eyes\n"
+				       + "glow with a lively flourish that juxtaposes your inevitable\n"
+				       + "fate. There isn't much to see here since it is dark.\n"
+				       + "Perhaps you'll find a flashlight hidden amongst the trees.\n\n"
+	                   + "Word of advice... Watch your back!!\n");
+		basement = new Room("The Basement of the Murder Castle", "Welcome to the deepest trenches\n"
+				          + "of the murder castle. Beware the piles of corpses. That\n"
+				          + "stench isn't just your feet. Besides the eeriness feeling\n"
+				          + "this room gives you there isn't much within the space\n"
+				          + "enclosed by these nicely painted red walls.There are no\n"
+				          + "windows to light up your path. The floor is a little\n"
+				          + "slippery as well it's better that you don't ask and\n"
+				          + "continue to explore if you please.\n");
+		castle = new Room("The Murder Castle", "Welcome to the cozy home of Sir HH\n"
+				        + "Holmes. There's no need to be afraid. Unless HH come home\n"
+				        + "The \"Castle\" is located 601-603 W. 63rd St. Chicago. It's three\n"
+				        + "stories and a block long. The ground floor contains Dr. Holmes\n"
+				        + "drugstore. The upper two floors consist of 100 windowless"
+				        + "rooms with doorways opening to brick walls, oddly angles hallways, and\n"
+				        + "stairways to nowhere. Sir HH only had one thing in mind when he\n"
+				        + "built this place ... to murder.\n");
+		farmhouse = new Room("The Wisconsin Farmhouse of Horrors", "Welcome to Ed Gein's farmhouse.\n"
+				           + "Pay no mind to the human paraphernalia, Ed Gein\n"
+				           + "definitely does not want to scare you away. The\n"
+				           + "house is in pristine shape but a little out dated.\n"
+				           + "I wouldn't touch anything Ed wouldn't like that. He\n"
+				           + "should be arriving shortly. If I were you get what\n"
+				           + "you need and leave.\n");
 		factory = new Room("The Abandoned Factory", "Creeeeeaak. Low-hanging pipes and boarded windows haunt this desolate place. Beware of dangerous machinery. Some murders can be made to look like "
 	                               + "accidents. Spiders aren't the only thing you should be afraid of in this place.");
 		motel = new Room("The Roach Motel", "You have found a safe place. This place is pretty dirty. The walls are moldy with odd colored stains. No one can attack you here, so go ahead. "
@@ -426,7 +450,11 @@ public class SerialKillerMud implements Serializable
 		alley = new Room("The Dark Alley", "The best place for illegal transactions. But watch out this alley is pretty narrow and might I add dark. Not all sharks live in the ocean.");
 		spain = new Room("Spain", "Ole ... Welcome to Spain! Beware of the bulls that roam the street. They pack a punch if you get "
 	             + "hit by one. It is best not to stay here unless you want to die.");
+<<<<<<< HEAD
 		dubai = new Room("Dubai", "Finally a place of relaxation. Nothing bad can happen to you here but you cannot stay forever. For now enjoy "
+=======
+		paris = new Room("Paris", "Finally a place of relaxation. Nothing bad can happen to you here but you cannot stay forever. For now enjoy "
+>>>>>>> 74de135e7908c18692bbbf01d921bc13983f015d
 	             + "your million dollar view.");
 		paris = new Room("Paris", "Welcome to Paris! Visit the crypts under the city and get lost in the Louvre. You wish right? Too bad you are restricted to "
 	             + "the catacombs which lie right beneath the heart of Paris. This historic labyrinth contains the remains of at least six million "
@@ -676,16 +704,20 @@ public class SerialKillerMud implements Serializable
 		stick = new FightingItem("stick","Use this fine piece of wood to protect yourself in anyway possible. It's more powerful than you think.", true, false, false);
 		knife = new FightingItem("knife", "You can stab people with it to stay alive", true, false, false);
 		gun = new FightingItem("gun", "Use this to kill enemies/victims.", true, false, false);
-		sword = new FightingItem("sword", "Use this sleek piece of weaponry to fight any evil MOB's that stand in your way.", true, false, false);
-		shovel = new FightingItem("shovel", "Use this to digg wholes or to whack MOB's upside there heads.", true, false, false);
+		sword = new FightingItem("sword", "Use this sleek piece of weaponry to fight any evil\nMOB's that stand in your way.", true, false, false);
+		shovel = new FightingItem("shovel", "Use this to digg wholes or to whack MOB's upside\nthere heads.", true, false, false);
 		rope = new FightingItem("rope", "Need to tie up a victim?", true, false, false);
 		handcuffs = new ReusableItem("handcuffs", "Use this to save yourself some time. MOB's will struggle to get free from this restraint.", true, false, false);
 		flashlight = new ReusableItem("flashlight", "Use this item to light up your night.", true, false, false);
 		nightVisionGoggles = new ReusableItem("night-vision-goggles", "Use these to see in dark places to stay alive", true, false, false);
 		key = new ReusableItem("key", "Use this to unlock doors to run away to stay alive.", true, false, false);
 		money = new ReusableItem("money", "Use this to buy energy boosts", true, true, true); 
+<<<<<<< HEAD
 		disguise = new ReusableItem("disguise", "This is a rare find. Use this to hide your face from your enemies.", true, true, true); 
 		skull = new ReusableItem("skull", "Use this to transport yourself to the catacombs in Paris", true, true, true);
+=======
+		disguise = new ReusableItem("disguise", "This is a rare find. Use this to hide your face from\nyour enemies.", true, true, true); 
+>>>>>>> 74de135e7908c18692bbbf01d921bc13983f015d
 		
 		// Add all the items to the item list
 		items = new ArrayList<Item>();
