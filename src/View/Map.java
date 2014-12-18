@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
+import javax.swing.WindowConstants;
 
 public class Map extends JFrame 
 {
@@ -38,7 +39,7 @@ public class Map extends JFrame
 	public Map()
 	{
 		this.setTitle("Save Yo Ass Map");
-		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		
 		try 
 		{

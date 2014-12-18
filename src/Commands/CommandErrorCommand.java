@@ -6,6 +6,7 @@ public class CommandErrorCommand extends Command<Client>
 {
 	private static final long serialVersionUID = -4619271238038593096L;
 
+	@Override
 	public void execute(Client executeOn) 
 	{
 		executeOn.CommandError();

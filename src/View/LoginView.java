@@ -99,6 +99,7 @@ public class LoginView extends JFrame
 		loginButton = new JButton("Login");
 		loginButton.addActionListener(new ActionListener() 
 		{
+			@Override
 			public void actionPerformed(ActionEvent arg0)
 			{
 				login(playerAccounts, playersOnline);
@@ -117,6 +118,7 @@ public class LoginView extends JFrame
 		createButton = new JButton("Create Account");
 		createButton.addActionListener(new ActionListener()
 		{
+			@Override
 			public void actionPerformed(ActionEvent arg0)
 			{
 				addPlayer(playerAccounts);

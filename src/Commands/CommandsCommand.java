@@ -6,6 +6,7 @@ public class CommandsCommand extends Command<Client>
 {
 	private static final long serialVersionUID = 6501790673164686410L;
 
+	@Override
 	public void execute(Client executeOn)
 	{
 		executeOn.listCommands();

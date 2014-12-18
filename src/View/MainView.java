@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import Commands.ForServerCommand;
@@ -55,7 +56,7 @@ public class MainView extends JPanel
 	{
 		JPanel top = new JPanel();
 		
-		JLabel banner = new JLabel("SAVE YO ASS", JLabel.CENTER);
+		JLabel banner = new JLabel("SAVE YO ASS", SwingConstants.CENTER);
 		banner.setPreferredSize(new Dimension(1100, 60));
 		banner.setForeground(Color.RED);
         banner.setOpaque(true);
@@ -162,6 +163,7 @@ public class MainView extends JPanel
 	
 	private class EnterListener implements ActionListener
 	{
+		@Override
 		public void actionPerformed(ActionEvent arg0)
 		{	
 			String s = textField.getText();

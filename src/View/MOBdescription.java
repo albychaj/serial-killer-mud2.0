@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
+import javax.swing.WindowConstants;
 
 
 public class MOBdescription extends JFrame {
@@ -33,7 +34,7 @@ public class MOBdescription extends JFrame {
 	public MOBdescription(String mobName) {
 
 		this.setTitle("Save Yo Ass MOB Description");
-		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
 		try {
 			backgroundImage = ImageIO.read(new File("images/scary-wall.JPG"));

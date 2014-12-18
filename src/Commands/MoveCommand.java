@@ -12,6 +12,7 @@ public class MoveCommand extends Command<Client>
 		this.roomDescription = roomDescription;
 	}
 	
+	@Override
 	public void execute(Client executeOn)
 	{
 		executeOn.movePlayer(roomDescription);
