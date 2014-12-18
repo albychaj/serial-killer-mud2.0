@@ -35,6 +35,7 @@ import Commands.LookItemCommand;
 import Commands.LookMOBCommand;
 import Commands.LookPlayerCommand;
 import Commands.LookRoomCommand;
+import Commands.MOBGetErrorCommand;
 import Commands.MapCommand;
 import Commands.MoveCommand;
 import Commands.MoveErrorCommand;
@@ -615,6 +616,19 @@ public class Server
 						String[] splitArgument = argument.split(" ", 2);
 						String itemName = splitArgument[0].toLowerCase(); 
 						String recipient = splitArgument[1].toLowerCase();
+						List<MOB> mobs = mud.getMOBs();
+						boolean isMOB = false;
+						for (MOB m : mobs){
+							if(m.getIdentity().equalsIgnoreCase(recipient)){
+								isMOB = true;
+								result = new MOBGetErrorCommand(recipient);
+								break;
+							}
+							
+						}
+						if(isMOB == true)
+							break;
+						
 						
 						// Now check to see if the player is online and/or exists. Also check to see if the
 						// player has the item. Otherwise, an error will be returned to the sender. 
