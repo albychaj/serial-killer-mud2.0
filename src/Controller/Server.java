@@ -49,6 +49,7 @@ import Commands.ScoreCommand;
 import Commands.TellErrorCommand;
 import Commands.TradeRequestSentCommand;
 import Commands.UpdateChatLogCommand;
+import Commands.UpdateFightStatsCommand;
 import Commands.UseCommand;
 import Commands.WhoCommand;
 import Enums.Commands;
@@ -71,7 +72,13 @@ public class Server
 	private ServerSocket socket; // the server socket
 	private HashMap<String, ObjectOutputStream> outputs; // map of all connected user's output streams
 	private SerialKillerMud mud;
+<<<<<<< HEAD
 	private Timer t, t2;
+=======
+	private Timer t;
+	private Timer t2;
+	private Timer t3;
+>>>>>>> 5d0474283760c0484c3801278b859fcc25032630
 	private Random randomGenerator;
 
 	public static void main(String[] args) 
@@ -82,11 +89,20 @@ public class Server
 	public Server() 
 	{
 		outputs = new HashMap<String, ObjectOutputStream>(); // setup the map
+<<<<<<< HEAD
 		//mud = new SerialKillerMud(); // setup the model
 		t = new Timer(10000, new SayListener());
 		t2 = new Timer(20000, new MoveListener());
 		t.start();
+=======
+		mud = new SerialKillerMud(); // setup the model
+		t = new Timer(100000, new SayListener());
+		t.start();
+		t2 = new Timer(70000, new MoveListener());
+>>>>>>> 5d0474283760c0484c3801278b859fcc25032630
 		t2.start();
+		t3 = new Timer(100000, new DropHealthListener());
+		t3.start();
 		randomGenerator = new Random();
 
 		try 
@@ -109,6 +125,17 @@ public class Server
 			e.printStackTrace();
 		}
 	} // end of constructor Server
+	
+	private class DropHealthListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			for (String p : mud.getPlayersOnline()){
+				mud.getPlayer(p).incrementHealth(-5);
+			}
+		}
+		
+	}
 
 	/**
 	 * This thread listens for and sets up connections to new clients
@@ -704,6 +731,7 @@ public class Server
 						item = mud.getItemFromName(argument);
 					}
 					mud.giveItemToPlayer(username, item);
+					updateClientsChatLogInSameRoomBesidesPlayer(username, "<" + username + " picked up " + item.getName() + ">");
 					result = new GetCommand(argument);
 				}
 
@@ -726,6 +754,7 @@ public class Server
 							argument);
 					mud.addItemToRoom(currRoom.getRoomName(), item);
 					result = new DropCommand(argument);
+					updateClientsChatLogInSameRoomBesidesPlayer(username, "<" + username + " dropped " + argument + ">");
 				}
 
 				else
@@ -740,6 +769,8 @@ public class Server
 					Item item = mud.removeItemFromPlayerBackpack(username,
 							argument);
 					mud.addItemToRoom(currRoom.getRoomName(), item);
+					updateClientsChatLogInSameRoomBesidesPlayer(username, "<" + username + " used " + argument + ">");
+
 				}
 				break;
 
@@ -760,6 +791,7 @@ public class Server
 						mud.getMOBCurrLocation(opponent)))
 					go = true;
 				result = new FightCommand(opponent, player, go);
+				updateClientsChatLogInSameRoomBesidesPlayer(username, "!!!! FIGHT FIGHT FIGHT FIGHT !!!\n" + username + " challenges " + opponent.getIdentity() +  "to a fight!!!!!!");
 				break;
 
 			case ACCEPT:
@@ -770,13 +802,14 @@ public class Server
 					String senderOfRequest = mud.getSenderOfRequest(username);
 					String typeOfTransaction = mud
 							.completeTransaction(username);
+					String itemTransferred = new String();
 
 					// The user was a recipient of a give request (i.e. they are
 					// getting an item)
 					if (typeOfTransaction.equals("give")) {
 						// Send a message to the recipient of the give request
 						// letting them know that they got an item
-						String itemTransferred = mud
+						itemTransferred = mud
 								.getItemTransferred(username);
 						result = new AcceptedItemCommand(senderOfRequest,
 								itemTransferred);
@@ -785,6 +818,10 @@ public class Server
 						// them know that they gave an item
 						Server.this.sendConfirmationOfGiveToSender(
 								senderOfRequest, username, itemTransferred);
+						updateClientsChatLogInSameRoomBesidesPlayers(senderOfRequest, username, senderOfRequest + " traded " + itemTransferred + " with " + username);
+						//updateTrade(senderOfRequest,senderOfRequest + " traded " + itemTransferred + " with " + username);
+						//new UpdateFightStatsCommand(senderOfRequest, senderOfRequest + " traded " + itemTransferred + " with " + username);
+
 					}
 
 					// The user was a recipient of a get request (i.e. they are
@@ -792,7 +829,7 @@ public class Server
 					else {
 						// Send a message to the sender of the get request
 						// letting them know that they received an item
-						String itemTransferred = mud
+						itemTransferred = mud
 								.getItemTransferred(senderOfRequest);
 						Server.this.sendConfirmationOfGetToSender(
 								senderOfRequest, username, itemTransferred);
@@ -801,7 +838,12 @@ public class Server
 						// them know that they gave an item
 						result = new ItemGivenToIntendedCommand(
 								senderOfRequest, itemTransferred);
+						updateClientsChatLogInSameRoomBesidesPlayers(senderOfRequest, username, senderOfRequest + " traded " + itemTransferred + " with " + username);
+
+						//new UpdateFightStatsCommand(senderOfRequest, senderOfRequest + " traded " + itemTransferred + " with " + username);
+
 					}
+
 				}
 
 				else
@@ -854,6 +896,7 @@ public class Server
 
 			return result;
 		}
+
 	}
 	
 	private class MoveListener implements ActionListener 
@@ -971,11 +1014,50 @@ public class Server
 	 * 
 	 * stuff that has to do with persistance
 	 */
+<<<<<<< HEAD
 	public boolean loadData() 
 	{
 		try 
 		{
 			FileInputStream inStream = new FileInputStream(new File("accounts.dat"));
+=======
+
+	public void testing() {
+		// Ask the user if they want to load data
+		int answer = JOptionPane.showConfirmDialog(null,
+				"Start with previous saved state?", "Select an Option",
+				JOptionPane.YES_NO_OPTION);
+		if (answer == JOptionPane.NO_OPTION || !loadData()) {
+			// initialize accounts
+			mud = new SerialKillerMud();
+		}
+
+	}
+
+	public void updateClientsChatLogInSameRoomBesidesPlayers(
+			String senderOfRequest, String username, String message) {
+		List<String> playersInSameRoom = mud.getPlayersInSameRoom(username);
+
+		// make an UpdatedClientsCommand, write to all connected users
+		UpdateChatLogCommand update = new UpdateChatLogCommand(message);
+
+		try {
+			for (String playerName : playersInSameRoom) {
+				if (!playerName.equalsIgnoreCase(username) && !playerName.equalsIgnoreCase(senderOfRequest)) {
+					ObjectOutputStream out = outputs.get(playerName);
+					out.writeObject(update);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+	}
+
+	public boolean loadData() {
+		try {
+			FileInputStream inStream = new FileInputStream(new File(
+					"accounts.dat"));
+>>>>>>> 5d0474283760c0484c3801278b859fcc25032630
 			ObjectInputStream inObject = new ObjectInputStream(inStream);
 			mud = (SerialKillerMud) inObject.readObject();
 			inObject.close();
@@ -1001,6 +1083,10 @@ public class Server
 		{
 			e.printStackTrace();
 		}
+	}
+
+	public void updateFightResults(String player, String result) {
+		updateClientsChatLogInSameRoomBesidesPlayer(player, result);
 	}
 
 } // end of class Server
