@@ -409,8 +409,10 @@ public class Server {
 		try {
 			outputs.get(clientName).close(); // close outputs stream
 			outputs.remove(clientName); // remove from map
+
 			Player playerToRemove = null;
 
+			
 			mud.disconnectPlayer(clientName);
 
 			// add notification message
@@ -472,11 +474,83 @@ public class Server {
 
 		else
 			throw new IllegalArgumentException();
+	}	
+	
+	public void sendRejectionOfGiveOrGetToSender(String sender, String recipient) 
+	{
+		try 
+		{
+			Command<Client> update = new RequestDeniedCommand(recipient);
+			ObjectOutputStream outs = outputs.get(sender);
+			outs.writeObject(update);
+		} 
+		catch (IOException e) 
+		{
+			e.printStackTrace();
+		}
 	}
 
-	private class SimpleCommandFactory {
-		public Command<Client> createCommand(String username, Commands command,
-				String argument) {
+	public void sendConfirmationOfGiveToSender(String sender, String recipient, String itemName) 
+	{
+		try 
+		{
+			Command<Client> update = new ItemGivenToIntendedCommand(recipient, itemName);
+			ObjectOutputStream outs = outputs.get(sender);
+			outs.writeObject(update);
+		} 
+		catch (IOException e) 
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	public void sendConfirmationOfGetToSender(String senderOfRequest, String recipientOfRequest, String itemName)
+	{
+		try 
+		{
+			Command<Client> update = new AcceptedItemCommand(recipientOfRequest, itemName);
+			ObjectOutputStream outs = outputs.get(senderOfRequest);
+			outs.writeObject(update);
+		} 
+		catch (IOException e) 
+		{
+			e.printStackTrace();
+		}
+	}
+
+
+	public void sendGiveRequestToRecipient(String sender, String recipient, String itemName) 
+	{
+		try 
+		{
+			Command<Client> update = new GiveRequestRecievedCommand(sender, itemName);
+			ObjectOutputStream outs = outputs.get(recipient);
+			outs.writeObject(update);
+		} 
+		catch (IOException e) 
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	public void sendGetRequestToRecipient(String sender, String recipient, String itemName) 
+	{
+		try 
+		{
+			Command<Client> update = new GetRequestReceivedCommand(sender, itemName);
+			ObjectOutputStream outs = outputs.get(recipient);
+			outs.writeObject(update);
+		} 
+		catch (IOException e) 
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	private class SimpleCommandFactory
+	{
+		public Command<Client> createCommand(String username, Commands command, String argument)
+		{
 			Command<Client> result = null;
 			Room currRoom = mud.getRoomPlayerIsCurrIn(username);
 			String roomName = mud.getPlayerRoomName(username);
@@ -851,64 +925,6 @@ public class Server {
 			}
 
 			return result;
-		}
-	}
-
-	public void sendRejectionOfGiveOrGetToSender(String sender, String recipient) {
-		try {
-			Command<Client> update = new RequestDeniedCommand(recipient);
-			ObjectOutputStream outs = outputs.get(sender);
-			outs.writeObject(update);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void sendConfirmationOfGiveToSender(String sender, String recipient,
-			String itemName) {
-		try {
-			Command<Client> update = new ItemGivenToIntendedCommand(recipient,
-					itemName);
-			ObjectOutputStream outs = outputs.get(sender);
-			outs.writeObject(update);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void sendConfirmationOfGetToSender(String senderOfRequest,
-			String recipientOfRequest, String itemName) {
-		try {
-			Command<Client> update = new AcceptedItemCommand(
-					recipientOfRequest, itemName);
-			ObjectOutputStream outs = outputs.get(senderOfRequest);
-			outs.writeObject(update);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void sendGiveRequestToRecipient(String sender, String recipient,
-			String itemName) {
-		try {
-			Command<Client> update = new GiveRequestRecievedCommand(sender,
-					itemName);
-			ObjectOutputStream outs = outputs.get(recipient);
-			outs.writeObject(update);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void sendGetRequestToRecipient(String sender, String recipient,
-			String itemName) {
-		try {
-			Command<Client> update = new GetRequestReceivedCommand(sender,
-					itemName);
-			ObjectOutputStream outs = outputs.get(recipient);
-			outs.writeObject(update);
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
 	}
 
