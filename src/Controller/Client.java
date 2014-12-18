@@ -614,4 +614,9 @@ public class Client extends JFrame
 		commandMessages.add(rejection);
 		mainView.updateCommandLog(commandMessages);
 	}
+
+	public void printMovedIntoMessage(String player) {
+		// TODO Auto-generated method stub
+		
+	}
 }

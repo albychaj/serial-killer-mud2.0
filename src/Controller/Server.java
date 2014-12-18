@@ -39,6 +39,7 @@ import Commands.MOBGetErrorCommand;
 import Commands.MapCommand;
 import Commands.MoveCommand;
 import Commands.MoveErrorCommand;
+import Commands.PlayerMovedIntoRoomCommand;
 import Commands.QuitCommand;
 import Commands.RejectionSentCommand;
 import Commands.RequestDeniedCommand;
@@ -297,6 +298,29 @@ public class Server
 		}
 	}
 	
+	private void updateClientsChatLogInSameRoomBesidesPlayer(String username, String chatMessage) 
+	{
+		List<String> playersInSameRoom = mud.getPlayersInSameRoom(username);
+		
+		// make an UpdatedClientsCommand, write to all connected users
+		UpdateChatLogCommand update = new UpdateChatLogCommand(chatMessage);
+				
+		try
+		{
+			for (String playerName: playersInSameRoom)
+			{
+				if(!playerName.equalsIgnoreCase(username)){
+					ObjectOutputStream out = outputs.get(playerName);
+					out.writeObject(update);
+				}
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
 	private void updateClientsInSameRoomAsMOB(MOB mob, String chatMessage){
 		String mobMessage = mob.getIdentity() + ": " + chatMessage; 
 		List<String> playersInSameRoom = mud.getPlayersInSameRoomAsMOB(mob);
@@ -470,6 +494,7 @@ public class Server
 				{
 					if((currRoom.getRoomName().equalsIgnoreCase("The Lawn") && mud.getPlayer(username).hasItem("key")) || !currRoom.getRoomName().equalsIgnoreCase("The Lawn")){
 						String newRoomDescription = mud.movePlayerToNewRoom(roomName, argument, username);
+						updateClientsChatLogInSameRoomBesidesPlayer(username, username + " has moved into " + roomName);
 						result = new MoveCommand(newRoomDescription);
 					}
 					
