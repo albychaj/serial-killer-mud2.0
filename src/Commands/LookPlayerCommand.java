@@ -17,6 +17,7 @@ public class LookPlayerCommand extends Command<Client>
 		this.player = player;
 	}
 	
+	@Override
 	public void execute(Client executeOn)
 	{
 		executeOn.lookAtPlayerInRoom(player);

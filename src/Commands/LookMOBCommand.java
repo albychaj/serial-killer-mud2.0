@@ -12,6 +12,7 @@ public class LookMOBCommand extends Command<Client>
 		this.mobName = mobName;
 	}
 
+	@Override
 	public void execute(Client executeOn)
 	{
 		executeOn.lookAtMOBInRoom(mobName);

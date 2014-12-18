@@ -2,8 +2,6 @@ package Controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -16,7 +14,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
@@ -49,7 +46,6 @@ import Commands.ScoreCommand;
 import Commands.TellErrorCommand;
 import Commands.TradeRequestSentCommand;
 import Commands.UpdateChatLogCommand;
-import Commands.UpdateFightStatsCommand;
 import Commands.UseCommand;
 import Commands.WhoCommand;
 import Enums.Commands;
@@ -174,6 +170,7 @@ public class Server
 			this.input = input;
 		}
 
+		@Override
 		@SuppressWarnings("unchecked")
 		public void run() {
 			try {
@@ -290,6 +287,56 @@ public class Server
 			e.printStackTrace();
 		}
 	}
+	
+	private void updateASpecificChatLogForMOBChat(String clientName, String argument)
+	{
+		ObjectOutputStream out = outputs.get(clientName);
+		Command result = null;
+		String[] splitArgument = argument.split(" ", 2);
+		String mobName = splitArgument[0];
+		String chatMessage = splitArgument[1];
+
+		switch(mobName)
+		{
+		case "roy":	
+		case "hannibal":
+		case "ed":
+		case "jeffery":
+		case "lawrence":
+		case "richard":
+		case "andrei":
+		case "henry":
+			// first print the chatMessage to the sender's chat panel
+			result = new UpdateChatLogCommand(clientName + " to " + mobName + ": " + chatMessage);
+			break;
+		}
+		
+		// write out the chat message the player sent to the MOB - that way
+		// it looks as if they're having a conversation with someone who will
+		// actually respond
+		try {
+			out.writeObject(result);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		// Now we get the MOB's response to the client's message. Once we
+		// have that, we'll send that message to the client's chat panel as 
+		// well
+		
+		String mobMessage = talkWithMOB(clientName, mobName, chatMessage);
+		result = new UpdateChatLogCommand(mobName + " to " + clientName + ": " + mobMessage);
+		
+		
+		// now send back the mob's response the client's chat message
+		try {
+			out.writeObject(result);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	private void updateASpecificChatLog(String sender, String argument) {
 		String recipient = new String();
@@ -299,19 +346,8 @@ public class Server
 			String[] splitArgument = argument.split(" ", 2);
 			recipient = splitArgument[0];
 			chatMessage = splitArgument[1];
+			System.out.println(chatMessage);
 		}
-		
-
-		else
-			recipient = argument;
-		
-		List<MOB> mobs = mud.getMOBs();
-		for(MOB m : mobs){
-			if(m.getIdentity().equalsIgnoreCase(recipient)){
-				talkWithMOB(sender, m, chatMessage);
-			}
-		}
-
 		// Check to see if the user that the sender is trying to message
 		// is online. Iterate through the list of players online - if
 		// the player isn't online or doesn't exist, give an error message
@@ -325,7 +361,7 @@ public class Server
 				update = new UpdateChatLogCommand(sender + " to " + recipient
 						+ ": " + chatMessage);
 
-				ObjectOutputStream out = outputs.get(sender);
+				ObjectOutputStream out = outputs.get(sender.toLowerCase());
 				out.writeObject(update);
 
 				out = outputs.get(recipient.toLowerCase());
@@ -340,17 +376,49 @@ public class Server
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 	}
 	
-	public void talkWithMOB(String sender, MOB mob, String message){
-		String mobName = mob.getIdentity();
+	public String talkWithMOB(String sender, String mobName, String message)
+	{
+		String mobMessage = new String();
 		
-		String[] wordsInMessage = message.split(" ");
-		for(int i = 0; i < wordsInMessage.length; i++){
-			if(wordsInMessage[i].equalsIgnoreCase("hi") || wordsInMessage[i].equalsIgnoreCase("hey") || wordsInMessage[i].equalsIgnoreCase("hello")  ){
-				updateASpecificChatLog(mob.getIdentity(), sender + " Hello, " + sender);
-			}
+		if (message.equalsIgnoreCase("hello") || message.equalsIgnoreCase("hi") || message.equalsIgnoreCase("hey"))
+		{
+			mobMessage = "Hello " + sender;
 		}
+		
+		else if(message.equalsIgnoreCase("what's up") || message.equalsIgnoreCase("wazzup"))
+		{
+			mobMessage = "Not much. Just tending to my skeleton collection.";
+		}
+		
+		else if(message.equalsIgnoreCase("how are you") || message.equalsIgnoreCase("how you doin")){
+			mobMessage = "I am fine and dandy.  Getting ready for today's victim hunt.";
+
+		}
+		
+		else if(message.equalsIgnoreCase("what did you do") || message.equalsIgnoreCase("who did you kill")){
+			mobMessage = "Look who's getting their nose into other people's business. If I told you, I'd have to kill you.";
+			
+		}
+		
+		else{
+			mobMessage = "I didn't catch that. Now get outta here before I kick your ass. ";
+
+		}
+			
+		
+		//else if (message.)
+			
+		/*for(int i = 0; i < wordsInMessage.length; i++){
+			if(wordsInMessage[i].equalsIgnoreCase("hi") || wordsInMessage[i].equalsIgnoreCase("hey") || wordsInMessage[i].equalsIgnoreCase("hello")  ){
+				updateASpecificChatLog(mobName, sender + " Hello, " + sender);
+				System.out.println(sender + "Hello " + sender);
+			}
+		}*/
+		
+		return mobMessage;
 		
 	}
 
@@ -382,6 +450,11 @@ public class Server
 
 		else if (command == Commands.TELL)
 			updateASpecificChatLog(clientName, argument);
+		
+		else if (command == Commands.TELLMOB)
+		{
+			updateASpecificChatLogForMOBChat(clientName, argument);
+		}
 
 		else if (command == Commands.SHUTDOWN) 
 		{

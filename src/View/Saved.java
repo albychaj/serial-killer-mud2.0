@@ -7,6 +7,7 @@ import java.io.File;
 
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
+import javax.swing.WindowConstants;
 
 public class Saved extends JFrame{
 
@@ -22,7 +23,7 @@ public class Saved extends JFrame{
 	public Saved()
 	{
 		this.setTitle("Yo Ass Is Saved");
-		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		
 		/*try
 		{

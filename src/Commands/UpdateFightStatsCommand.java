@@ -1,8 +1,6 @@
 package Commands;
 
 import Controller.Server;
-import MOBs.MOB;
-import Players.Player;
 
 public class UpdateFightStatsCommand extends Command<Server>{
 

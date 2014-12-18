@@ -12,6 +12,7 @@ public class ScoreCommand extends Command<Client>
 		this.playa = playa;
 	}
 
+	@Override
 	public void execute(Client executeOn)
 	{
 		executeOn.listScore(playa);

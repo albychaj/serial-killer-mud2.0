@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import Commands.ForServerCommand;
@@ -55,7 +56,7 @@ public class MainView extends JPanel
 	{
 		JPanel top = new JPanel();
 		
-		JLabel banner = new JLabel("SAVE YO ASS", JLabel.CENTER);
+		JLabel banner = new JLabel("SAVE YO ASS", SwingConstants.CENTER);
 		banner.setPreferredSize(new Dimension(1100, 60));
 		banner.setForeground(Color.RED);
         banner.setOpaque(true);
@@ -162,6 +163,7 @@ public class MainView extends JPanel
 	
 	private class EnterListener implements ActionListener
 	{
+		@Override
 		public void actionPerformed(ActionEvent arg0)
 		{	
 			String s = textField.getText();
@@ -185,7 +187,8 @@ public class MainView extends JPanel
 					c.equalsIgnoreCase("TELL") || c.equalsIgnoreCase("SCORE") || c.equalsIgnoreCase("GIVE") || c.equalsIgnoreCase("GET") ||
 					c.equalsIgnoreCase("INVENTORY") || c.equalsIgnoreCase("DROP") || c.equalsIgnoreCase("USE") || c.equalsIgnoreCase("QUIT") ||
 					c.equalsIgnoreCase("SHUTDOWN") || c.equalsIgnoreCase("MOVE") || c.equalsIgnoreCase("LOOK") || c.equalsIgnoreCase("MAP") ||
-					c.equalsIgnoreCase("ACCEPT") || c.equalsIgnoreCase("DENY") || c.equalsIgnoreCase("MOBSAY") || c.equalsIgnoreCase("FIGHT")    ){
+					c.equalsIgnoreCase("ACCEPT") || c.equalsIgnoreCase("DENY") || c.equalsIgnoreCase("MOBSAY") || c.equalsIgnoreCase("FIGHT") ||
+					c.equalsIgnoreCase("TELLMOB")){
 				
 				Commands command = Commands.valueOf(c);
 				

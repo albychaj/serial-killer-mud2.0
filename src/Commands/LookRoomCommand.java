@@ -11,6 +11,7 @@ public class LookRoomCommand extends Command<Client>
 	{
 		this.roomDescription = room;
 	}
+	@Override
 	public void execute(Client executeOn)
 	{
 		executeOn.lookAtWholeRoom(roomDescription);
