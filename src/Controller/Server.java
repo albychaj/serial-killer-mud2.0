@@ -348,7 +348,7 @@ public class Server
 		String[] wordsInMessage = message.split(" ");
 		for(int i = 0; i < wordsInMessage.length; i++){
 			if(wordsInMessage[i].equalsIgnoreCase("hi") || wordsInMessage[i].equalsIgnoreCase("hey") || wordsInMessage[i].equalsIgnoreCase("hello")  ){
-				
+				updateASpecificChatLog(mob.getIdentity(), sender + " Hello, " + sender);
 			}
 		}
 		
