@@ -285,7 +285,6 @@ public class SerialKillerMud implements Serializable
 		// Remove the player from the list of players online
 		playersOnline.remove(playerName);
 		
-		
 		// Remove the player from the room it is currently in
 		Room currRoom = this.getRoomPlayerIsCurrIn(playerName);
 		currRoom.removePlayerFromRoom(playerName);
@@ -1092,5 +1091,10 @@ public class SerialKillerMud implements Serializable
 			}
 		}
 		return null;
+	}
+
+	public void resetPlayersOnline() 
+	{
+		playersOnline = new ArrayList<String>();
 	}
 } // end of class SerialKillerMud

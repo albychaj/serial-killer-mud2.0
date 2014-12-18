@@ -2,6 +2,8 @@ package Controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -14,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
@@ -63,42 +66,49 @@ import Rooms.Room;
  * @author Team Alpha-Super-Awesome-Cool-Dynamite-Wolf-Squadron
  * 
  */
-public class Server {
+public class Server
+{
+	private static final long serialVersionUID = 4028671607313339679L;
 	private ServerSocket socket; // the server socket
-	private HashMap<String, ObjectOutputStream> outputs; // map of all connected
-															// user's output
-															// streams
-
+	private HashMap<String, ObjectOutputStream> outputs; // map of all connected user's output streams
 	private SerialKillerMud mud;
-	private Timer t;
-	private Timer t2;
-	private Timer t3;
+	private Timer t, t2, t3;
 	private Random randomGenerator;
 
-	public static void main(String[] args) {
+	public static void main(String[] args) 
+	{
 		new Server();
 	}
 
-	public Server() {
-		// chatMessages = new ArrayList<String>(); // create the chat log
+	public Server() 
+	{
 		outputs = new HashMap<String, ObjectOutputStream>(); // setup the map
-		mud = new SerialKillerMud(); // setup the model
-		t = new Timer(100000, new SayListener());
-		t.start();
-		t2 = new Timer(70000, new MoveListener());
-		t2.start();
+		//mud = new SerialKillerMud(); // setup the model
+		t = new Timer(10000, new SayListener());
+		t2 = new Timer(20000, new MoveListener());
 		t3 = new Timer(100000, new DropHealthListener());
+		t.start();
+		t2.start();
 		t3.start();
 		randomGenerator = new Random();
 
-		try {
+		try 
+		{
 			// start a new server on port 9001
 			socket = new ServerSocket(9001);
 			System.out.println("MUD Server started on port 9001");
+			
+			// Ask whoever started the server if they want to load data
+			int answer = JOptionPane.showConfirmDialog(null, "Load data?", "Load data?", JOptionPane.YES_NO_OPTION);
+			
+			if (answer == JOptionPane.NO_OPTION || !loadData())
+				mud = new SerialKillerMud();
 
 			// spawn a client accepter thread
 			new Thread(new ClientAcceptor()).start();
-		} catch (Exception e) {
+		} 
+		catch (Exception e) 
+		{
 			e.printStackTrace();
 		}
 	} // end of constructor Server
@@ -114,122 +124,27 @@ public class Server {
 		
 	}
 
-	private class MoveListener implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-
-			for (MOB mob : mud.getMOBs()) {
-				int r = randomGenerator.nextInt(4);
-				switch (r) {
-				case 0:
-					if (mud.getMOBCurrLocation(mob).hasEast()) {
-						updateClientsChatLogInSameRoomAsMOB(mob,
-								"**" + mob.getIdentity() + " has left the room.**");
-						mud.moveMOBToNewRoom(mud.getMOBCurrLocation(mob)
-								.getRoomName(), 0, mob);
-						updateClientsChatLogInSameRoomAsMOB(mob,
-								"**" + mob.getIdentity() + " has entered the room.**");
-						// System.out.println(mob.getIdentity() +
-						// " new location: " +
-						// mud.getMOBCurrLocation(mob).getRoomName());
-					}
-					break;
-				case 1:
-					if (mud.getMOBCurrLocation(mob).hasWest()) {
-						updateClientsChatLogInSameRoomAsMOB(mob,
-								"**" + mob.getIdentity() + " has left the room.**");
-						mud.moveMOBToNewRoom(mud.getMOBCurrLocation(mob)
-								.getRoomName(), 1, mob);
-						updateClientsChatLogInSameRoomAsMOB(mob,
-								"**" + mob.getIdentity() + " has entered the room.**");
-						// System.out.println(mob.getIdentity() +
-						// "new location: " +
-						// mud.getMOBCurrLocation(mob).getRoomName());
-
-					}
-					break;
-				case 2:
-					if (mud.getMOBCurrLocation(mob).hasNorth()) {
-						updateClientsChatLogInSameRoomAsMOB(mob,
-								"**" + mob.getIdentity() + " has left the room.**");
-						mud.moveMOBToNewRoom(mud.getMOBCurrLocation(mob)
-								.getRoomName(), 2, mob);
-						updateClientsChatLogInSameRoomAsMOB(mob,
-								"**" + mob.getIdentity() + " has entered the room.**");
-						// System.out.println(mob.getIdentity() +
-						// "new location: " +
-						// mud.getMOBCurrLocation(mob).getRoomName());
-
-					}
-					break;
-				case 3:
-					if (mud.getMOBCurrLocation(mob).hasSouth()) {
-						updateClientsChatLogInSameRoomAsMOB(mob,
-								"**" + mob.getIdentity() + " has left the room.**");
-						mud.moveMOBToNewRoom(mud.getMOBCurrLocation(mob)
-								.getRoomName(), 3, mob);
-						updateClientsChatLogInSameRoomAsMOB(mob,
-								"**" + mob.getIdentity() + " has entered the room.**");
-						// System.out.println(mob.getIdentity() +
-						// "new location: " +
-						// mud.getMOBCurrLocation(mob).getRoomName());
-
-					}
-					break;
-				default:
-					System.out.println("MOB didn't move");
-					break;
-				}
-
-			}
-			System.out.println();
-		}
-
-	}
-
-	private class SayListener implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			for (int i = 0; i < 10; i++) {
-				for (String p : mud.getPlayersOnline()) {
-
-					int r = randomGenerator
-							.nextInt(mud.getMOBMessages().size());
-					updateClientsInSameRoomAsMOB(mud.getMOBs().get(i), mud
-							.getMOBMessages().get(r));
-					// System.out.println(mud.getMOBs().get(i).getIdentity() +
-					// " to you: " + mud.getMOBMessages().get(r));
-
-				}
-			}
-		}
-
-	}
-
 	/**
 	 * This thread listens for and sets up connections to new clients
 	 */
-	public class ClientAcceptor implements Runnable {
+	public class ClientAcceptor implements Runnable 
+	{
 
 		@Override
-		public void run() {
-			try {
-				while (true) {
+		public void run() 
+		{
+			try 
+			{
+				while (true) 
+				{
 					// Accept a new client then get its output/input streams.
-					Socket s = socket.accept();
-					ObjectOutputStream output = new ObjectOutputStream(
-							s.getOutputStream());
-					ObjectInputStream input = new ObjectInputStream(
-							s.getInputStream());
+					Socket s = socket.accept(); 
+					ObjectOutputStream output = new ObjectOutputStream(s.getOutputStream());
+					ObjectInputStream input = new ObjectInputStream(s.getInputStream());
 
-					// The first thing the server needs to do is send the client
-					// a list of the
-					// current players. This is so when someone is logging in,
-					// the system is able
-					// to determine whether the user is already logged in,
-					// thereby disallowing
+					// The first thing the server needs to do is send the client a list of the
+					// current players. This is so when someone is logging in, the system is able
+					// to determine whether the user is already logged in, thereby disallowing
 					// the same user to be logged in multiple times.
 					output.writeObject(mud.getAllExistingPlayerAccounts());
 					output.writeObject(mud.getPlayersOnline());
@@ -439,25 +354,25 @@ public class Server {
 		
 	}
 
-	public void disconnect(String clientName) {
-		try {
+	public void disconnect(String clientName) 
+	{
+		try 
+		{
 			outputs.get(clientName).close(); // close outputs stream
 			outputs.remove(clientName); // remove from map
-
-			Player playerToRemove = null;
-
-			
 			mud.disconnectPlayer(clientName);
 
 			// add notification message
 			updateAllClientsChatLog(clientName + " disconnected");
-		} catch (Exception e) {
+		} 
+		catch (Exception e) 
+		{
 			e.printStackTrace();
 		}
 	} // end of method disconnect
 
-	public void PrintToClient(String clientName, Commands command,
-			String argument) {
+	public void PrintToClient(String clientName, Commands command, String argument) 
+	{
 		if (command == Commands.OOC)
 			updateAllClientsChatLog(clientName + ": " + argument);
 
@@ -468,7 +383,8 @@ public class Server {
 		else if (command == Commands.TELL)
 			updateASpecificChatLog(clientName, argument);
 
-		else if (command == Commands.SHUTDOWN) {
+		else if (command == Commands.SHUTDOWN) 
+		{
 			closeAllClientsAndServer(clientName);
 		}
 
@@ -488,20 +404,32 @@ public class Server {
 		}
 	}
 
-	private void closeAllClientsAndServer(String username) {
-		if (username.equalsIgnoreCase("admin")) {
-			try {
-				// Make a QuitCommand and send to all clients of the server,
-				// thereby disconnecting
-				// their ports and closing their GUIs. When that is done, close
-				// down the server.
+	private void closeAllClientsAndServer(String username) 
+	{
+		if (username.equalsIgnoreCase("admin")) 
+		{
+			try 
+			{
+				// Make a QuitCommand and send to all clients of the server, thereby disconnecting
+				// their ports and closing their GUIs. When that is done, close down the server.
 				QuitCommand update = new QuitCommand();
 
 				for (ObjectOutputStream out : outputs.values())
 					out.writeObject(update);
+				
+				mud.resetPlayersOnline();
 
+				int answer = JOptionPane.showConfirmDialog(null, "Save data?", "Save data?", JOptionPane.YES_NO_OPTION);
+				
+				if (answer == JOptionPane.YES_OPTION)
+				{
+					saveData();
+				}
+				
 				System.exit(0);
-			} catch (Exception e) {
+			} 
+			catch (Exception e) 
+			{
 				// e.printStackTrace();
 			}
 		}
@@ -579,6 +507,30 @@ public class Server {
 		{
 			e.printStackTrace();
 		}
+	}
+	
+	public void updateFightResults(String player, String result) 
+	{
+		updateClientsChatLogInSameRoomBesidesPlayer(player, result);
+	}
+	
+	public void updateClientsChatLogInSameRoomBesidesPlayers(
+			String senderOfRequest, String username, String message) {
+		List<String> playersInSameRoom = mud.getPlayersInSameRoom(username);
+
+		// make an UpdatedClientsCommand, write to all connected users
+		UpdateChatLogCommand update = new UpdateChatLogCommand(message);
+
+		try {
+			for (String playerName : playersInSameRoom) {
+				if (!playerName.equalsIgnoreCase(username) && !playerName.equalsIgnoreCase(senderOfRequest)) {
+					ObjectOutputStream out = outputs.get(playerName);
+					out.writeObject(update);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
 	}
 	
 	private class SimpleCommandFactory
@@ -977,6 +929,101 @@ public class Server {
 		}
 
 	}
+	
+	private class MoveListener implements ActionListener 
+	{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+
+			for (MOB mob : mud.getMOBs()) {
+				int r = randomGenerator.nextInt(4);
+				switch (r) {
+				case 0:
+					if (mud.getMOBCurrLocation(mob).hasEast()) {
+						updateClientsChatLogInSameRoomAsMOB(mob,
+								"**" + mob.getIdentity() + " has left the room.**");
+						mud.moveMOBToNewRoom(mud.getMOBCurrLocation(mob)
+								.getRoomName(), 0, mob);
+						updateClientsChatLogInSameRoomAsMOB(mob,
+								"**" + mob.getIdentity() + " has entered the room.**");
+						// System.out.println(mob.getIdentity() +
+						// " new location: " +
+						// mud.getMOBCurrLocation(mob).getRoomName());
+					}
+					break;
+				case 1:
+					if (mud.getMOBCurrLocation(mob).hasWest()) {
+						updateClientsChatLogInSameRoomAsMOB(mob,
+								"**" + mob.getIdentity() + " has left the room.**");
+						mud.moveMOBToNewRoom(mud.getMOBCurrLocation(mob)
+								.getRoomName(), 1, mob);
+						updateClientsChatLogInSameRoomAsMOB(mob,
+								"**" + mob.getIdentity() + " has entered the room.**");
+						// System.out.println(mob.getIdentity() +
+						// "new location: " +
+						// mud.getMOBCurrLocation(mob).getRoomName());
+
+					}
+					break;
+				case 2:
+					if (mud.getMOBCurrLocation(mob).hasNorth()) {
+						updateClientsChatLogInSameRoomAsMOB(mob,
+								"**" + mob.getIdentity() + " has left the room.**");
+						mud.moveMOBToNewRoom(mud.getMOBCurrLocation(mob)
+								.getRoomName(), 2, mob);
+						updateClientsChatLogInSameRoomAsMOB(mob,
+								"**" + mob.getIdentity() + " has entered the room.**");
+						// System.out.println(mob.getIdentity() +
+						// "new location: " +
+						// mud.getMOBCurrLocation(mob).getRoomName());
+
+					}
+					break;
+				case 3:
+					if (mud.getMOBCurrLocation(mob).hasSouth()) {
+						updateClientsChatLogInSameRoomAsMOB(mob,
+								"**" + mob.getIdentity() + " has left the room.**");
+						mud.moveMOBToNewRoom(mud.getMOBCurrLocation(mob)
+								.getRoomName(), 3, mob);
+						updateClientsChatLogInSameRoomAsMOB(mob,
+								"**" + mob.getIdentity() + " has entered the room.**");
+						// System.out.println(mob.getIdentity() +
+						// "new location: " +
+						// mud.getMOBCurrLocation(mob).getRoomName());
+
+					}
+					break;
+				default:
+					System.out.println("MOB didn't move");
+					break;
+				}
+
+			}
+			System.out.println();
+		}
+
+	}
+
+	private class SayListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			for (int i = 0; i < 10; i++) {
+				for (String p : mud.getPlayersOnline()) {
+
+					int r = randomGenerator
+							.nextInt(mud.getMOBMessages().size());
+					updateClientsInSameRoomAsMOB(mud.getMOBs().get(i), mud
+							.getMOBMessages().get(r));
+					// System.out.println(mud.getMOBs().get(i).getIdentity() +
+					// " to you: " + mud.getMOBMessages().get(r));
+
+				}
+			}
+		}
+
+	}
 
 	/*
 	 * 
@@ -998,66 +1045,35 @@ public class Server {
 	 * 
 	 * stuff that has to do with persistance
 	 */
-
-	public void testing() {
-		// Ask the user if they want to load data
-		int answer = JOptionPane.showConfirmDialog(null,
-				"Start with previous saved state?", "Select an Option",
-				JOptionPane.YES_NO_OPTION);
-		if (answer == JOptionPane.NO_OPTION || !loadData()) {
-			// initialize accounts
-			mud = new SerialKillerMud();
-		}
-
-	}
-
-	public void updateClientsChatLogInSameRoomBesidesPlayers(
-			String senderOfRequest, String username, String message) {
-		List<String> playersInSameRoom = mud.getPlayersInSameRoom(username);
-
-		// make an UpdatedClientsCommand, write to all connected users
-		UpdateChatLogCommand update = new UpdateChatLogCommand(message);
-
-		try {
-			for (String playerName : playersInSameRoom) {
-				if (!playerName.equalsIgnoreCase(username) && !playerName.equalsIgnoreCase(senderOfRequest)) {
-					ObjectOutputStream out = outputs.get(playerName);
-					out.writeObject(update);
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}		
-	}
-
-	public boolean loadData() {
-		try {
-			FileInputStream inStream = new FileInputStream(new File(
-					"accounts.dat"));
+	public boolean loadData() 
+	{
+		try 
+		{
+			FileInputStream inStream = new FileInputStream(new File("accounts.dat"));
 			ObjectInputStream inObject = new ObjectInputStream(inStream);
 			mud = (SerialKillerMud) inObject.readObject();
 			inObject.close();
-		} catch (Exception e) {
+		} 
+		catch (Exception e) 
+		{
 			// errorLabel.setText("Unable to load data");
 			return false;
 		}
 		return true;
 	}
 
-	public void saveData() {
-		try {
-			FileOutputStream outStream = new FileOutputStream(new File(
-					"accounts.dat"));
+	public void saveData() 
+	{
+		try 
+		{
+			FileOutputStream outStream = new FileOutputStream(new File("accounts.dat"));
 			ObjectOutputStream outObject = new ObjectOutputStream(outStream);
 			outObject.writeObject(mud);
 			outObject.close();
-		} catch (Exception e) {
+		} 
+		catch (Exception e) 
+		{
 			e.printStackTrace();
 		}
 	}
-
-	public void updateFightResults(String player, String result) {
-		updateClientsChatLogInSameRoomBesidesPlayer(player, result);
-	}
-
 } // end of class Server
