@@ -603,7 +603,7 @@ public class Client extends JFrame
 	public void requestRejected(String recipient) 
 	{
 		String rejectedRequestMessage = "So sorry but <" + recipient + "> has not accepted your request to transfer "
-				+ "an item. Better luck next time, kid." ;
+				+ "an item. Better luck next time, kid.\n" ;
 		commandMessages.add(rejectedRequestMessage);
 		mainView.updateCommandLog(commandMessages);
 	}
