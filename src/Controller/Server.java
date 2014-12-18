@@ -48,6 +48,7 @@ import Commands.TradeRequestSentCommand;
 import Commands.UpdateChatLogCommand;
 import Commands.UseCommand;
 import Commands.WhoCommand;
+import Commands.NotInSameRoomCommand;
 import Enums.Commands;
 import Items.Item;
 import MOBs.MOB;
@@ -83,6 +84,7 @@ public class Server
 		t = new Timer(30000, new SayListener());
 		t2 = new Timer(50000, new MoveListener());
 		t3 = new Timer(100000, new DropHealthListener());
+
 		t.start();
 		t2.start();
 		t3.start();
@@ -749,41 +751,41 @@ public class Server
 				result = new ScoreCommand(playa);
 				break;
 
-			case GIVE: // not done yet - needs to work now with an mob
-				// First check to see if the user has another transaction
-				// pending. If they do, then
-				// they have to complete the previous transaction before they
-				// can start a new one.
-				if (!mud.transactionPending(username)) {
-					// Now check to see if the argument is composed of the
-					// username of the recipient
-					// as well as the name of the item the sender intends to
-					// give. If it isn't,
+			case GIVE:
+				// First check to see if the user has another transaction pending. If they do, then
+				// they have to complete the previous transaction before they can start a new one.
+				if (!mud.transactionPending(username)) 
+				{
+					// Now check to see if the argument is composed of the username of the recipient
+					// as well as the name of the item the sender intends to give. If it isn't,
 					// then an error will be returned to the sender.
-					if (argument.indexOf(" ") > 0) {
+					if (argument.indexOf(" ") > 0) 
+					{
 						String[] splitArgument = argument.split(" ", 2);
 						String itemName = splitArgument[0];
 						String recipient = splitArgument[1];
 
-						// Now check to see if the player is online and/or
-						// exists. Also check to see if the
-						// player has the item. Otherwise, an error will be
-						// returned to the sender.
-						if (mud.playersIsOnline(recipient)
-								&& mud.playerHasItem(username, itemName)) {
-							mud.setPendingGiveTransaction(recipient, username,
-									itemName);
+						// Now check to see if the player is online and/or exists. Also check to see if the
+						// player has the item. Otherwise, an error will be returned to the sender.
+						if (mud.playersIsOnline(recipient) && mud.playerHasItem(username, itemName)) 
+						{
+							if (mud.playersAreInSameRoom(username, recipient))
+							{
+								mud.setPendingGiveTransaction(recipient, username,
+										itemName);
 
-							// Send message to the sender letting them know that
-							// their trade request has been sent.
-							result = new TradeRequestSentCommand(recipient,
-									itemName);
+								// Send message to the sender letting them know that their trade request has been sent.
+								result = new TradeRequestSentCommand(recipient,
+										itemName);
 
-							// Send message to the recipient letting them know
-							// that someone would like to
-							// give them an item
-							Server.this.sendGiveRequestToRecipient(username,
-									recipient, itemName);
+								// Send message to the recipient letting them know that someone would like to give them an item
+								Server.this.sendGiveRequestToRecipient(username,
+										recipient, itemName);
+							}
+							
+							// The give could work, but unfortunately the players are not in the same room. 
+							else
+								result = new NotInSameRoomCommand();
 						}
 
 						else
@@ -796,44 +798,46 @@ public class Server
 
 				break;
 
-			case GET: // not done yet - needs to work now with an mob
-				// If true, then the user is trying to get an item from another
-				// player/MOB
+			case GET: 
+				// If true, then the user is trying to get an item from another player/MOB
 				if (argument.indexOf(" ") > 0) {
-					// Now check to see if the user has another transaction
-					// pending. If they do, then
-					// they have to complete the previous transaction before
-					// they can start a new one.
-					if (!mud.transactionPending(username)) {
+					// Now check to see if the user has another transaction pending. If they do, then
+					// they have to complete the previous transaction before they can start a new one.
+					if (!mud.transactionPending(username)) 
+					{
 						String[] splitArgument = argument.split(" ", 2);
 						String itemName = splitArgument[0].toLowerCase();
 						String recipient = splitArgument[1].toLowerCase();
 						List<MOB> mobs = mud.getMOBs();
 						boolean isMOB = false;
-						for (MOB m : mobs) {
-							if (m.getIdentity().equalsIgnoreCase(recipient)) {
+						for (MOB m : mobs) 
+						{
+							if (m.getIdentity().equalsIgnoreCase(recipient)) 
+							{
 								isMOB = true;
 								result = new MOBGetErrorCommand(recipient);
 								break;
 							}
 
 						}
+						
 						if (isMOB == true)
 							break;
 
-						// Now check to see if the player is online and/or
-						// exists. Also check to see if the
-						// player has the item. Otherwise, an error will be
-						// returned to the sender.
-						if (mud.playersIsOnline(recipient)
-								&& mud.playerHasItem(recipient, itemName)) {
-							mud.setPendingGetTransaction(recipient, username,
-									itemName);
+						// Now check to see if the player is online and/or exists. Also check to see if the
+						// player has the item. Otherwise, an error will be returned to the sender.
+						if (mud.playersIsOnline(recipient) && mud.playerHasItem(recipient, itemName)) 
+						{
+							if (mud.playersAreInSameRoom(recipient, username))
+							{
+								mud.setPendingGetTransaction(recipient, username, itemName);
 
-							result = new TradeRequestSentCommand(recipient,
-									itemName);
-							Server.this.sendGetRequestToRecipient(username,
-									recipient, itemName);
+								result = new TradeRequestSentCommand(recipient, itemName);
+								Server.this.sendGetRequestToRecipient(username, recipient, itemName);
+							}
+							
+							else 
+								result = new NotInSameRoomCommand();
 						}
 
 						else
@@ -885,15 +889,27 @@ public class Server
 
 				break;
 
-			case USE: // don't really know what this is supposed to do....
+			case USE: 
 				Player playah = mud.getPlayer(username);
-				if (playah.hasItem(argument)) {
-					result = new UseCommand(argument, playah);
-					Item item = mud.removeItemFromPlayerBackpack(username,
-							argument);
-					mud.addItemToRoom(currRoom.getRoomName(), item);
-					updateClientsChatLogInSameRoomBesidesPlayer(username, "<" + username + " used " + argument + ">");
-
+				if (playah.hasItem(argument)) 
+				{
+					// If the player has the skull, transport them to another room
+					if (argument.equalsIgnoreCase("skull"))
+					{
+						updateClientsChatLogInSameRoomBesidesPlayer(username, "<" + username + " has left the room>");
+						String newRoomDescription = mud.movePlayerToNewRoom(roomName, "Paris", username);
+						updateClientsChatLogInSameRoomBesidesPlayer(username, "<" + username + " has moved into " + roomName + ">");
+						result = new MoveCommand(newRoomDescription);
+					}
+					
+					else
+					{
+						result = new UseCommand(argument, playah);
+						Item item = mud.removeItemFromPlayerBackpack(username,
+								argument);
+						mud.addItemToRoom(currRoom.getRoomName(), item);
+						updateClientsChatLogInSameRoomBesidesPlayer(username, "<" + username + " used " + argument + ">");
+					}
 				}
 				break;
 
@@ -1020,7 +1036,7 @@ public class Server
 			return result;
 		}
 
-	}
+	} // end of private class SimpleCommandFactory
 	
 	private class MoveListener implements ActionListener 
 	{

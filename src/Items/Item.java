@@ -100,13 +100,18 @@ public abstract class Item implements Serializable
 		result += "What kind of item is this you ask? Well...\n";
 		
 		if (this instanceof FightingItem)
-			result += "This is a fighting item. That means that...\n\n";
+			result += "This is a fighting item. When you use this item, you increase\n"
+					+ "your attack points. This is to your benefit the greater the\n"
+					+ "attack points the more damage you cause on your opponent.\n\n";
 		
 		else if (this instanceof EnergyBoostItem)
-			result += "This is an energy boost item. That means that...\n\n";
+			result += "This is an energy boost item. When you use this item, you\n"
+					+ "increase your health. Remember you have to keep track of your\n"
+					+ "health. You don't want to die do you?\n\n";
 		
 		else
-			result += "This is a reuseable item. That means that...\n\n";
+			result += "This is a reuseable item. The item will self generate in which\n"
+					+ "ever room it is present.\n\n";
 		
 		return result;
 	}
