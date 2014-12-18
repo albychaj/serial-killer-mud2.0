@@ -80,8 +80,8 @@ public class Server
 	{
 		outputs = new HashMap<String, ObjectOutputStream>(); // setup the map
 		//mud = new SerialKillerMud(); // setup the model
-		t = new Timer(10000, new SayListener());
-		t2 = new Timer(20000, new MoveListener());
+		t = new Timer(30000, new SayListener());
+		t2 = new Timer(50000, new MoveListener());
 		t3 = new Timer(100000, new DropHealthListener());
 		t.start();
 		t2.start();
@@ -114,7 +114,7 @@ public class Server
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			for (String p : mud.getPlayersOnline()){
-				mud.getPlayer(p).incrementHealth(-5);
+				mud.getPlayer(p).incrementHealth(-2);
 			}
 		}
 		
@@ -390,7 +390,14 @@ public class Server
 		
 		else if(message.equalsIgnoreCase("what's up") || message.equalsIgnoreCase("wazzup"))
 		{
-			mobMessage = "Not much. Just tending to my skeleton collection.";
+			if(mobName.equalsIgnoreCase("hannibal")){
+				mobMessage = "Just preparing a feast. Would you like some ribs? I'm sure you'll enjoy this white meat.";
+			}
+			if(mobName.equals("ed")){
+				mobMessage = "I am making more accessories out of human remains. I make the best belts in the world.";
+			}
+			else
+				mobMessage = "Not much. Just tending to my skeleton collection.";
 		}
 		
 		else if(message.equalsIgnoreCase("how are you") || message.equalsIgnoreCase("how you doin")){
@@ -399,7 +406,19 @@ public class Server
 		}
 		
 		else if(message.equalsIgnoreCase("what did you do") || message.equalsIgnoreCase("who did you kill")){
-			mobMessage = "Look who's getting their nose into other people's business. If I told you, I'd have to kill you.";
+			if(mobName.equalsIgnoreCase("ed")){
+				mobMessage = "I made a belt out of nipples. Feel free to borrow it any time.";
+			}
+			
+			else if(mobName.equalsIgnoreCase("hannibal")){
+				mobMessage = "You look tasty. Don't look so scared! I don't bite.... hard.";
+			}
+			else if(mobName.equalsIgnoreCase("henry")){
+				mobMessage = "Don't ask questions that you don't want to know the answer to.";
+			}
+			
+			else
+				mobMessage = "Look who's getting their nose into other people's business. If I told you, I'd have to kill you.";
 			
 		}
 		
