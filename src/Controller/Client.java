@@ -134,7 +134,7 @@ public class Client extends JFrame
 	/**
 	 * Updates the view with the updated message log
 	 * 
-	 * @param messages The current log of messages to display
+	 * @param chatMessage The current log of messages to display
 	 */
 	public void updateChatLog(String chatMessage) 
 	{
@@ -261,8 +261,8 @@ public class Client extends JFrame
 	}
 
 	/**
-	 * lists all of the items in a player's backpack
-	 * @param playersInventory 
+	 * List of the shit in players backpack
+	 * @param playersInventory The player's backpack
 	 */
 	public void listInventory(List<String> playersInventory) 
 	{
@@ -286,8 +286,8 @@ public class Client extends JFrame
 	}
 
 	/**
-	 * allows the player to pick up the specified item
-	 * @param argument - the string name of the item
+	 * Allows the player to pick up the specified item
+	 * @param itemName The item the user wants to pick up
 	 */
 	public void pickUp(String itemName)
 	{
@@ -308,8 +308,8 @@ public class Client extends JFrame
 	 */
 	
 	/**
-	 * moves the player in the specified direction
-	 * @param room - string the direction
+	 * Moves the player in the specified direction
+	 * @param roomDescription The description of the room
 	 */
 	public void movePlayer(String roomDescription) 
 	{
@@ -381,7 +381,7 @@ public class Client extends JFrame
 	 * Associates this client with a player account. Called 
 	 * by LoginView.
 	 * 
-	 * @param player The player this client is associated with. 
+	 * @param username The player this client is associated with. 
 	 */
 	public void setPlayer(String username)
 	{
@@ -391,7 +391,7 @@ public class Client extends JFrame
 	/**
 	 * Finishes setting up the player as well as displaying the main 
 	 * view of the MUD. Called by LoginView.
-	 * @param newPlayer 
+	 * @param newPlayer The new player
 	 */
 	public void finishSettingUpPlayer(Player newPlayer)
 	{
